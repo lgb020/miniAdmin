@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.scene.dao.SceneMapper">
+  <resultMap id="BaseResultMap" type="cn.scene.model.Scene">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="cover" jdbcType="VARCHAR" property="cover" />
+    <result column="music" jdbcType="INTEGER" property="music" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="descirbes" jdbcType="VARCHAR" property="descirbes" />
+    <result column="times" jdbcType="DATE" property="times" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="hit_count" jdbcType="INTEGER" property="hitCount" />
+    <result column="from_scene" jdbcType="INTEGER" property="fromScene" />
+    <result column="is_show" jdbcType="TINYINT" property="isShow" />
+    <result column="is_del" jdbcType="TINYINT" property="isDel" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, code, cover, music, title, descirbes, times, type, hit_count, from_scene, 
+    is_show, is_del
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from scene
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from scene
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.scene.model.Scene">
+    insert into scene (id, user_id, code, 
+      cover, music, title, 
+      descirbes, times, type, 
+      hit_count, from_scene, is_show, 
+      is_del)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, 
+      #{cover,jdbcType=VARCHAR}, #{music,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
+      #{descirbes,jdbcType=VARCHAR}, #{times,jdbcType=DATE}, #{type,jdbcType=INTEGER}, 
+      #{hitCount,jdbcType=INTEGER}, #{fromScene,jdbcType=INTEGER}, #{isShow,jdbcType=TINYINT}, 
+      #{isDel,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.scene.model.Scene">
+    insert into scene
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="code != null">
+        code,
+      </if>
+      <if test="cover != null">
+        cover,
+      </if>
+      <if test="music != null">
+        music,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="descirbes != null">
+        descirbes,
+      </if>
+      <if test="times != null">
+        times,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="hitCount != null">
+        hit_count,
+      </if>
+      <if test="fromScene != null">
+        from_scene,
+      </if>
+      <if test="isShow != null">
+        is_show,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="cover != null">
+        #{cover,jdbcType=VARCHAR},
+      </if>
+      <if test="music != null">
+        #{music,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="descirbes != null">
+        #{descirbes,jdbcType=VARCHAR},
+      </if>
+      <if test="times != null">
+        #{times,jdbcType=DATE},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="hitCount != null">
+        #{hitCount,jdbcType=INTEGER},
+      </if>
+      <if test="fromScene != null">
+        #{fromScene,jdbcType=INTEGER},
+      </if>
+      <if test="isShow != null">
+        #{isShow,jdbcType=TINYINT},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.scene.model.Scene">
+    update scene
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="code != null">
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="cover != null">
+        cover = #{cover,jdbcType=VARCHAR},
+      </if>
+      <if test="music != null">
+        music = #{music,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="descirbes != null">
+        descirbes = #{descirbes,jdbcType=VARCHAR},
+      </if>
+      <if test="times != null">
+        times = #{times,jdbcType=DATE},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="hitCount != null">
+        hit_count = #{hitCount,jdbcType=INTEGER},
+      </if>
+      <if test="fromScene != null">
+        from_scene = #{fromScene,jdbcType=INTEGER},
+      </if>
+      <if test="isShow != null">
+        is_show = #{isShow,jdbcType=TINYINT},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.scene.model.Scene">
+    update scene
+    set user_id = #{userId,jdbcType=INTEGER},
+      code = #{code,jdbcType=VARCHAR},
+      cover = #{cover,jdbcType=VARCHAR},
+      music = #{music,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      descirbes = #{descirbes,jdbcType=VARCHAR},
+      times = #{times,jdbcType=DATE},
+      type = #{type,jdbcType=INTEGER},
+      hit_count = #{hitCount,jdbcType=INTEGER},
+      from_scene = #{fromScene,jdbcType=INTEGER},
+      is_show = #{isShow,jdbcType=TINYINT},
+      is_del = #{isDel,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectDelicate" resultMap="BaseResultMap">
+
+  </select>
+</mapper>

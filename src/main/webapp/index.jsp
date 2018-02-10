@@ -1,5 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%
-    String path = request.getContextPath();
-    response.sendRedirect(path + "/user/index.html");
-%>
+<html>
+<head>
+    <title>MINISCENE</title>
+</head>
+<body>
+欢迎访问MINISCENE
+</body>
+</html>
