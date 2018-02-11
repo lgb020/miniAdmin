@@ -16,7 +16,7 @@ public class VersionFilter implements HandlerInterceptor{
         //版本大于1.0才允许访问
         String version = request.getParameter("v");
         String regex = "^[0-9].[0-9]$";
-        if(version.matches(regex)){
+        if(StringUtils.isNotBlank(version) && version.matches(regex)){
             try{
                 Float nVersion = Float.parseFloat(version);
                 if(nVersion >= 1.0){
