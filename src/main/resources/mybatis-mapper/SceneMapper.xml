@@ -21,7 +21,7 @@
     is_show, is_del
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from scene
     where id = #{id,jdbcType=INTEGER}
@@ -185,7 +185,28 @@
       is_del = #{isDel,jdbcType=TINYINT}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <select id="selectDelicate" resultMap="BaseResultMap">
-
+  <select id="selectCount" resultType="java.lang.Integer">
+    select count(id) from scene where is_del=1
+  </select>
+  <select id="selectDelicate" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select scene.id,scene.cover,scene_market.jifen
+    from scene,scene_market
+    where is_deliacte=1 and scene.id=scene_market.id
+    ORDER BY scene_market.count DESC
+    limit #{index,jdbcType=INTEGER},6
+  </select>
+  <select id="selectNews" resultMap="BaseResultMap">
+    select scene.id,scene.cover,scene_market.jifen
+    from scene,scene_market
+    where scene.is_del=1 and scene.id=scene_market.id
+    ORDER BY scene.id DESC
+    limit 0,12
+  </select>
+  <select id="seleHot" resultMap="BaseResultMap">
+    select scene.id,scene.cover,scene_market.jifen
+    from scene,scene_market
+    where scene.is_del=1 and scene.id=scene_market.id
+    ORDER BY scene.hit_count DESC
+    limit #{index,jdbcType=INTEGER},6
   </select>
 </mapper>

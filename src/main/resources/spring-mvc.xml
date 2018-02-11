@@ -43,11 +43,12 @@
         <property name="maxInMemorySize" value="20480"/>
     </bean>
 
-    <!-- 版本拦截器配置 -->
+    <!-- 版本检测 -->
     <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/adv/index.html"/>
             <mvc:mapping path="/scene/info.html"/>
+            <mvc:mapping path="/scene/scene/news.html"/>
             <bean class="cn.scene.filter.VersionFilter"></bean>
         </mvc:interceptor>
     </mvc:interceptors>

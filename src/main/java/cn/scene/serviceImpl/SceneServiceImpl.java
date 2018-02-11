@@ -12,13 +12,54 @@ import java.util.List;
  * 场景实现类
  */
 @Service("secneService")
-public class SceneServiceImpl implements SceneService{
+public class SceneServiceImpl implements SceneService {
 
     @Autowired
     private SceneMapper sceneMapper;
 
+    /**
+     * 精选模板
+     * @param index
+     * index==1,换一批显示,根据精选场景的被使用热度进行筛选
+     */
     @Override
-    public List<Scene> sceneInfo() {
-        return null;
+    public List<Scene> sceneInfo(Integer index) {
+        int page = 0;
+        if(index==1){
+            int count = sceneMapper.selectCount(); //查询总数
+            Double number = Math.random();
+            if (number >= 0.5) {
+                page = (int) (Math.random() + 1) * (count - 6);
+            } else {
+                page = (int) (Math.random()) * (count - 6);
+            }
+        }
+        return sceneMapper.selectDelicate(page);
+    }
+
+    //最新推荐
+    @Override
+    public List<Scene> selectNews() {
+        return sceneMapper.selectNews();
+    }
+
+    /**
+     * 热门模板
+     * @param index
+     * index==1,换一批显示,根据上架场景的热度进行筛选
+     */
+    @Override
+    public List<Scene> hotInfo(Integer index) {
+        int page = 0;
+        if(index==1){
+            int count = sceneMapper.selectCount(); //查询总数
+            Double number = Math.random();
+            if (number >= 0.5) {
+                page = (int) (Math.random() + 1) * (count - 6);
+            } else {
+                page = (int) (Math.random()) * (count - 6);
+            }
+        }
+        return sceneMapper.seleHot(page);
     }
 }

@@ -1,5 +1,6 @@
 package cn.scene.filter;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -14,15 +15,20 @@ public class VersionFilter implements HandlerInterceptor{
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) throws Exception {
         //版本大于1.0才允许访问
         String version = request.getParameter("v");
-        try{
-            Float nVersion = Float.parseFloat(version);
-            if(nVersion >= 1.0){
-                return true;
-            }else {
+        String regex = "^[0-9].[0-9]$";
+        if(version.matches(regex)){
+            try{
+                Float nVersion = Float.parseFloat(version);
+                if(nVersion >= 1.0){
+                    return true;
+                }else {
+                    return false;
+                }
+            }catch (Exception e){
+                e.printStackTrace();
                 return false;
             }
-        }catch (Exception e){
-            e.printStackTrace();
+        }else{
             return false;
         }
     }

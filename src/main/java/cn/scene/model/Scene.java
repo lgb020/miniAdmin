@@ -29,6 +29,8 @@ public class Scene {
 
     private Byte isDel;
 
+    private Integer jifen;
+
     public Integer getId() {
         return id;
     }
@@ -131,5 +133,13 @@ public class Scene {
 
     public void setIsDel(Byte isDel) {
         this.isDel = isDel;
+    }
+
+    public Integer getJifen() {
+        return jifen;
+    }
+
+    public void setJifen(Integer jifen) {
+        this.jifen = jifen;
     }
 }
