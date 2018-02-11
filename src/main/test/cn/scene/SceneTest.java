@@ -53,4 +53,16 @@ public class SceneTest extends BaseJunit4Test{
         }
         System.out.println(list);
     }
+
+    @Test
+    public void hotSceneByTime(){
+        String index = "2";
+        String regx = "^[0-9]+$";
+        List<Scene> list = new ArrayList<>();
+        if(index.matches(regx)){
+            int page = Integer.parseInt(index);
+            list = sceneService.hotPage(page);
+        }
+        System.out.println(list);
+    }
 }

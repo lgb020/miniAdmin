@@ -185,28 +185,39 @@
       is_del = #{isDel,jdbcType=TINYINT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
   <select id="selectCount" resultType="java.lang.Integer">
     select count(id) from scene where is_del=1
   </select>
-  <select id="selectDelicate" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+
+  <select id="selectDelicate" resultMap="cn.scene.model.Scene">
     select scene.id,scene.cover,scene_market.jifen
     from scene,scene_market
-    where is_deliacte=1 and scene.id=scene_market.id
-    ORDER BY scene_market.count DESC
-    limit #{index,jdbcType=INTEGER},6
+    where is_deliacte=1 and scene.id=scene_market.id ORDER BY scene_market.count DESC
   </select>
-  <select id="selectNews" resultMap="BaseResultMap">
+
+  <select id="selectNews" resultMap="cn.scene.model.Scene">
+    select scene.id,scene.cover,scene_market.jifen
+    from scene,scene_market
+    where scene.is_del=1 and scene.id=scene_market.id ORDER BY scene.id DESC limit 0,12
+  </select>
+
+  <select id="selectByHot" resultMap="cn.scene.model.Scene">
     select scene.id,scene.cover,scene_market.jifen
     from scene,scene_market
     where scene.is_del=1 and scene.id=scene_market.id
-    ORDER BY scene.id DESC
-    limit 0,12
+    ORDER BY concat(scene.hit_count,scene.id) DESC
   </select>
-  <select id="seleHot" resultMap="BaseResultMap">
+
+  <select id="selectByTimes" resultMap="cn.scene.model.Scene">
     select scene.id,scene.cover,scene_market.jifen
     from scene,scene_market
-    where scene.is_del=1 and scene.id=scene_market.id
-    ORDER BY scene.hit_count DESC
-    limit #{index,jdbcType=INTEGER},6
+    where scene.is_del=1 and scene.id=scene_market.id ORDER BY scene.id DESC
+  </select>
+
+  <select id="selectByHitCount" resultMap="cn.scene.model.Scene">
+    select scene.id,scene.cover,scene_market.jifen
+    from scene,scene_market
+    where scene.is_del=1 and scene.id=scene_market.id ORDER BY scene.hit_count DESC
   </select>
 </mapper>

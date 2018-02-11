@@ -18,4 +18,10 @@ public interface SceneService {
     //最新热门模板
     List<Scene> hotInfo(Integer index);
 
+    //热门推荐
+    List<Scene> hotPage(Integer page);
+
+    //热销排行
+    List<Scene> hotSell(Integer page);
+
 }

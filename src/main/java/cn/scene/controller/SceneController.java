@@ -2,14 +2,11 @@ package cn.scene.controller;
 
 import cn.scene.model.Scene;
 import cn.scene.service.SceneService;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.client.HttpServerErrorException;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -33,12 +30,8 @@ public class SceneController {
         List<Scene> list = new ArrayList<>();
         //匹配是否为0和1，0为初始化显示，1为换一批
         if(index.matches(regx)){
-            int page = Integer.parseInt(index);
-            if(page==0){
-                list = sceneService.sceneInfo(0);
-            }else{
-                list = sceneService.sceneInfo(1);
-            }
+            int temp = Integer.parseInt(index);
+            list = sceneService.sceneInfo(temp);
         }
         return list;
     }
@@ -50,7 +43,7 @@ public class SceneController {
         return list;
     }
 
-    //热门模板
+    //热门模板,最新模板
     @RequestMapping(value = "/hot",method = RequestMethod.POST)
     public @ResponseBody List<Scene> hot(HttpServletRequest request){
         String index = request.getParameter("index");
@@ -58,19 +51,35 @@ public class SceneController {
         List<Scene> list = new ArrayList<>();
         //匹配是否为0和1，0为热门模板，1为换一批
         if(index.matches(regx)){
-            int page = Integer.parseInt(index);
-            if(page==0){
-                list = sceneService.hotInfo(0);
-            }else{
-                list = sceneService.hotInfo(1);
-            }
+            int temp = Integer.parseInt(index);
+            list = sceneService.hotInfo(temp);
         }
         return list;
     }
 
     //热门推荐
-    /*@RequestMapping(value = "/hot/recom",method = RequestMethod.POST)
+    @RequestMapping(value = "/hot/recommend",method = RequestMethod.POST)
     public @ResponseBody List<Scene> hotRecom(HttpServletRequest request){
-        String page = request.getParameter("page");
-    }*/
+        String index = request.getParameter("page");
+        String regx = "^[0-9]+$";
+        List<Scene> list = new ArrayList<>();
+        if(index.matches(regx)){
+            int page = Integer.parseInt(index);
+            list = sceneService.hotPage(page);
+        }
+        return list;
+    }
+
+    //企业宣传,热销
+    @RequestMapping(value = "/company",method = RequestMethod.POST)
+    public @ResponseBody List<Scene> companyList(HttpServletRequest request){
+        String index = request.getParameter("page");
+        String regx = "^[0-9]+$";
+        List<Scene> list = new ArrayList<>();
+        if(index.matches(regx)){
+            int page =Integer.parseInt(index);
+            list = sceneService.hotSell(page);
+        }
+        return list;
+    }
 }

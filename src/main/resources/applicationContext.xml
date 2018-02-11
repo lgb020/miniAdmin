@@ -18,7 +18,7 @@
         <property name="location" value="classpath:jdbc.properties" />
     </bean>
 
-    <!-- HiKariCP的数据源配置：Hikari Datasource -->
+    <!-- HiKariCP的数据源配置 -->
     <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"  destroy-method="close">
         <property name="driverClassName" value="${driver}" />
         <property name="jdbcUrl" value="${url}" />
@@ -41,6 +41,19 @@
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
         <property name="mapperLocations" value="classpath*:/mybatis-mapper/*Mapper.xml" />
+        <!-- PageHelper分页插件配置 -->
+        <property name="plugins">
+            <array>
+                <bean class="com.github.pagehelper.PageHelper">
+                    <property name="properties">
+                        <value>
+                            dialect = mysql
+                            reasonable = true
+                        </value>
+                    </property>
+                </bean>
+            </array>
+        </property>
     </bean>
 
     <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
@@ -58,4 +71,5 @@
         <property name="dataSource" ref="dataSource"></property>
     </bean>
     <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
+
 </beans>
