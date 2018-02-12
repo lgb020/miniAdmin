@@ -193,31 +193,47 @@
   <select id="selectDelicate" resultMap="cn.scene.model.Scene">
     select scene.id,scene.cover,scene_market.jifen
     from scene,scene_market
-    where is_deliacte=1 and scene.id=scene_market.id ORDER BY scene_market.count DESC
+    where scene.is_deliacte=1 and scene.id=scene_market.id ORDER BY scene_market.count DESC
   </select>
 
   <select id="selectNews" resultMap="cn.scene.model.Scene">
     select scene.id,scene.cover,scene_market.jifen
     from scene,scene_market
-    where scene.is_del=1 and scene.id=scene_market.id ORDER BY scene.id DESC limit 0,12
+    where scene_market.is_issue=1 and scene.id=scene_market.id ORDER BY scene.id DESC limit 0,12
   </select>
 
   <select id="selectByHot" resultMap="cn.scene.model.Scene">
     select scene.id,scene.cover,scene_market.jifen
     from scene,scene_market
-    where scene.is_del=1 and scene.id=scene_market.id
+    where scene_market.is_issue=1 and scene.id=scene_market.id
     ORDER BY concat(scene.hit_count,scene.id) DESC
   </select>
 
   <select id="selectByTimes" resultMap="cn.scene.model.Scene">
     select scene.id,scene.cover,scene_market.jifen
     from scene,scene_market
-    where scene.is_del=1 and scene.id=scene_market.id ORDER BY scene.id DESC
+    where scene_market.is_issue=1 and scene.id=scene_market.id ORDER BY scene.id DESC
   </select>
 
-  <select id="selectByHitCount" resultMap="cn.scene.model.Scene">
+  <select id="selectCompanyByHitCount" resultMap="cn.scene.model.Scene">
     select scene.id,scene.cover,scene_market.jifen
     from scene,scene_market
-    where scene.is_del=1 and scene.id=scene_market.id ORDER BY scene.hit_count DESC
+    where scene_market.is_issue=1 and scene.id=scene_market.id and scene.type in (3,4,5,6)
+    ORDER BY scene.hit_count DESC
+  </select>
+
+  <select id="selectPhotoByHitCount" resultMap="cn.scene.model.Scene">
+    select scene.id,scene.cover,scene_market.jifen
+    from scene,scene_market
+    where scene_market.is_issue=1 and scene.id=scene_market.id and scene.type in (7,8,9,10)
+    ORDER BY scene.hit_count DESC
+  </select>
+
+  <select id="selectCharge" resultMap="cn.scene.model.Scene" parameterType="java.lang.Integer">
+
+  </select>
+
+  <select id="selectFree" resultMap="cn.scene.model.Scene" parameterType="java.lang.Integer">
+
   </select>
 </mapper>

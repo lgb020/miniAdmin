@@ -1,7 +1,6 @@
 package cn.scene.dao;
 
 import cn.scene.model.Scene;
-
 import java.util.List;
 
 public interface SceneMapper {
@@ -32,6 +31,15 @@ public interface SceneMapper {
     //查询热门模板推荐
     List<Scene> selectByTimes();
 
-    //热销排行榜
-    List<Scene> selectByHitCount();
+    //企业宣传热销排行榜
+    List<Scene> selectCompanyByHitCount();
+
+    //个人相册热销模板
+    List<Scene> selectPhotoByHitCount();
+
+    //分类查询,积分兑换
+    List<Scene> selectCharge(Integer type);
+
+    //分类查询,免费
+    List<Scene> selectFree(Integer type);
 }

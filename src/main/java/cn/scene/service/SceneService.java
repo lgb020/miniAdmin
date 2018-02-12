@@ -1,6 +1,7 @@
 package cn.scene.service;
 
 import cn.scene.model.Scene;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import java.util.List;
 
@@ -22,6 +23,12 @@ public interface SceneService {
     List<Scene> hotPage(Integer page);
 
     //热销排行
-    List<Scene> hotSell(Integer page);
+    List<Scene> companyScene(Integer page);
+
+    //个人相册
+    List<Scene> photoScene(Integer page);
+
+    //分类查询
+    List<Scene> TypeScene(Integer type, Integer isCharge);
 
 }

@@ -7,6 +7,7 @@ import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -66,6 +67,11 @@ public class SceneServiceImpl implements SceneService {
         return sceneMapper.selectByHot();
     }
 
+    /**
+     * 热门推荐
+     * @param page 页数
+     * @return
+     */
     @Override
     public List<Scene> hotPage(Integer page) {
         PageHelper.startPage(page,9);
@@ -73,10 +79,44 @@ public class SceneServiceImpl implements SceneService {
         return list;
     }
 
+    /**
+     * 企业宣传,热销排行榜
+     * @param page 页数
+     * @return
+     */
     @Override
-    public List<Scene> hotSell(Integer page) {
+    public List<Scene> companyScene(Integer page) {
         PageHelper.startPage(page,12);
-        List<Scene> list = sceneMapper.selectByHitCount();
+        List<Scene> list = sceneMapper.selectCompanyByHitCount();
+        return list;
+    }
+
+    /**
+     * 个人相册,热门模板
+     * @param page 页数
+     * @return
+     */
+    @Override
+    public List<Scene> photoScene(Integer page) {
+        PageHelper.startPage(page,12);
+        List<Scene> list = sceneMapper.selectPhotoByHitCount();
+        return list;
+    }
+
+    /**
+     * 分类查询
+     * @param type 类别id
+     * @param isCharge 1-积分兑换,0-免积分
+     * @return
+     */
+    @Override
+    public List<Scene> TypeScene(Integer type, Integer isCharge) {
+        List<Scene> list = new ArrayList<>();
+        if(isCharge==1){
+            list = sceneMapper.selectCharge(type);
+        }else {
+            list = sceneMapper.selectFree(type);
+        }
         return list;
     }
 
