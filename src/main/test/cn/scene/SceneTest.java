@@ -2,6 +2,7 @@ package cn.scene;
 
 import cn.scene.model.Scene;
 import cn.scene.service.SceneService;
+import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -62,6 +63,21 @@ public class SceneTest extends BaseJunit4Test{
         if(index.matches(regx)){
             int page = Integer.parseInt(index);
             list = sceneService.hotPage(page);
+        }
+        System.out.println(list);
+    }
+
+    @Test
+    public void type(){
+        String temp = "3";
+        String charge = "1"; //1-积分兑换,0-免积分
+        String regx = "^[0-9]$";
+        String cRegx = "^0|1$";
+        List<Scene> list = new ArrayList<>();
+        if(StringUtils.isNotBlank(temp) && StringUtils.isNotBlank(charge) && temp.matches(regx) &&charge.matches(cRegx)){
+            int type = Integer.parseInt(temp);
+            int isCharge = Integer.parseInt(charge);
+            list = sceneService.TypeScene(type,isCharge);
         }
         System.out.println(list);
     }

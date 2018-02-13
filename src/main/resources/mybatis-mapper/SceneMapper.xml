@@ -10,18 +10,21 @@
     <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="descirbes" jdbcType="VARCHAR" property="descirbes" />
     <result column="times" jdbcType="DATE" property="times" />
-    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="types" jdbcType="INTEGER" property="type" />
     <result column="hit_count" jdbcType="INTEGER" property="hitCount" />
+    <result column="jifen" jdbcType="INTEGER" property="jifen" />
     <result column="from_scene" jdbcType="INTEGER" property="fromScene" />
-    <result column="is_show" jdbcType="TINYINT" property="isShow" />
+    <result column="counts" jdbcType="INTEGER" property="count" />
+    <result column="is_issue" jdbcType="TINYINT" property="isIssue" />
+    <result column="is_deliacte" jdbcType="TINYINT" property="isDeliacte" />
     <result column="is_del" jdbcType="TINYINT" property="isDel" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, user_id, code, cover, music, title, descirbes, times, type, hit_count, from_scene, 
-    is_show, is_del
+    id, user_id, code, cover, music, title, descirbes, times, types, hit_count, jifen,
+    from_scene, counts, is_issue, is_deliacte, is_del
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select
+    select 
     <include refid="Base_Column_List" />
     from scene
     where id = #{id,jdbcType=INTEGER}
@@ -33,13 +36,15 @@
   <insert id="insert" parameterType="cn.scene.model.Scene">
     insert into scene (id, user_id, code, 
       cover, music, title, 
-      descirbes, times, type, 
-      hit_count, from_scene, is_show, 
+      descirbes, times, types,
+      hit_count, jifen, from_scene, 
+      counts, is_issue, is_deliacte,
       is_del)
     values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, 
       #{cover,jdbcType=VARCHAR}, #{music,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
-      #{descirbes,jdbcType=VARCHAR}, #{times,jdbcType=DATE}, #{type,jdbcType=INTEGER}, 
-      #{hitCount,jdbcType=INTEGER}, #{fromScene,jdbcType=INTEGER}, #{isShow,jdbcType=TINYINT}, 
+      #{descirbes,jdbcType=VARCHAR}, #{times,jdbcType=DATE}, #{types,jdbcType=INTEGER},
+      #{hitCount,jdbcType=INTEGER}, #{jifen,jdbcType=INTEGER}, #{fromScene,jdbcType=INTEGER}, 
+      #{counts,jdbcType=INTEGER}, #{isIssue,jdbcType=TINYINT}, #{isDeliacte,jdbcType=TINYINT},
       #{isDel,jdbcType=TINYINT})
   </insert>
   <insert id="insertSelective" parameterType="cn.scene.model.Scene">
@@ -70,16 +75,25 @@
         times,
       </if>
       <if test="type != null">
-        type,
+        types,
       </if>
       <if test="hitCount != null">
         hit_count,
       </if>
+      <if test="jifen != null">
+        jifen,
+      </if>
       <if test="fromScene != null">
         from_scene,
       </if>
-      <if test="isShow != null">
-        is_show,
+      <if test="count != null">
+        counts,
+      </if>
+      <if test="isIssue != null">
+        is_issue,
+      </if>
+      <if test="isDeliacte != null">
+        is_deliacte,
       </if>
       <if test="isDel != null">
         is_del,
@@ -111,16 +125,25 @@
         #{times,jdbcType=DATE},
       </if>
       <if test="type != null">
-        #{type,jdbcType=INTEGER},
+        #{types,jdbcType=INTEGER},
       </if>
       <if test="hitCount != null">
         #{hitCount,jdbcType=INTEGER},
       </if>
+      <if test="jifen != null">
+        #{jifen,jdbcType=INTEGER},
+      </if>
       <if test="fromScene != null">
         #{fromScene,jdbcType=INTEGER},
       </if>
-      <if test="isShow != null">
-        #{isShow,jdbcType=TINYINT},
+      <if test="count != null">
+        #{counts,jdbcType=INTEGER},
+      </if>
+      <if test="isIssue != null">
+        #{isIssue,jdbcType=TINYINT},
+      </if>
+      <if test="isDeliacte != null">
+        #{isDeliacte,jdbcType=TINYINT},
       </if>
       <if test="isDel != null">
         #{isDel,jdbcType=TINYINT},
@@ -152,16 +175,25 @@
         times = #{times,jdbcType=DATE},
       </if>
       <if test="type != null">
-        type = #{type,jdbcType=INTEGER},
+        types = #{type,jdbcType=INTEGER},
       </if>
       <if test="hitCount != null">
         hit_count = #{hitCount,jdbcType=INTEGER},
       </if>
+      <if test="jifen != null">
+        jifen = #{jifen,jdbcType=INTEGER},
+      </if>
       <if test="fromScene != null">
         from_scene = #{fromScene,jdbcType=INTEGER},
       </if>
-      <if test="isShow != null">
-        is_show = #{isShow,jdbcType=TINYINT},
+      <if test="count != null">
+        counts = #{count,jdbcType=INTEGER},
+      </if>
+      <if test="isIssue != null">
+        is_issue = #{isIssue,jdbcType=TINYINT},
+      </if>
+      <if test="isDeliacte != null">
+        is_deliacte = #{isDeliacte,jdbcType=TINYINT},
       </if>
       <if test="isDel != null">
         is_del = #{isDel,jdbcType=TINYINT},
@@ -178,62 +210,57 @@
       title = #{title,jdbcType=VARCHAR},
       descirbes = #{descirbes,jdbcType=VARCHAR},
       times = #{times,jdbcType=DATE},
-      type = #{type,jdbcType=INTEGER},
+      types = #{types,jdbcType=INTEGER},
       hit_count = #{hitCount,jdbcType=INTEGER},
+      jifen = #{jifen,jdbcType=INTEGER},
       from_scene = #{fromScene,jdbcType=INTEGER},
-      is_show = #{isShow,jdbcType=TINYINT},
+      counts = #{counts,jdbcType=INTEGER},
+      is_issue = #{isIssue,jdbcType=TINYINT},
+      is_deliacte = #{isDeliacte,jdbcType=TINYINT},
       is_del = #{isDel,jdbcType=TINYINT}
     where id = #{id,jdbcType=INTEGER}
   </update>
-
   <select id="selectCount" resultType="java.lang.Integer">
-    select count(id) from scene where is_del=1
+    SELECT COUNT(*) FROM scene WHERE is_issue=1 AND is_del=1
   </select>
-
-  <select id="selectDelicate" resultMap="cn.scene.model.Scene">
-    select scene.id,scene.cover,scene_market.jifen
-    from scene,scene_market
-    where scene.is_deliacte=1 and scene.id=scene_market.id ORDER BY scene_market.count DESC
+  <select id="selectDelicate" resultMap="BaseResultMap">
+    SELECT id,code,cover,title,jifen,counts FROM scene
+    WHERE is_issue=1 AND is_del=1 AND is_delicate=1
+    ORDER BY id DESC
   </select>
-
-  <select id="selectNews" resultMap="cn.scene.model.Scene">
-    select scene.id,scene.cover,scene_market.jifen
-    from scene,scene_market
-    where scene_market.is_issue=1 and scene.id=scene_market.id ORDER BY scene.id DESC limit 0,12
+  <select id="selectNews" resultMap="BaseResultMap">
+    SELECT id,code,cover,title,jifen,counts FROM scene
+    WHERE is_issue=1 AND is_del=1
+    ORDER BY id DESC limit 0,12
   </select>
-
-  <select id="selectByHot" resultMap="cn.scene.model.Scene">
-    select scene.id,scene.cover,scene_market.jifen
-    from scene,scene_market
-    where scene_market.is_issue=1 and scene.id=scene_market.id
-    ORDER BY concat(scene.hit_count,scene.id) DESC
+  <select id="selectByHot" resultMap="BaseResultMap">
+    SELECT id,code,cover,title,jifen,counts FROM scene
+    WHERE is_issue=1 AND is_del=1
+    ORDER BY concat(hit_count,id) DESC
   </select>
-
-  <select id="selectByTimes" resultMap="cn.scene.model.Scene">
-    select scene.id,scene.cover,scene_market.jifen
-    from scene,scene_market
-    where scene_market.is_issue=1 and scene.id=scene_market.id ORDER BY scene.id DESC
+  <select id="selectByTimes" resultMap="BaseResultMap">
+    SELECT id,code,cover,title,jifen,counts FROM scene
+    WHERE is_issue=1 AND is_del=1
+    ORDER BY id DESC ;
   </select>
-
-  <select id="selectCompanyByHitCount" resultMap="cn.scene.model.Scene">
-    select scene.id,scene.cover,scene_market.jifen
-    from scene,scene_market
-    where scene_market.is_issue=1 and scene.id=scene_market.id and scene.type in (3,4,5,6)
-    ORDER BY scene.hit_count DESC
+  <select id="selectCompanyByHitCount" resultMap="BaseResultMap">
+    SELECT id,code,cover,title,jifen,counts FROM scene
+    WHERE is_issue=1 AND is_del=1 AND types IN (3,4,5,6)
+    ORDER BY hit_count DESC
   </select>
-
-  <select id="selectPhotoByHitCount" resultMap="cn.scene.model.Scene">
-    select scene.id,scene.cover,scene_market.jifen
-    from scene,scene_market
-    where scene_market.is_issue=1 and scene.id=scene_market.id and scene.type in (7,8,9,10)
-    ORDER BY scene.hit_count DESC
+  <select id="selectPhotoByHitCount" resultMap="BaseResultMap">
+    SELECT id,code,cover,title,jifen,counts FROM scene
+    WHERE is_issue=1 AND is_del=1 AND types IN (7,8,9,10)
+    ORDER BY hit_count DESC
   </select>
-
-  <select id="selectCharge" resultMap="cn.scene.model.Scene" parameterType="java.lang.Integer">
-
+  <select id="selectCharge" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    SELECT id,code,cover,title,jifen,counts FROM scene
+    WHERE is_issue=1 AND is_del=1 AND types = #{types,jdbcType=INTEGER} AND jifen>0
+    ORDER BY hit_count DESC
   </select>
-
-  <select id="selectFree" resultMap="cn.scene.model.Scene" parameterType="java.lang.Integer">
-
+  <select id="selectFree" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    SELECT id,code,cover,title,jifen,counts FROM scene
+    WHERE is_issue=1 AND is_del=1 AND types = #{types,jdbcType=INTEGER} AND jifen=0
+    ORDER BY hit_count DESC
   </select>
 </mapper>

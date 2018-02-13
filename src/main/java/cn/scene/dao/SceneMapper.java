@@ -1,6 +1,7 @@
 package cn.scene.dao;
 
 import cn.scene.model.Scene;
+
 import java.util.List;
 
 public interface SceneMapper {
@@ -38,8 +39,8 @@ public interface SceneMapper {
     List<Scene> selectPhotoByHitCount();
 
     //分类查询,积分兑换
-    List<Scene> selectCharge(Integer type);
+    List<Scene> selectCharge(Integer types);
 
     //分类查询,免费
-    List<Scene> selectFree(Integer type);
+    List<Scene> selectFree(Integer types);
 }

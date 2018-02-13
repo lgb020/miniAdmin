@@ -23,13 +23,17 @@ public class Scene {
 
     private Integer hitCount;
 
+    private Integer jifen;
+
     private Integer fromScene;
 
-    private Byte isShow;
+    private Integer count;
+
+    private Byte isIssue;
+
+    private Byte isDeliacte;
 
     private Byte isDel;
-
-    private Integer jifen;
 
     public Integer getId() {
         return id;
@@ -111,6 +115,14 @@ public class Scene {
         this.hitCount = hitCount;
     }
 
+    public Integer getJifen() {
+        return jifen;
+    }
+
+    public void setJifen(Integer jifen) {
+        this.jifen = jifen;
+    }
+
     public Integer getFromScene() {
         return fromScene;
     }
@@ -119,12 +131,28 @@ public class Scene {
         this.fromScene = fromScene;
     }
 
-    public Byte getIsShow() {
-        return isShow;
+    public Integer getCount() {
+        return count;
     }
 
-    public void setIsShow(Byte isShow) {
-        this.isShow = isShow;
+    public void setCount(Integer count) {
+        this.count = count;
+    }
+
+    public Byte getIsIssue() {
+        return isIssue;
+    }
+
+    public void setIsIssue(Byte isIssue) {
+        this.isIssue = isIssue;
+    }
+
+    public Byte getIsDeliacte() {
+        return isDeliacte;
+    }
+
+    public void setIsDeliacte(Byte isDeliacte) {
+        this.isDeliacte = isDeliacte;
     }
 
     public Byte getIsDel() {
@@ -133,13 +161,5 @@ public class Scene {
 
     public void setIsDel(Byte isDel) {
         this.isDel = isDel;
-    }
-
-    public Integer getJifen() {
-        return jifen;
-    }
-
-    public void setJifen(Integer jifen) {
-        this.jifen = jifen;
     }
 }
