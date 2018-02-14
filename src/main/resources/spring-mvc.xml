@@ -46,10 +46,16 @@
     <!-- 版本检测 -->
     <mvc:interceptors>
         <mvc:interceptor>
-            <mvc:mapping path="/adv/index.html"/>
-            <mvc:mapping path="/scene/info.html"/>
-            <mvc:mapping path="/scene/scene/news.html"/>
+            <mvc:mapping path="/**"/>
             <bean class="cn.scene.filter.VersionFilter"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+    <!-- 登陆状态检车 -->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/about/**"/>
+            <bean class="cn.scene.filter.AuthFilter"></bean>
         </mvc:interceptor>
     </mvc:interceptors>
 </beans>

@@ -263,4 +263,14 @@
     WHERE is_issue=1 AND is_del=1 AND types = #{types,jdbcType=INTEGER} AND jifen=0
     ORDER BY hit_count DESC
   </select>
+  <select id="selectByFromScene" resultMap="BaseResultMap">
+    SELECT id,code,cover,times,title,jifen,counts FROM scene
+    WHERE is_del=1 AND user_id=#{userId,jdbcType=INTEGER}
+    <if test="fromId==0">
+      AND from_scene=0
+    </if>
+    <if test="fromId==1">
+      AND from_scene>0
+    </if>
+  </select>
 </mapper>

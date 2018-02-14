@@ -1,5 +1,6 @@
 package cn.scene.model;
 
+//广告
 public class Advertise {
     private Integer id;
 

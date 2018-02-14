@@ -2,6 +2,7 @@ package cn.scene.model;
 
 import java.util.Date;
 
+//场景
 public class Scene {
     private Integer id;
 

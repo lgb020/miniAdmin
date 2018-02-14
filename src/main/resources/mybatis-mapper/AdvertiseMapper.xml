@@ -71,6 +71,6 @@
   <select id="selectInfo" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    from advertise where is_del=1 ORDER BY id DESC limit 0,2
+    from advertise where is_del=1 ORDER BY level DESC limit 0,5
   </select>
 </mapper>

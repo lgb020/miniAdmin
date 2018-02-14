@@ -5,7 +5,7 @@ import cn.scene.model.Advertise;
 import java.util.List;
 
 /**
- * 轮播图
+ * 广告
  */
 public interface AdvService {
 

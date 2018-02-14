@@ -1,6 +1,7 @@
 package cn.scene.dao;
 
 import cn.scene.model.Scene;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -43,4 +44,7 @@ public interface SceneMapper {
 
     //分类查询,免费
     List<Scene> selectFree(Integer types);
+
+    //个人中心查询我的模板
+    List<Scene> selectByFromScene(@Param("userId") Integer userId, @Param("fromId") Integer FromId);
 }
