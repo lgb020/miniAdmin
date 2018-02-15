@@ -40,7 +40,10 @@ public class SceneServiceImpl implements SceneService {
         return sceneMapper.selectDelicate();
     }
 
-    //最新推荐
+    /**
+     * 最新推荐
+     * @return
+     */
     @Override
     public List<Scene> selectNews() {
         return sceneMapper.selectNews();

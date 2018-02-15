@@ -1,214 +1,225 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.scene.dao.SceneMapper">
-  <resultMap id="BaseResultMap" type="cn.scene.model.Scene">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="code" jdbcType="VARCHAR" property="code" />
-    <result column="cover" jdbcType="VARCHAR" property="cover" />
-    <result column="music" jdbcType="INTEGER" property="music" />
-    <result column="title" jdbcType="VARCHAR" property="title" />
-    <result column="descirbes" jdbcType="VARCHAR" property="descirbes" />
-    <result column="times" jdbcType="DATE" property="times" />
-    <result column="types" jdbcType="INTEGER" property="type" />
-    <result column="hit_count" jdbcType="INTEGER" property="hitCount" />
-    <result column="jifen" jdbcType="INTEGER" property="jifen" />
-    <result column="from_scene" jdbcType="INTEGER" property="fromScene" />
-    <result column="counts" jdbcType="INTEGER" property="count" />
-    <result column="is_issue" jdbcType="TINYINT" property="isIssue" />
-    <result column="is_deliacte" jdbcType="TINYINT" property="isDeliacte" />
-    <result column="is_del" jdbcType="TINYINT" property="isDel" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, user_id, code, cover, music, title, descirbes, times, types, hit_count, jifen,
-    from_scene, counts, is_issue, is_deliacte, is_del
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from scene
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from scene
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="cn.scene.model.Scene">
-    insert into scene (id, user_id, code, 
-      cover, music, title, 
-      descirbes, times, types,
-      hit_count, jifen, from_scene, 
-      counts, is_issue, is_deliacte,
-      is_del)
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, 
-      #{cover,jdbcType=VARCHAR}, #{music,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
-      #{descirbes,jdbcType=VARCHAR}, #{times,jdbcType=DATE}, #{types,jdbcType=INTEGER},
-      #{hitCount,jdbcType=INTEGER}, #{jifen,jdbcType=INTEGER}, #{fromScene,jdbcType=INTEGER}, 
-      #{counts,jdbcType=INTEGER}, #{isIssue,jdbcType=TINYINT}, #{isDeliacte,jdbcType=TINYINT},
-      #{isDel,jdbcType=TINYINT})
-  </insert>
-  <insert id="insertSelective" parameterType="cn.scene.model.Scene">
-    insert into scene
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="userId != null">
-        user_id,
-      </if>
-      <if test="code != null">
-        code,
-      </if>
-      <if test="cover != null">
-        cover,
-      </if>
-      <if test="music != null">
-        music,
-      </if>
-      <if test="title != null">
-        title,
-      </if>
-      <if test="descirbes != null">
-        descirbes,
-      </if>
-      <if test="times != null">
-        times,
-      </if>
-      <if test="type != null">
-        types,
-      </if>
-      <if test="hitCount != null">
-        hit_count,
-      </if>
-      <if test="jifen != null">
-        jifen,
-      </if>
-      <if test="fromScene != null">
-        from_scene,
-      </if>
-      <if test="count != null">
-        counts,
-      </if>
-      <if test="isIssue != null">
-        is_issue,
-      </if>
-      <if test="isDeliacte != null">
-        is_deliacte,
-      </if>
-      <if test="isDel != null">
-        is_del,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="userId != null">
-        #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="code != null">
-        #{code,jdbcType=VARCHAR},
-      </if>
-      <if test="cover != null">
-        #{cover,jdbcType=VARCHAR},
-      </if>
-      <if test="music != null">
-        #{music,jdbcType=INTEGER},
-      </if>
-      <if test="title != null">
-        #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="descirbes != null">
-        #{descirbes,jdbcType=VARCHAR},
-      </if>
-      <if test="times != null">
-        #{times,jdbcType=DATE},
-      </if>
-      <if test="type != null">
-        #{types,jdbcType=INTEGER},
-      </if>
-      <if test="hitCount != null">
-        #{hitCount,jdbcType=INTEGER},
-      </if>
-      <if test="jifen != null">
-        #{jifen,jdbcType=INTEGER},
-      </if>
-      <if test="fromScene != null">
-        #{fromScene,jdbcType=INTEGER},
-      </if>
-      <if test="count != null">
-        #{counts,jdbcType=INTEGER},
-      </if>
-      <if test="isIssue != null">
-        #{isIssue,jdbcType=TINYINT},
-      </if>
-      <if test="isDeliacte != null">
-        #{isDeliacte,jdbcType=TINYINT},
-      </if>
-      <if test="isDel != null">
-        #{isDel,jdbcType=TINYINT},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="cn.scene.model.Scene">
-    update scene
-    <set>
-      <if test="userId != null">
-        user_id = #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="code != null">
-        code = #{code,jdbcType=VARCHAR},
-      </if>
-      <if test="cover != null">
-        cover = #{cover,jdbcType=VARCHAR},
-      </if>
-      <if test="music != null">
-        music = #{music,jdbcType=INTEGER},
-      </if>
-      <if test="title != null">
-        title = #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="descirbes != null">
-        descirbes = #{descirbes,jdbcType=VARCHAR},
-      </if>
-      <if test="times != null">
-        times = #{times,jdbcType=DATE},
-      </if>
-      <if test="type != null">
-        types = #{type,jdbcType=INTEGER},
-      </if>
-      <if test="hitCount != null">
-        hit_count = #{hitCount,jdbcType=INTEGER},
-      </if>
-      <if test="jifen != null">
-        jifen = #{jifen,jdbcType=INTEGER},
-      </if>
-      <if test="fromScene != null">
-        from_scene = #{fromScene,jdbcType=INTEGER},
-      </if>
-      <if test="count != null">
-        counts = #{count,jdbcType=INTEGER},
-      </if>
-      <if test="isIssue != null">
-        is_issue = #{isIssue,jdbcType=TINYINT},
-      </if>
-      <if test="isDeliacte != null">
-        is_deliacte = #{isDeliacte,jdbcType=TINYINT},
-      </if>
-      <if test="isDel != null">
-        is_del = #{isDel,jdbcType=TINYINT},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="cn.scene.model.Scene">
+    <resultMap id="BaseResultMap" type="cn.scene.model.Scene">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="user_id" jdbcType="INTEGER" property="userId" />
+        <result column="code" jdbcType="VARCHAR" property="code" />
+        <result column="cover" jdbcType="VARCHAR" property="cover" />
+        <result column="music" jdbcType="VARCHAR" property="music" />
+        <result column="m_title" jdbcType="VARCHAR" property="mTitle" />
+        <result column="title" jdbcType="VARCHAR" property="title" />
+        <result column="describes" jdbcType="VARCHAR" property="describes" />
+        <result column="times" jdbcType="DATE" property="times" />
+        <result column="types" jdbcType="INTEGER" property="types" />
+        <result column="hit_count" jdbcType="INTEGER" property="hitCount" />
+        <result column="jifen" jdbcType="INTEGER" property="jifen" />
+        <result column="from_scene" jdbcType="INTEGER" property="fromScene" />
+        <result column="counts" jdbcType="INTEGER" property="counts" />
+        <result column="is_issue" jdbcType="TINYINT" property="isIssue" />
+        <result column="is_delicate" jdbcType="TINYINT" property="isDelicate" />
+        <result column="is_del" jdbcType="TINYINT" property="isDel" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, user_id, code, cover, music, m_title, title, describes, times, types, hit_count,
+        jifen, from_scene, counts, is_issue, is_delicate, is_del
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from scene
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from scene
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="cn.scene.model.Scene">
+        insert into scene (id, user_id, code,
+        cover, music, m_title,
+        title, describes, times,
+        types, hit_count, jifen,
+        from_scene, counts, is_issue,
+        is_delicate, is_del)
+        values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR},
+        #{cover,jdbcType=VARCHAR}, #{music,jdbcType=VARCHAR}, #{mTitle,jdbcType=VARCHAR},
+        #{title,jdbcType=VARCHAR}, #{describes,jdbcType=VARCHAR}, #{times,jdbcType=DATE},
+        #{types,jdbcType=INTEGER}, #{hitCount,jdbcType=INTEGER}, #{jifen,jdbcType=INTEGER},
+        #{fromScene,jdbcType=INTEGER}, #{counts,jdbcType=INTEGER}, #{isIssue,jdbcType=TINYINT},
+        #{isDelicate,jdbcType=TINYINT}, #{isDel,jdbcType=TINYINT})
+    </insert>
+    <insert id="insertSelective" parameterType="cn.scene.model.Scene">
+        insert into scene
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="code != null">
+                code,
+            </if>
+            <if test="cover != null">
+                cover,
+            </if>
+            <if test="music != null">
+                music,
+            </if>
+            <if test="mTitle != null">
+                m_title,
+            </if>
+            <if test="title != null">
+                title,
+            </if>
+            <if test="describes != null">
+                describes,
+            </if>
+            <if test="times != null">
+                times,
+            </if>
+            <if test="types != null">
+                types,
+            </if>
+            <if test="hitCount != null">
+                hit_count,
+            </if>
+            <if test="jifen != null">
+                jifen,
+            </if>
+            <if test="fromScene != null">
+                from_scene,
+            </if>
+            <if test="counts != null">
+                counts,
+            </if>
+            <if test="isIssue != null">
+                is_issue,
+            </if>
+            <if test="isDelicate != null">
+                is_delicate,
+            </if>
+            <if test="isDel != null">
+                is_del,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="code != null">
+                #{code,jdbcType=VARCHAR},
+            </if>
+            <if test="cover != null">
+                #{cover,jdbcType=VARCHAR},
+            </if>
+            <if test="music != null">
+                #{music,jdbcType=VARCHAR},
+            </if>
+            <if test="mTitle != null">
+                #{mTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="title != null">
+                #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="describes != null">
+                #{describes,jdbcType=VARCHAR},
+            </if>
+            <if test="times != null">
+                #{times,jdbcType=DATE},
+            </if>
+            <if test="types != null">
+                #{types,jdbcType=INTEGER},
+            </if>
+            <if test="hitCount != null">
+                #{hitCount,jdbcType=INTEGER},
+            </if>
+            <if test="jifen != null">
+                #{jifen,jdbcType=INTEGER},
+            </if>
+            <if test="fromScene != null">
+                #{fromScene,jdbcType=INTEGER},
+            </if>
+            <if test="counts != null">
+                #{counts,jdbcType=INTEGER},
+            </if>
+            <if test="isIssue != null">
+                #{isIssue,jdbcType=TINYINT},
+            </if>
+            <if test="isDelicate != null">
+                #{isDelicate,jdbcType=TINYINT},
+            </if>
+            <if test="isDel != null">
+                #{isDel,jdbcType=TINYINT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.scene.model.Scene">
+        update scene
+        <set>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="code != null">
+                code = #{code,jdbcType=VARCHAR},
+            </if>
+            <if test="cover != null">
+                cover = #{cover,jdbcType=VARCHAR},
+            </if>
+            <if test="music != null">
+                music = #{music,jdbcType=VARCHAR},
+            </if>
+            <if test="mTitle != null">
+                m_title = #{mTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="title != null">
+                title = #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="describes != null">
+                describes = #{describes,jdbcType=VARCHAR},
+            </if>
+            <if test="times != null">
+                times = #{times,jdbcType=DATE},
+            </if>
+            <if test="types != null">
+                types = #{types,jdbcType=INTEGER},
+            </if>
+            <if test="hitCount != null">
+                hit_count = #{hitCount,jdbcType=INTEGER},
+            </if>
+            <if test="jifen != null">
+                jifen = #{jifen,jdbcType=INTEGER},
+            </if>
+            <if test="fromScene != null">
+                from_scene = #{fromScene,jdbcType=INTEGER},
+            </if>
+            <if test="counts != null">
+                counts = #{counts,jdbcType=INTEGER},
+            </if>
+            <if test="isIssue != null">
+                is_issue = #{isIssue,jdbcType=TINYINT},
+            </if>
+            <if test="isDelicate != null">
+                is_delicate = #{isDelicate,jdbcType=TINYINT},
+            </if>
+            <if test="isDel != null">
+                is_del = #{isDel,jdbcType=TINYINT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.scene.model.Scene">
     update scene
     set user_id = #{userId,jdbcType=INTEGER},
       code = #{code,jdbcType=VARCHAR},
       cover = #{cover,jdbcType=VARCHAR},
-      music = #{music,jdbcType=INTEGER},
+      music = #{music,jdbcType=VARCHAR},
+      m_title = #{mTitle,jdbcType=VARCHAR},
       title = #{title,jdbcType=VARCHAR},
-      descirbes = #{descirbes,jdbcType=VARCHAR},
+      describes = #{describes,jdbcType=VARCHAR},
       times = #{times,jdbcType=DATE},
       types = #{types,jdbcType=INTEGER},
       hit_count = #{hitCount,jdbcType=INTEGER},
@@ -216,7 +227,7 @@
       from_scene = #{fromScene,jdbcType=INTEGER},
       counts = #{counts,jdbcType=INTEGER},
       is_issue = #{isIssue,jdbcType=TINYINT},
-      is_deliacte = #{isDeliacte,jdbcType=TINYINT},
+      is_delicate = #{isDelicate,jdbcType=TINYINT},
       is_del = #{isDel,jdbcType=TINYINT}
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -272,5 +283,11 @@
     <if test="fromId==1">
       AND from_scene>0
     </if>
+  </select>
+  <update id="updateByIsIssue" parameterType="java.lang.Integer">
+    UPDATE scene FROM scene WHERE is_issue=1
+  </update>
+  <select id="selectByApartInfo" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT title,describes,m_title FROM scene WHERE id=#{id,jdbcType=INTEGER}
   </select>
 </mapper>

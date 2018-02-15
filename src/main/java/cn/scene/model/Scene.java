@@ -12,11 +12,13 @@ public class Scene {
 
     private String cover;
 
-    private Integer music;
+    private String music;
+
+    private String mTitle;
 
     private String title;
 
-    private String descirbes;
+    private String describes;
 
     private Date times;
 
@@ -68,12 +70,20 @@ public class Scene {
         this.cover = cover == null ? null : cover.trim();
     }
 
-    public Integer getMusic() {
+    public String getMusic() {
         return music;
     }
 
-    public void setMusic(Integer music) {
+    public void setMusic(String music) {
         this.music = music;
+    }
+
+    public String getmTitle() {
+        return mTitle;
+    }
+
+    public void setmTitle(String mTitle) {
+        this.mTitle = mTitle;
     }
 
     public String getTitle() {
@@ -84,12 +94,12 @@ public class Scene {
         this.title = title == null ? null : title.trim();
     }
 
-    public String getDescirbes() {
-        return descirbes;
+    public String getDescribes() {
+        return describes;
     }
 
-    public void setDescirbes(String descirbes) {
-        this.descirbes = descirbes == null ? null : descirbes.trim();
+    public void setDescribes(String describes) {
+        this.describes = describes == null ? null : describes.trim();
     }
 
     public Date getTimes() {

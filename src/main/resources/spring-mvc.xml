@@ -55,6 +55,7 @@
     <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/about/**"/>
+            <mvc:mapping path="/scene/manage/**"/>
             <bean class="cn.scene.filter.AuthFilter"></bean>
         </mvc:interceptor>
     </mvc:interceptors>

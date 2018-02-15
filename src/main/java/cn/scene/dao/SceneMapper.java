@@ -47,4 +47,10 @@ public interface SceneMapper {
 
     //个人中心查询我的模板
     List<Scene> selectByFromScene(@Param("userId") Integer userId, @Param("fromId") Integer FromId);
+
+    //场景上架
+    int updateByIsIssue(Integer id);
+
+    //场景标题
+    Scene selectByApartInfo(Integer id);
 }

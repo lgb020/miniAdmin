@@ -38,14 +38,15 @@ public class AboutController {
     }
 
     //我的模板
-    @RequestMapping("/scene/make")
+    @RequestMapping("/scene")
     public @ResponseBody List<Scene> makeSecne(HttpServletRequest request){
         String index = request.getParameter("userId");
         //0-原创,1-非原创
         String temp = request.getParameter("temp");
         String regx = "^[0-9]+$";
+        String tRegx = "^0|1$";
         List<Scene> list = new ArrayList<>();
-        if(StringUtils.isNotBlank(index) && index.matches(regx) && temp.matches(regx)){
+        if(StringUtils.isNotBlank(index) && index.matches(regx) && temp.matches(tRegx)){
             int userId = Integer.parseInt(index);
             int fromId = Integer.parseInt(temp);
             list = aboutService.selectScene(userId,fromId);
