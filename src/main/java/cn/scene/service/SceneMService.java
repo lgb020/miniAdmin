@@ -2,6 +2,8 @@ package cn.scene.service;
 
 import cn.scene.model.Scene;
 
+import java.util.List;
+
 /**
  * 场景管理
  */
@@ -18,4 +20,7 @@ public interface SceneMService {
 
     //删除模板
     Boolean delete(Integer sceneId);
+
+    //我的小店
+    List<Scene> sceneList(Integer userId);
 }

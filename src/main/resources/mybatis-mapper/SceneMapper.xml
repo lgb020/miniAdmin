@@ -285,12 +285,18 @@
         </if>
     </select>
     <update id="updateByIsIssue" parameterType="java.lang.Integer">
-        UPDATE scene FROM scene WHERE is_issue=1
+        UPDATE scene SET is_issue=1 WHERE id=#{id,jdbcType=INTEGER}
     </update>
     <select id="selectByApartInfo" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         SELECT title,describes,m_title FROM scene WHERE id=#{id,jdbcType=INTEGER}
     </select>
     <update id="updateIsDel" parameterType="java.lang.Integer">
-        UPDATE is_del = 0 FROM scene WHERE id=#{id,jdbcType=INTEGER}
+        UPDATE scene SET is_del=0 WHERE id=#{id,jdbcType=INTEGER}
     </update>
+    <select id="selectByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM scene
+        WHERE user_id = #{userId,jdbcType=INTEGER} AND is_issue=1
+    </select>
 </mapper>

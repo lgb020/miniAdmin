@@ -56,4 +56,7 @@ public interface SceneMapper {
 
     //场景删除
     int updateIsDel(Integer id);
+
+    //我的小店
+    List<Scene> selectByUserId(Integer userId);
 }

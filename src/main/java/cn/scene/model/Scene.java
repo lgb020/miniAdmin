@@ -2,7 +2,6 @@ package cn.scene.model;
 
 import java.util.Date;
 
-//场景
 public class Scene {
     private Integer id;
 
@@ -22,7 +21,7 @@ public class Scene {
 
     private Date times;
 
-    private Integer type;
+    private Integer types;
 
     private Integer hitCount;
 
@@ -30,11 +29,11 @@ public class Scene {
 
     private Integer fromScene;
 
-    private Integer count;
+    private Integer counts;
 
     private Byte isIssue;
 
-    private Byte isDeliacte;
+    private Byte isDelicate;
 
     private Byte isDel;
 
@@ -75,7 +74,7 @@ public class Scene {
     }
 
     public void setMusic(String music) {
-        this.music = music;
+        this.music = music == null ? null : music.trim();
     }
 
     public String getmTitle() {
@@ -83,7 +82,7 @@ public class Scene {
     }
 
     public void setmTitle(String mTitle) {
-        this.mTitle = mTitle;
+        this.mTitle = mTitle == null ? null : mTitle.trim();
     }
 
     public String getTitle() {
@@ -110,12 +109,12 @@ public class Scene {
         this.times = times;
     }
 
-    public Integer getType() {
-        return type;
+    public Integer getTypes() {
+        return types;
     }
 
-    public void setType(Integer type) {
-        this.type = type;
+    public void setTypes(Integer types) {
+        this.types = types;
     }
 
     public Integer getHitCount() {
@@ -142,12 +141,12 @@ public class Scene {
         this.fromScene = fromScene;
     }
 
-    public Integer getCount() {
-        return count;
+    public Integer getCounts() {
+        return counts;
     }
 
-    public void setCount(Integer count) {
-        this.count = count;
+    public void setCounts(Integer counts) {
+        this.counts = counts;
     }
 
     public Byte getIsIssue() {
@@ -158,12 +157,12 @@ public class Scene {
         this.isIssue = isIssue;
     }
 
-    public Byte getIsDeliacte() {
-        return isDeliacte;
+    public Byte getIsDelicate() {
+        return isDelicate;
     }
 
-    public void setIsDeliacte(Byte isDeliacte) {
-        this.isDeliacte = isDeliacte;
+    public void setIsDelicate(Byte isDelicate) {
+        this.isDelicate = isDelicate;
     }
 
     public Byte getIsDel() {

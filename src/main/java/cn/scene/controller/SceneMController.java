@@ -2,15 +2,15 @@ package cn.scene.controller;
 
 import cn.scene.model.Scene;
 import cn.scene.service.SceneMService;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.apache.commons.lang.StringUtils;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 场景管理:上架，编辑，设置，删除
@@ -61,7 +61,7 @@ public class SceneMController {
     }
 
     //模板删除
-    @RequestMapping("del")
+    @RequestMapping("/del")
     public @ResponseBody Boolean delete(HttpServletRequest request){
         String temp = request.getParameter("sceneId");
         String regx = "^[0-9]+$";
@@ -69,8 +69,21 @@ public class SceneMController {
         if(StringUtils.isNotBlank(temp) && temp.matches(regx)){
             int sceneId = Integer.parseInt(temp);
             result = sceneMService.delete(sceneId);
-            return result;
         }
         return result;
     }
+
+    //我的小店
+    @RequestMapping("/store")
+    public @ResponseBody List<Scene> store(HttpServletRequest request){
+        String temp = request.getParameter("userId");
+        String regx = "^[0-9]+$";
+        List<Scene> list = new ArrayList<>();
+        if(StringUtils.isNotBlank(temp) && temp.matches(regx)){
+            int userId = Integer.parseInt(temp);
+            list = sceneMService.sceneList(userId);
+        }
+        return list;
+    }
+
 }
