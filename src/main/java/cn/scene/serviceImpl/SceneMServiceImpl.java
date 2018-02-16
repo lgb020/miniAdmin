@@ -5,6 +5,7 @@ import cn.scene.model.Scene;
 import cn.scene.service.SceneMService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -47,6 +48,7 @@ public class SceneMServiceImpl implements SceneMService{
      * @return
      */
     @Override
+    @Transactional
     public int issue(Scene scene) {
         return sceneMapper.updateByPrimaryKeySelective(scene);
     }
@@ -57,6 +59,7 @@ public class SceneMServiceImpl implements SceneMService{
      * @return
      */
     @Override
+    @Transactional
     public Boolean delete(Integer sceneId) {
         int temp = sceneMapper.updateIsDel(sceneId);
         if(temp>0){
