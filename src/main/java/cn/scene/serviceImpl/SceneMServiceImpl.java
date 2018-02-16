@@ -3,6 +3,7 @@ package cn.scene.serviceImpl;
 import cn.scene.dao.SceneMapper;
 import cn.scene.model.Scene;
 import cn.scene.service.SceneMService;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,6 +48,20 @@ public class SceneMServiceImpl implements SceneMService{
     @Override
     public int issue(Scene scene) {
         return sceneMapper.updateByPrimaryKeySelective(scene);
+    }
+
+    /**
+     * 删除模板
+     * @param sceneId
+     * @return
+     */
+    @Override
+    public Boolean delete(Integer sceneId) {
+        int temp = sceneMapper.updateIsDel(sceneId);
+        if(temp>0){
+            return true;
+        }
+        return false;
     }
 
 

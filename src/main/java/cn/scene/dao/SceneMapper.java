@@ -53,4 +53,7 @@ public interface SceneMapper {
 
     //场景标题
     Scene selectByApartInfo(Integer id);
+
+    //场景删除
+    int updateIsDel(Integer id);
 }

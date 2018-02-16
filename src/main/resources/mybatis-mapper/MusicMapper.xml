@@ -1,104 +1,104 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.scene.dao.MusicMapper">
-  <resultMap id="BaseResultMap" type="cn.scene.model.Music">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="url" jdbcType="VARCHAR" property="url" />
-    <result column="length" jdbcType="VARCHAR" property="length" />
-    <result column="is_del" jdbcType="BIT" property="isDel" />
-  </resultMap>
-  <sql id="Base_Column_List">
+    <resultMap id="BaseResultMap" type="cn.scene.model.Music">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="url" jdbcType="VARCHAR" property="url"/>
+        <result column="length" jdbcType="VARCHAR" property="length"/>
+        <result column="is_del" jdbcType="BIT" property="isDel"/>
+    </resultMap>
+    <sql id="Base_Column_List">
     id, name, url, length, is_del
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from music
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from music
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from music
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="cn.scene.model.Music">
+    <insert id="insert" parameterType="cn.scene.model.Music">
     insert into music (id, name, url, 
       length, is_del)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
       #{length,jdbcType=VARCHAR}, #{isDel,jdbcType=BIT})
   </insert>
-  <insert id="insertSelective" parameterType="cn.scene.model.Music">
-    insert into music
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="name != null">
-        name,
-      </if>
-      <if test="url != null">
-        url,
-      </if>
-      <if test="length != null">
-        length,
-      </if>
-      <if test="isDel != null">
-        is_del,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="url != null">
-        #{url,jdbcType=VARCHAR},
-      </if>
-      <if test="length != null">
-        #{length,jdbcType=VARCHAR},
-      </if>
-      <if test="isDel != null">
-        #{isDel,jdbcType=BIT},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="cn.scene.model.Music">
-    update music
-    <set>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="url != null">
-        url = #{url,jdbcType=VARCHAR},
-      </if>
-      <if test="length != null">
-        length = #{length,jdbcType=VARCHAR},
-      </if>
-      <if test="isDel != null">
-        is_del = #{isDel,jdbcType=BIT},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="cn.scene.model.Music">
-    update music
-    set name = #{name,jdbcType=VARCHAR},
-      url = #{url,jdbcType=VARCHAR},
-      length = #{length,jdbcType=VARCHAR},
-      is_del = #{isDel,jdbcType=BIT}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <select id="selectByIsDel" resultMap="BaseResultMap">
-    SELECT
-    <include refid="Base_Column_List" />
-    FROM music WHERE is_del=1 ORDER BY id DESC
-  </select>
-  <select id="selecByName" parameterType="java.lang.String" resultMap="BaseResultMap">
-    SELECT
-    <include refid="Base_Column_List" />
-    FROM music WHERE is_del=1 and name LIKE concat(concat("%",#{content,jdbcType=VARCHAR}),"%")
-    ORDER BY id DESC
-  </select>
+    <insert id="insertSelective" parameterType="cn.scene.model.Music">
+        insert into music
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="url != null">
+                url,
+            </if>
+            <if test="length != null">
+                length,
+            </if>
+            <if test="isDel != null">
+                is_del,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null">
+                #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="length != null">
+                #{length,jdbcType=VARCHAR},
+            </if>
+            <if test="isDel != null">
+                #{isDel,jdbcType=BIT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.scene.model.Music">
+        update music
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null">
+                url = #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="length != null">
+                length = #{length,jdbcType=VARCHAR},
+            </if>
+            <if test="isDel != null">
+                is_del = #{isDel,jdbcType=BIT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.scene.model.Music">
+        update music
+        set name = #{name,jdbcType=VARCHAR},
+          url = #{url,jdbcType=VARCHAR},
+          length = #{length,jdbcType=VARCHAR},
+          is_del = #{isDel,jdbcType=BIT}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <select id="selectByIsDel" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM music WHERE is_del=1 ORDER BY id DESC
+    </select>
+    <select id="selecByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM music WHERE is_del=1 and name LIKE concat(concat("%",#{content,jdbcType=VARCHAR}),"%")
+        ORDER BY id DESC
+    </select>
 </mapper>

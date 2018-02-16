@@ -15,4 +15,7 @@ public interface SceneMService {
 
     //完成设置
     int issue(Scene scene);
+
+    //删除模板
+    Boolean delete(Integer sceneId);
 }

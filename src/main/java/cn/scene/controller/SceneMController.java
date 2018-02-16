@@ -2,6 +2,7 @@ package cn.scene.controller;
 
 import cn.scene.model.Scene;
 import cn.scene.service.SceneMService;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.apache.commons.lang.StringUtils;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,5 +58,19 @@ public class SceneMController {
             }
         }
         return false;
+    }
+
+    //模板删除
+    @RequestMapping("del")
+    public @ResponseBody Boolean delete(HttpServletRequest request){
+        String temp = request.getParameter("sceneId");
+        String regx = "^[0-9]+$";
+        Boolean result = false;
+        if(StringUtils.isNotBlank(temp) && temp.matches(regx)){
+            int sceneId = Integer.parseInt(temp);
+            result = sceneMService.delete(sceneId);
+            return result;
+        }
+        return result;
     }
 }

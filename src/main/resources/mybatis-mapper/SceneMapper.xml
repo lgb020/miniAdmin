@@ -2,23 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.scene.dao.SceneMapper">
     <resultMap id="BaseResultMap" type="cn.scene.model.Scene">
-        <id column="id" jdbcType="INTEGER" property="id" />
-        <result column="user_id" jdbcType="INTEGER" property="userId" />
-        <result column="code" jdbcType="VARCHAR" property="code" />
-        <result column="cover" jdbcType="VARCHAR" property="cover" />
-        <result column="music" jdbcType="VARCHAR" property="music" />
-        <result column="m_title" jdbcType="VARCHAR" property="mTitle" />
-        <result column="title" jdbcType="VARCHAR" property="title" />
-        <result column="describes" jdbcType="VARCHAR" property="describes" />
-        <result column="times" jdbcType="DATE" property="times" />
-        <result column="types" jdbcType="INTEGER" property="types" />
-        <result column="hit_count" jdbcType="INTEGER" property="hitCount" />
-        <result column="jifen" jdbcType="INTEGER" property="jifen" />
-        <result column="from_scene" jdbcType="INTEGER" property="fromScene" />
-        <result column="counts" jdbcType="INTEGER" property="counts" />
-        <result column="is_issue" jdbcType="TINYINT" property="isIssue" />
-        <result column="is_delicate" jdbcType="TINYINT" property="isDelicate" />
-        <result column="is_del" jdbcType="TINYINT" property="isDel" />
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="code" jdbcType="VARCHAR" property="code"/>
+        <result column="cover" jdbcType="VARCHAR" property="cover"/>
+        <result column="music" jdbcType="VARCHAR" property="music"/>
+        <result column="m_title" jdbcType="VARCHAR" property="mTitle"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="describes" jdbcType="VARCHAR" property="describes"/>
+        <result column="times" jdbcType="DATE" property="times"/>
+        <result column="types" jdbcType="INTEGER" property="types"/>
+        <result column="hit_count" jdbcType="INTEGER" property="hitCount"/>
+        <result column="jifen" jdbcType="INTEGER" property="jifen"/>
+        <result column="from_scene" jdbcType="INTEGER" property="fromScene"/>
+        <result column="counts" jdbcType="INTEGER" property="counts"/>
+        <result column="is_issue" jdbcType="TINYINT" property="isIssue"/>
+        <result column="is_delicate" jdbcType="TINYINT" property="isDelicate"/>
+        <result column="is_del" jdbcType="TINYINT" property="isDel"/>
     </resultMap>
     <sql id="Base_Column_List">
         id, user_id, code, cover, music, m_title, title, describes, times, types, hit_count,
@@ -26,7 +26,7 @@
     </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List" />
+        <include refid="Base_Column_List"/>
         from scene
         where id = #{id,jdbcType=INTEGER}
     </select>
@@ -212,82 +212,85 @@
         where id = #{id,jdbcType=INTEGER}
     </update>
     <update id="updateByPrimaryKey" parameterType="cn.scene.model.Scene">
-    update scene
-    set user_id = #{userId,jdbcType=INTEGER},
-      code = #{code,jdbcType=VARCHAR},
-      cover = #{cover,jdbcType=VARCHAR},
-      music = #{music,jdbcType=VARCHAR},
-      m_title = #{mTitle,jdbcType=VARCHAR},
-      title = #{title,jdbcType=VARCHAR},
-      describes = #{describes,jdbcType=VARCHAR},
-      times = #{times,jdbcType=DATE},
-      types = #{types,jdbcType=INTEGER},
-      hit_count = #{hitCount,jdbcType=INTEGER},
-      jifen = #{jifen,jdbcType=INTEGER},
-      from_scene = #{fromScene,jdbcType=INTEGER},
-      counts = #{counts,jdbcType=INTEGER},
-      is_issue = #{isIssue,jdbcType=TINYINT},
-      is_delicate = #{isDelicate,jdbcType=TINYINT},
-      is_del = #{isDel,jdbcType=TINYINT}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <select id="selectCount" resultType="java.lang.Integer">
-    SELECT COUNT(*) FROM scene WHERE is_issue=1 AND is_del=1
-  </select>
-  <select id="selectDelicate" resultMap="BaseResultMap">
-    SELECT id,code,cover,title,jifen,counts FROM scene
-    WHERE is_issue=1 AND is_del=1 AND is_delicate=1
-    ORDER BY id DESC
-  </select>
-  <select id="selectNews" resultMap="BaseResultMap">
-    SELECT id,code,cover,title,jifen,counts FROM scene
-    WHERE is_issue=1 AND is_del=1
-    ORDER BY id DESC limit 0,12
-  </select>
-  <select id="selectByHot" resultMap="BaseResultMap">
-    SELECT id,code,cover,title,jifen,counts FROM scene
-    WHERE is_issue=1 AND is_del=1
-    ORDER BY concat(hit_count,id) DESC
-  </select>
-  <select id="selectByTimes" resultMap="BaseResultMap">
-    SELECT id,code,cover,title,jifen,counts FROM scene
-    WHERE is_issue=1 AND is_del=1
-    ORDER BY id DESC ;
-  </select>
-  <select id="selectCompanyByHitCount" resultMap="BaseResultMap">
-    SELECT id,code,cover,title,jifen,counts FROM scene
-    WHERE is_issue=1 AND is_del=1 AND types IN (3,4,5,6)
-    ORDER BY hit_count DESC
-  </select>
-  <select id="selectPhotoByHitCount" resultMap="BaseResultMap">
-    SELECT id,code,cover,title,jifen,counts FROM scene
-    WHERE is_issue=1 AND is_del=1 AND types IN (7,8,9,10)
-    ORDER BY hit_count DESC
-  </select>
-  <select id="selectCharge" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-    SELECT id,code,cover,title,jifen,counts FROM scene
-    WHERE is_issue=1 AND is_del=1 AND types = #{types,jdbcType=INTEGER} AND jifen>0
-    ORDER BY hit_count DESC
-  </select>
-  <select id="selectFree" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-    SELECT id,code,cover,title,jifen,counts FROM scene
-    WHERE is_issue=1 AND is_del=1 AND types = #{types,jdbcType=INTEGER} AND jifen=0
-    ORDER BY hit_count DESC
-  </select>
-  <select id="selectByFromScene" resultMap="BaseResultMap">
-    SELECT id,code,cover,times,title,jifen,counts FROM scene
-    WHERE is_del=1 AND user_id=#{userId,jdbcType=INTEGER}
-    <if test="fromId==0">
-      AND from_scene=0
-    </if>
-    <if test="fromId==1">
-      AND from_scene>0
-    </if>
-  </select>
-  <update id="updateByIsIssue" parameterType="java.lang.Integer">
-    UPDATE scene FROM scene WHERE is_issue=1
-  </update>
-  <select id="selectByApartInfo" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    SELECT title,describes,m_title FROM scene WHERE id=#{id,jdbcType=INTEGER}
-  </select>
+        update scene
+        set user_id = #{userId,jdbcType=INTEGER},
+          code = #{code,jdbcType=VARCHAR},
+          cover = #{cover,jdbcType=VARCHAR},
+          music = #{music,jdbcType=VARCHAR},
+          m_title = #{mTitle,jdbcType=VARCHAR},
+          title = #{title,jdbcType=VARCHAR},
+          describes = #{describes,jdbcType=VARCHAR},
+          times = #{times,jdbcType=DATE},
+          types = #{types,jdbcType=INTEGER},
+          hit_count = #{hitCount,jdbcType=INTEGER},
+          jifen = #{jifen,jdbcType=INTEGER},
+          from_scene = #{fromScene,jdbcType=INTEGER},
+          counts = #{counts,jdbcType=INTEGER},
+          is_issue = #{isIssue,jdbcType=TINYINT},
+          is_delicate = #{isDelicate,jdbcType=TINYINT},
+          is_del = #{isDel,jdbcType=TINYINT}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <select id="selectCount" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM scene WHERE is_issue=1 AND is_del=1
+    </select>
+    <select id="selectDelicate" resultMap="BaseResultMap">
+        SELECT id,code,cover,title,jifen,counts FROM scene
+        WHERE is_issue=1 AND is_del=1 AND is_delicate=1
+        ORDER BY id DESC
+    </select>
+    <select id="selectNews" resultMap="BaseResultMap">
+        SELECT id,code,cover,title,jifen,counts FROM scene
+        WHERE is_issue=1 AND is_del=1
+        ORDER BY id DESC limit 0,12
+    </select>
+    <select id="selectByHot" resultMap="BaseResultMap">
+        SELECT id,code,cover,title,jifen,counts FROM scene
+        WHERE is_issue=1 AND is_del=1
+        ORDER BY concat(hit_count,id) DESC
+    </select>
+    <select id="selectByTimes" resultMap="BaseResultMap">
+        SELECT id,code,cover,title,jifen,counts FROM scene
+        WHERE is_issue=1 AND is_del=1
+        ORDER BY id DESC
+    </select>
+    <select id="selectCompanyByHitCount" resultMap="BaseResultMap">
+        SELECT id,code,cover,title,jifen,counts FROM scene
+        WHERE is_issue=1 AND is_del=1 AND types IN (3,4,5,6)
+        ORDER BY hit_count DESC
+    </select>
+    <select id="selectPhotoByHitCount" resultMap="BaseResultMap">
+        SELECT id,code,cover,title,jifen,counts FROM scene
+        WHERE is_issue=1 AND is_del=1 AND types IN (7,8,9,10)
+        ORDER BY hit_count DESC
+    </select>
+    <select id="selectCharge" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        SELECT id,code,cover,title,jifen,counts FROM scene
+        WHERE is_issue=1 AND is_del=1 AND types = #{types,jdbcType=INTEGER} AND jifen>0
+        ORDER BY hit_count DESC
+    </select>
+    <select id="selectFree" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        SELECT id,code,cover,title,jifen,counts FROM scene
+        WHERE is_issue=1 AND is_del=1 AND types = #{types,jdbcType=INTEGER} AND jifen=0
+        ORDER BY hit_count DESC
+    </select>
+    <select id="selectByFromScene" resultMap="BaseResultMap">
+        SELECT id,code,cover,times,title,jifen,counts FROM scene
+        WHERE is_del=1 AND user_id=#{userId,jdbcType=INTEGER}
+        <if test="fromId==0">
+            AND from_scene=0
+        </if>
+        <if test="fromId==1">
+            AND from_scene>0
+        </if>
+    </select>
+    <update id="updateByIsIssue" parameterType="java.lang.Integer">
+        UPDATE scene FROM scene WHERE is_issue=1
+    </update>
+    <select id="selectByApartInfo" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        SELECT title,describes,m_title FROM scene WHERE id=#{id,jdbcType=INTEGER}
+    </select>
+    <update id="updateIsDel" parameterType="java.lang.Integer">
+        UPDATE is_del = 0 FROM scene WHERE id=#{id,jdbcType=INTEGER}
+    </update>
 </mapper>
