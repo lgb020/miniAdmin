@@ -4,6 +4,7 @@ import cn.scene.model.Message;
 import cn.scene.model.Scene;
 import cn.scene.model.User;
 import cn.scene.service.AboutService;
+import cn.scene.service.UserService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +24,21 @@ public class AboutController {
 
     @Autowired
     private AboutService aboutService;
+    @Autowired
+    private UserService userService;
+
+    //头像查询
+    @RequestMapping("/index")
+    public @ResponseBody User index(HttpServletRequest request){
+        String index = request.getParameter("userId");
+        String regx = "^[0-9]+$";
+        User user = new User();
+        if(StringUtils.isNotBlank(index) && index.matches(regx)){
+            int userId = Integer.parseInt(index);
+            user = userService.selectUserInfo(userId);
+        }
+        return user;
+    }
 
     //通知信息
     @RequestMapping("/message")
