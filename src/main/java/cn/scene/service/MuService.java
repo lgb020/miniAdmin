@@ -14,4 +14,8 @@ public interface MuService {
 
     //音乐查找
     List<Music> search(String content);
+
+    //音乐插入
+    Integer insert(String name,String url,String length);
+
 }

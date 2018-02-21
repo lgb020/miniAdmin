@@ -9,8 +9,8 @@
         <result column="is_del" jdbcType="BIT" property="isDel"/>
     </resultMap>
     <sql id="Base_Column_List">
-    id, name, url, length, is_del
-  </sql>
+      id, name, url, length, is_del
+    </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
@@ -18,15 +18,15 @@
         where id = #{id,jdbcType=INTEGER}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from music
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
+        delete from music
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
     <insert id="insert" parameterType="cn.scene.model.Music">
-    insert into music (id, name, url, 
-      length, is_del)
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
-      #{length,jdbcType=VARCHAR}, #{isDel,jdbcType=BIT})
-  </insert>
+        insert into music (id, name, url,
+          length, is_del)
+        values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR},
+          #{length,jdbcType=VARCHAR}, #{isDel,jdbcType=BIT})
+    </insert>
     <insert id="insertSelective" parameterType="cn.scene.model.Music">
         insert into music
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -101,4 +101,9 @@
         FROM music WHERE is_del=1 and name LIKE concat(concat("%",#{content,jdbcType=VARCHAR}),"%")
         ORDER BY id DESC
     </select>
+    <insert id="musicInsert">
+        INSERT INTO music(name, url, length)
+        SELECT #{name,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{length,jdbcType=VARCHAR}
+        FROM DUAL WHERE NOT EXISTS(SELECT url FROM music WHERE url = #{url,jdbcType=VARCHAR})
+    </insert>
 </mapper>

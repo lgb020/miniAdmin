@@ -1,5 +1,7 @@
 package cn.scene;
 
+import cn.scene.controller.MuController;
+import cn.scene.crawler.MuCrawler;
 import cn.scene.model.Music;
 import cn.scene.service.MuService;
 import org.apache.commons.lang.StringUtils;
@@ -37,5 +39,11 @@ public class musicTest extends BaseJunit4Test{
             list = muService.search(content);
         }
         System.out.println(list);
+    }
+
+    @Test
+    public void insert() throws Exception{
+        MuCrawler musicCrawler = new MuCrawler("crawl",true);
+        musicCrawler.start(5); //设置爬虫深度
     }
 }

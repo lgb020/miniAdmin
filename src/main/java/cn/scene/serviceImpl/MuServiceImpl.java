@@ -40,4 +40,16 @@ public class MuServiceImpl implements MuService {
         List<Music> list = musicMapper.selecByName(content);
         return list;
     }
+
+    /**
+     * 音乐插入
+     * @param name
+     * @param url
+     * @param length
+     * @return
+     */
+    @Override
+    public Integer insert(String name,String url,String length) {
+        return musicMapper.musicInsert(name,url,length);
+    }
 }

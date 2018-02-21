@@ -1,6 +1,7 @@
 package cn.scene.dao;
 
 import cn.scene.model.Music;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -22,4 +23,7 @@ public interface MusicMapper {
 
     //音乐搜索
     List<Music> selecByName(String content);
+
+    //音乐插入
+    int musicInsert(@Param("name")String name,@Param("url")String url,@Param("length")String length);
 }
