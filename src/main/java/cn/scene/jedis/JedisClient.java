@@ -19,7 +19,7 @@ public interface JedisClient {
     //修改key的生存时间
     Long expire(String key, int second);
 
-    //放回给定key的剩余生存时间
+    //返回给定key的剩余生存时间
     Long ttl(String key);
 
     //将key中存储的数据值增1

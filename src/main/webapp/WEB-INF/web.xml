@@ -11,6 +11,9 @@
     <listener>
         <listener-class>cn.scene.util.CrawlerListener</listener-class>
     </listener>
+    <listener>
+        <listener-class>cn.scene.util.MusicListener</listener-class>
+    </listener>
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>classpath:applicationContext.xml</param-value>

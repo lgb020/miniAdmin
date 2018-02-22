@@ -4,11 +4,14 @@ import cn.scene.controller.MuController;
 import cn.scene.crawler.MuCrawler;
 import cn.scene.model.Music;
 import cn.scene.service.MuService;
+import cn.scene.util.DateFormat;
+import cn.scene.util.MusicSave;
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -43,7 +46,6 @@ public class musicTest extends BaseJunit4Test{
 
     @Test
     public void insert() throws Exception{
-        MuCrawler musicCrawler = new MuCrawler("crawl",true);
-        musicCrawler.start(5); //设置爬虫深度
+        MusicSave.insert();
     }
 }

@@ -1,7 +1,5 @@
 package cn.scene.util;
 
-import cn.scene.crawler.MuCrawler;
-
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import java.util.Calendar;
@@ -10,9 +8,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * 音乐自动爬虫时间监听
+ * 监听爬取到的数据保存到数据库
  */
-public class CrawlerListener implements ServletContextListener{
+public class MusicListener implements ServletContextListener{
 
     @Override
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
@@ -25,12 +23,12 @@ public class CrawlerListener implements ServletContextListener{
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
-        /*每天凌晨1：00：00执行,若超过时间，当天不再执行，等到明天再执行*/
-        calendar.set(year,month,day,15,00,00);
+        /*每天凌晨5：00：00执行,若超过时间，当天不再执行，等到明天再执行*/
+        calendar.set(year,month,day,16,00,00);
         Date defaultdate = calendar.getTime();
         Date sendDate = new Date();
         if (defaultdate.before(sendDate)) {
-            // 将发送时间设为明天1点
+            // 将发送时间设为明天5点
             calendar.add(Calendar.DATE, 1);
             sendDate = calendar.getTime();
         }
@@ -40,14 +38,13 @@ public class CrawlerListener implements ServletContextListener{
         mTimer.schedule(new TimerTask() {
             @Override
             public void run() {
-                // 每天执行，若为每月22号开始爬取数据
+                // 每天执行，若为每月23号开始插入数据
                 Calendar calendar = Calendar.getInstance();
                 int day = calendar.get(Calendar.DAY_OF_MONTH);
                 int hour = calendar.get(Calendar.HOUR_OF_DAY);
-                if (day == 22 && hour>=15 && hour<16) {
-                    MuCrawler musicCrawler = new MuCrawler("crawl",true);
+                if (day == 22 && hour>=16 && hour<17) {
                     try{
-                        musicCrawler.start(5); //设置爬虫深度
+                        MusicSave.insert();
                     }catch (Exception e){
                         e.printStackTrace();
                     }

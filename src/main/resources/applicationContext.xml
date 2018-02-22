@@ -72,4 +72,11 @@
     </bean>
     <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
 
+    <!-- redis单机版配置 -->
+    <bean id="jedisPool" class="redis.clients.jedis.JedisPool">
+        <constructor-arg name="host" value="127.0.0.1" />
+        <constructor-arg name="port" value="6379" />
+    </bean>
+    <bean id="jedisClientPool" class="cn.scene.jedis.JedisClientPool"></bean>
+
 </beans>
