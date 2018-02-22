@@ -23,8 +23,8 @@ public class MusicListener implements ServletContextListener{
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
-        /*每天凌晨5：00：00执行,若超过时间，当天不再执行，等到明天再执行*/
-        calendar.set(year,month,day,16,00,00);
+        /*每天凌晨2：00：00执行,若超过时间，当天不再执行，等到明天再执行*/
+        calendar.set(year,month,day,2,00,00);
         Date defaultdate = calendar.getTime();
         Date sendDate = new Date();
         if (defaultdate.before(sendDate)) {
@@ -38,11 +38,11 @@ public class MusicListener implements ServletContextListener{
         mTimer.schedule(new TimerTask() {
             @Override
             public void run() {
-                // 每天执行，若为每月23号开始插入数据
+                // 每天执行，若为每月1号凌晨2点-3点开始插入数据
                 Calendar calendar = Calendar.getInstance();
                 int day = calendar.get(Calendar.DAY_OF_MONTH);
                 int hour = calendar.get(Calendar.HOUR_OF_DAY);
-                if (day == 22 && hour>=16 && hour<17) {
+                if (day == 1 && hour>=2 && hour<3) {
                     try{
                         MusicSave.insert();
                     }catch (Exception e){
