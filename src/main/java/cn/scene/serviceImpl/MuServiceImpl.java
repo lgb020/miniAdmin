@@ -52,4 +52,20 @@ public class MuServiceImpl implements MuService {
     public Integer insert(String name,String url,String length) {
         return musicMapper.musicInsert(name,url,length);
     }
+
+    /**
+     * 音乐总页数
+     * @return
+     */
+    @Override
+    public Integer allPage() {
+        int count = musicMapper.selectCountById();
+        int allPage = 0;
+        if(count%20==0){
+            allPage = count/20;
+        }else{
+            allPage = count/20+1;
+        }
+        return allPage;
+    }
 }

@@ -1,14 +1,19 @@
 package cn.scene.serviceImpl;
 
 import cn.scene.dao.SceneMapper;
+import cn.scene.dao.ScenePageMapper;
 import cn.scene.model.Scene;
+import cn.scene.model.ScenePage;
 import cn.scene.service.SceneService;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * 场景实现类
@@ -18,6 +23,8 @@ public class SceneServiceImpl implements SceneService {
 
     @Autowired
     private SceneMapper sceneMapper;
+    @Autowired
+    private ScenePageMapper scenePageMapper;
 
     /**
      * 精选模板
@@ -121,6 +128,32 @@ public class SceneServiceImpl implements SceneService {
             list = sceneMapper.selectFree(type);
         }
         return list;
+    }
+
+    /**
+     * 新添加数据返回id
+     * @param scene
+     * @return
+     */
+    @Override
+    @Transactional
+    public int init(Scene scene) {
+        String code = UUID.randomUUID().toString().substring(0,8); //生成访问码
+        Date times = new Date();
+        scene.setCode(code);
+        scene.setTimes(times);
+        return sceneMapper.getNewsId(scene);
+    }
+
+    /**
+     * 场景发布
+     * @param scenePage
+     * @return
+     */
+    @Override
+    public int insert(ScenePage scenePage) {
+        scenePage.setTimes(new Date());
+        return scenePageMapper.insertSelective(scenePage);
     }
 
 }

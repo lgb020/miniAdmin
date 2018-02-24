@@ -59,4 +59,7 @@ public interface SceneMapper {
 
     //我的小店
     List<Scene> selectByUserId(Integer userId);
+
+    //插入数据初始化
+    int getNewsId(Scene scene);
 }

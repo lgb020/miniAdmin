@@ -46,4 +46,10 @@ public class MuController {
         return list;
     }
 
+    //音乐总页数
+    @RequestMapping("/count")
+    public @ResponseBody int count(HttpServletRequest request){
+        return muService.allPage();
+    }
+
 }

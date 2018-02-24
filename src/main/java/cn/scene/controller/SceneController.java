@@ -1,6 +1,7 @@
 package cn.scene.controller;
 
 import cn.scene.model.Scene;
+import cn.scene.model.ScenePage;
 import cn.scene.service.SceneService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -110,5 +111,21 @@ public class SceneController {
             list = sceneService.TypeScene(type,isCharge);
         }
         return list;
+    }
+
+    //获取新添加数据的id
+    @RequestMapping(value = "/issue/id")
+    public int getIssueId(HttpServletRequest request,Scene scene){
+        sceneService.init(scene);
+        int id = scene.getId();
+        return id;
+    }
+
+    //场景发布
+    @RequestMapping(value = "/issue")
+    public void issue(HttpServletRequest request, ScenePage scenePage){
+        if(scenePage!=null){
+            sceneService.insert(scenePage);
+        }
     }
 }

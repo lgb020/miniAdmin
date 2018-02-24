@@ -1,6 +1,7 @@
 package cn.scene.service;
 
 import cn.scene.model.Scene;
+import cn.scene.model.ScenePage;
 
 import java.util.List;
 
@@ -29,5 +30,11 @@ public interface SceneService {
 
     //分类查询
     List<Scene> TypeScene(Integer type, Integer isCharge);
+
+    //添加数据返回id
+    int init(Scene scene);
+
+    //发布场景
+    int insert(ScenePage scenePage);
 
 }

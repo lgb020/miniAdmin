@@ -18,4 +18,7 @@ public interface MuService {
     //音乐插入
     Integer insert(String name,String url,String length);
 
+    //音乐总页数
+    Integer allPage();
+
 }

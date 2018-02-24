@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * 场景测试类
@@ -80,5 +81,15 @@ public class SceneTest extends BaseJunit4Test{
             list = sceneService.TypeScene(type,isCharge);
         }
         System.out.println(list);
+    }
+
+    @Test
+    public void insertNews(){
+        Scene scene = new Scene();
+        scene.setUserId(1);
+        scene.setFromScene(2);
+        sceneService.init(scene);
+        int id = scene.getId();
+        System.out.println(id);
     }
 }

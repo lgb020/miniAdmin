@@ -299,4 +299,8 @@
         FROM scene
         WHERE user_id = #{userId,jdbcType=INTEGER} AND is_issue=1
     </select>
+    <insert id="getNewsId" parameterType="cn.scene.model.Scene" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO scene(user_id,code,times,from_scene)
+        VALUE (#{userId,jdbcType=INTEGER},#{code,jdbcType=VARCHAR},#{times,jdbcType=DATE},#{fromScene,jdbcType=INTEGER})
+    </insert>
 </mapper>

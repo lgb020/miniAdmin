@@ -26,4 +26,7 @@ public interface MusicMapper {
 
     //音乐插入
     int musicInsert(@Param("name")String name,@Param("url")String url,@Param("length")String length);
+
+    //根据id查询总数
+    int selectCountById();
 }

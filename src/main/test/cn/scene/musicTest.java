@@ -48,4 +48,10 @@ public class musicTest extends BaseJunit4Test{
     public void insert() throws Exception{
         MusicSave.insert();
     }
+
+    @Test
+    public void allPage(){
+        int page = muService.allPage();
+        System.out.println(page);
+    }
 }

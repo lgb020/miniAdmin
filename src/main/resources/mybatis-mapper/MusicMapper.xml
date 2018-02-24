@@ -106,4 +106,7 @@
         SELECT #{name,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{length,jdbcType=VARCHAR}
         FROM DUAL WHERE NOT EXISTS(SELECT url FROM music WHERE url = #{url,jdbcType=VARCHAR})
     </insert>
+    <select id="selectCountById" resultType="java.lang.Integer">
+        select count(id) from music where is_del=1
+    </select>
 </mapper>
