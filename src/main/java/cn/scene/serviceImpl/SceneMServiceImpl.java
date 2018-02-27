@@ -69,13 +69,13 @@ public class SceneMServiceImpl implements SceneMService{
     }
 
     /**
-     * 我的小店
-     * @param userId
+     * 模板下架
+     * @param id
      * @return
      */
     @Override
-    public List<Scene> sceneList(Integer userId) {
-        return sceneMapper.selectByUserId(userId);
+    public int updateIssue(Integer id) {
+        return sceneMapper.updateIsIssue(id);
     }
 
 

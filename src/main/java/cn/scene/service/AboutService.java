@@ -13,8 +13,12 @@ public interface AboutService {
     //通知信息
     List<Message> selectInfo(Integer userId);
 
+    //删除通知信息
+    int deleteMess(Integer id);
+
     //我的模板
     List<Scene> selectScene(Integer userId,Integer fromId);
 
-
+    //我的小店
+    List<Scene> sceneList(Integer userId);
 }

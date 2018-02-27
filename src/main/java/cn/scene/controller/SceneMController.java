@@ -26,9 +26,8 @@ public class SceneMController {
     //上架
     @RequestMapping("/shelve")
     public @ResponseBody Boolean shelve(HttpServletRequest request){
-        Boolean result = false;
         User user = (User)request.getSession().getAttribute("user");
-        result = sceneMService.shelve(user.getId());
+        Boolean result = sceneMService.shelve(user.getId());
         return result;
     }
 
@@ -55,18 +54,22 @@ public class SceneMController {
     //模板删除
     @RequestMapping("/del")
     public @ResponseBody Boolean delete(HttpServletRequest request){
-        Boolean result = false;
         User user = (User)request.getSession().getAttribute("user");
-        result = sceneMService.delete(user.getId());
+        Boolean result = sceneMService.delete(user.getId());
         return result;
     }
 
-    //我的小店
-    @RequestMapping("/store")
-    public @ResponseBody List<Scene> store(HttpServletRequest request){
-        User user = (User)request.getSession().getAttribute("user");
-        List<Scene> list = list = sceneMService.sceneList(user.getId());
-        return list;
+    //场景下架
+    @RequestMapping("/down")
+    public @ResponseBody int downScene(HttpServletRequest request){
+        String index = request.getParameter("id");
+        String regx = "^[0-9]+$";
+        int result = 0;
+        if(StringUtils.isNotBlank(index) && index.matches(regx)){
+            int id = Integer.parseInt(index);
+            result = sceneMService.updateIssue(id);
+        }
+        return result;
     }
 
 }

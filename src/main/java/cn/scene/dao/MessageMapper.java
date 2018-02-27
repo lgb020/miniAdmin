@@ -22,4 +22,7 @@ public interface MessageMapper {
     //查询通知信息
     List<Message> selectByUserId(Integer userId);
 
+    //根据id更新is_del
+    int updateIsDel(Integer id);
+
 }

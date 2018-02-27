@@ -15,6 +15,8 @@ public class JifenRecord {
 
     private Date times;
 
+    private String sTimes;
+
     private Boolean isDel;
 
     public Integer getId() {
@@ -63,6 +65,14 @@ public class JifenRecord {
 
     public void setTimes(Date times) {
         this.times = times;
+    }
+
+    public String getsTimes() {
+        return sTimes;
+    }
+
+    public void setsTimes(String sTimes) {
+        this.sTimes = sTimes;
     }
 
     public Boolean getIsDel() {

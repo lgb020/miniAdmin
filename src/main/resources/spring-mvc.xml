@@ -56,7 +56,6 @@
         <mvc:interceptor>
             <mvc:mapping path="/about/**"/>
             <mvc:mapping path="/scene/manage/**"/>
-            <mvc:mapping path="/member/**"/>
             <mvc:mapping path="/user/**"/>
             <mvc:exclude-mapping path="/user/auth.html"/>
             <mvc:exclude-mapping path="/user/login.html"/>

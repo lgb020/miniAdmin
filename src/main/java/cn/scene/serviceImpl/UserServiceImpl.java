@@ -5,6 +5,7 @@ import cn.scene.model.User;
 import cn.scene.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 用户
@@ -31,6 +32,7 @@ public class UserServiceImpl implements UserService{
      * @return
      */
     @Override
+    @Transactional
     public int updateRead(Integer id) {
         return userMapper.updateByIsRade(id);
     }

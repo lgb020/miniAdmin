@@ -11,6 +11,8 @@ public class Message {
 
     private Date times;
 
+    private String sTimes;
+
     private Boolean isRead;
 
     private Boolean isDel;
@@ -36,7 +38,7 @@ public class Message {
     }
 
     public void setContent(String content) {
-        this.content = content == null ? null : content.trim();
+        this.content = content;
     }
 
     public Date getTimes() {
@@ -47,19 +49,27 @@ public class Message {
         this.times = times;
     }
 
-    public Boolean getIsRead() {
+    public String getsTimes() {
+        return sTimes;
+    }
+
+    public void setsTimes(String sTimes) {
+        this.sTimes = sTimes;
+    }
+
+    public Boolean getRead() {
         return isRead;
     }
 
-    public void setIsRead(Boolean isRead) {
-        this.isRead = isRead;
+    public void setRead(Boolean read) {
+        isRead = read;
     }
 
-    public Boolean getIsDel() {
+    public Boolean getDel() {
         return isDel;
     }
 
-    public void setIsDel(Boolean isDel) {
-        this.isDel = isDel;
+    public void setDel(Boolean del) {
+        isDel = del;
     }
 }

@@ -117,6 +117,6 @@
     <select id="selectByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
-        FROM jifen_record WHERE user_id=#{userId,jdbcType=INTEGER} AND is_del=1
-    </select>
+        FROM jifen_record WHERE is_del=1 AND user_id=#{userId,jdbcType=INTEGER} AND type=#{type,jdbcType=CHAR}
+     </select>
 </mapper>

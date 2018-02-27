@@ -1,6 +1,7 @@
 package cn.scene.dao;
 
 import cn.scene.model.JifenRecord;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -18,5 +19,5 @@ public interface JifenRecordMapper {
     int updateByPrimaryKey(JifenRecord record);
 
     //根据用户id查询积分记录
-    List<JifenRecord> selectByUserId(Integer userId);
+    List<JifenRecord> selectByUserId(@Param("userId") Integer userId,@Param("type") Integer type);
 }

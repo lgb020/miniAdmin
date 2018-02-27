@@ -21,6 +21,7 @@ public interface SceneMService {
     //删除模板
     Boolean delete(Integer sceneId);
 
-    //我的小店
-    List<Scene> sceneList(Integer userId);
+    //下架
+    int updateIssue(Integer id);
+
 }

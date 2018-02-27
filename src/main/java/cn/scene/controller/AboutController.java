@@ -1,9 +1,11 @@
 package cn.scene.controller;
 
+import cn.scene.model.JifenRecord;
 import cn.scene.model.Message;
 import cn.scene.model.Scene;
 import cn.scene.model.User;
 import cn.scene.service.AboutService;
+import cn.scene.service.JifenRecordService;
 import cn.scene.service.UserService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,8 @@ public class AboutController {
     private AboutService aboutService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private JifenRecordService jifenRecordService;
 
     //头像查询
     @RequestMapping("/index")
@@ -50,6 +54,19 @@ public class AboutController {
         return result;
     }
 
+    //删除通知信息
+    @RequestMapping("/mess/delete")
+    public @ResponseBody int messDelete(HttpServletRequest request){
+        String index = request.getParameter("id");
+        String regx = "^[0-9]+$";
+        int result = 0;
+        if(StringUtils.isNotBlank(index) && index.matches(regx)){
+            int id = Integer.parseInt(index);
+            result = aboutService.deleteMess(id);
+        }
+        return result;
+    }
+
     //我的模板
     @RequestMapping("/scene")
     public @ResponseBody List<Scene> makeSecne(HttpServletRequest request){
@@ -66,9 +83,25 @@ public class AboutController {
     }
 
     //我的小店
+    @RequestMapping("/store")
+    public @ResponseBody List<Scene> store(HttpServletRequest request){
+        User user = (User)request.getSession().getAttribute("user");
+        List<Scene> list = aboutService.sceneList(user.getId());
+        return list;
+    }
 
-
-
-
+    //会员信息,积分记录
+    @RequestMapping("/member")
+    public @ResponseBody List<JifenRecord> jifenInfo(HttpServletRequest request){
+        User user = (User)request.getSession().getAttribute("user");
+        String index = request.getParameter("type");
+        String regx = "^[0-9]+$";
+        List<JifenRecord> list = new ArrayList<>();
+        if(StringUtils.isNotBlank(index) && index.matches(regx)) {
+            int temp = Integer.parseInt(index);
+            list = jifenRecordService.selectJifen(user.getId(),temp);
+        }
+        return list;
+    }
 
 }

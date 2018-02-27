@@ -74,4 +74,7 @@ public interface SceneMapper {
 
     //插入数据初始化
     int getNewsId(Scene scene);
+
+    //场景下架
+    int updateIsIssue(Integer id);
 }

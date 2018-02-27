@@ -5,6 +5,7 @@ import cn.scene.service.SceneMService;
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.event.TransactionalEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,14 +42,15 @@ public class SceneMTest extends BaseJunit4Test{
     }
 
     @Test
-    public void list(){
-        String temp = "1";
+    public void down(){
+        String index = "1";
         String regx = "^[0-9]+$";
-        List<Scene> list = new ArrayList<>();
-        if(StringUtils.isNotBlank(temp) && temp.matches(regx)){
-            int userId = Integer.parseInt(temp);
-            list = sceneMService.sceneList(userId);
+        int result = 0;
+        if(StringUtils.isNotBlank(index) && index.matches(regx)) {
+            int id = Integer.parseInt(index);
+            result = sceneMService.updateIssue(id);
         }
-        System.out.println(list);
+        System.out.println(result);
     }
+
 }

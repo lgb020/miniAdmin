@@ -313,10 +313,13 @@
         SELECT
         <include refid="Base_Column_List"/>
         FROM scene
-        WHERE is_issue=1 user_id = #{userId,jdbcType=INTEGER}
+        WHERE is_issue=1 and user_id = #{userId,jdbcType=INTEGER}
     </select>
     <insert id="getNewsId" parameterType="cn.scene.model.Scene" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO scene(user_id,code,times,from_scene)
         VALUE (#{userId,jdbcType=INTEGER},#{code,jdbcType=VARCHAR},#{times,jdbcType=DATE},#{fromScene,jdbcType=INTEGER})
     </insert>
+    <update id="updateIsIssue" parameterType="java.lang.Integer">
+        UPDATE scene SET is_issue=0 WHERE id=#{id,jdbcType=INTEGER}
+    </update>
 </mapper>

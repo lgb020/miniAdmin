@@ -5,9 +5,11 @@ import cn.scene.dao.SceneMapper;
 import cn.scene.model.Message;
 import cn.scene.model.Scene;
 import cn.scene.service.AboutService;
+import cn.scene.util.DateFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -28,7 +30,22 @@ public class AboutServiceImpl implements AboutService{
      */
     @Override
     public List<Message> selectInfo(Integer userId) {
-        return messageMapper.selectByUserId(userId);
+        List<Message> info = messageMapper.selectByUserId(userId);
+        for(int i=0;i<info.size();i++){
+            Date times = info.get(i).getTimes();
+            info.get(i).setsTimes(DateFormat.format(times));
+        }
+        return info;
+    }
+
+    /**
+     * 删除通知信息
+     * @param id
+     * @return
+     */
+    @Override
+    public int deleteMess(Integer id) {
+        return messageMapper.updateIsDel(id);
     }
 
     /**
@@ -40,5 +57,21 @@ public class AboutServiceImpl implements AboutService{
     public List<Scene> selectScene(Integer userId,Integer fromId) {
         return sceneMapper.selectByFromScene(userId,fromId);
     }
+
+    /**
+     * 我的小店
+     * @param userId
+     * @return
+     */
+    @Override
+    public List<Scene> sceneList(Integer userId) {
+        List<Scene> list = sceneMapper.selectByUserId(userId);
+        for(int i=0;i<list.size();i++){
+            Date date = list.get(i).getTimes();
+            list.get(i).setsTimes(DateFormat.format(date));
+        }
+        return list;
+    }
+
 
 }
