@@ -18,7 +18,7 @@ public interface SceneMapper {
 
     int updateByPrimaryKey(Scene record);
 
-    //查询模板总数
+    //查询精选模板总数
     int selectCount();
 
     //查询精选模板
@@ -27,17 +27,29 @@ public interface SceneMapper {
     //查询最新推荐
     List<Scene> selectNews();
 
-    //查询最新热门模板
+    //热门模板-最新
     List<Scene> selectByHot();
 
-    //查询热门模板推荐
+    //热门模板-最新模板总数
+    int selectHCount();
+
+    //热门模板-热门推荐
     List<Scene> selectByTimes();
+
+    //热门模板-热门推荐总数
+    int selectByTimesCount();
 
     //企业宣传热销排行榜
     List<Scene> selectCompanyByHitCount();
 
+    //企业宣传总数
+    int selectCompanyCount();
+
     //个人相册热销模板
     List<Scene> selectPhotoByHitCount();
+
+    //个人相册总数
+    int selectPhotoCount();
 
     //分类查询,积分兑换
     List<Scene> selectCharge(Integer types);

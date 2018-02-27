@@ -53,6 +53,19 @@ public class AboutController {
         return list;
     }
 
+    //更新通知信息状态
+    @RequestMapping("/mess/read")
+    public @ResponseBody int isRead(HttpServletRequest request){
+        String index = request.getParameter("userId");
+        String regx = "^[0-9]+$";
+        int result = 0;
+        if(StringUtils.isNotBlank(index) && index.matches(regx)){
+            int id = Integer.parseInt(index);
+            result = userService.updateRead(id);
+        }
+        return result;
+    }
+
     //我的模板
     @RequestMapping("/scene")
     public @ResponseBody List<Scene> makeSecne(HttpServletRequest request){

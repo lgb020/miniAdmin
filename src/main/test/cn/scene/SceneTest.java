@@ -92,4 +92,14 @@ public class SceneTest extends BaseJunit4Test{
         int id = scene.getId();
         System.out.println(id);
     }
+
+    @Test
+    public void count(){
+        System.out.println(sceneService.count());
+        System.out.println(sceneService.hCount());
+        System.out.println(sceneService.hotPageCount());
+        System.out.println(sceneService.companySceneCount());
+        System.out.println(sceneService.photoSceneCount());
+    }
+
 }

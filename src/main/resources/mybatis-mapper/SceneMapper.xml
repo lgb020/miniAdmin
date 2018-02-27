@@ -232,7 +232,7 @@
         where id = #{id,jdbcType=INTEGER}
     </update>
     <select id="selectCount" resultType="java.lang.Integer">
-        SELECT COUNT(*) FROM scene WHERE is_issue=1 AND is_del=1
+        SELECT COUNT(*) FROM scene WHERE is_del=1 AND is_issue=1 AND is_delicate=1
     </select>
     <select id="selectDelicate" resultMap="BaseResultMap">
         SELECT id,code,cover,title,jifen,counts FROM scene
@@ -249,20 +249,36 @@
         WHERE is_issue=1 AND is_del=1
         ORDER BY concat(hit_count,id) DESC
     </select>
+    <select id="selectHCount" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM scene WHERE is_issue=1 AND is_del=1
+        ORDER BY concat(hit_count,id) DESC
+    </select>
     <select id="selectByTimes" resultMap="BaseResultMap">
         SELECT id,code,cover,title,jifen,counts FROM scene
         WHERE is_issue=1 AND is_del=1
         ORDER BY id DESC
+    </select>
+    <select id="selectByTimesCount" resultType="java.lang.Integer">
+        SELECT count(*) FROM scene
+        WHERE is_issue=1 AND is_del=1
     </select>
     <select id="selectCompanyByHitCount" resultMap="BaseResultMap">
         SELECT id,code,cover,title,jifen,counts FROM scene
         WHERE is_issue=1 AND is_del=1 AND types IN (3,4,5,6)
         ORDER BY hit_count DESC
     </select>
+    <select id="selectCompanyCount" resultType="java.lang.Integer">
+        SELECT count(*) FROM scene
+        WHERE is_issue=1 AND is_del=1 AND types IN (3,4,5,6)
+    </select>
     <select id="selectPhotoByHitCount" resultMap="BaseResultMap">
         SELECT id,code,cover,title,jifen,counts FROM scene
         WHERE is_issue=1 AND is_del=1 AND types IN (7,8,9,10)
         ORDER BY hit_count DESC
+    </select>
+    <select id="selectPhotoCount" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM scene
+        WHERE is_issue=1 AND is_del=1 AND types IN (7,8,9,10)
     </select>
     <select id="selectCharge" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         SELECT id,code,cover,title,jifen,counts FROM scene
@@ -297,7 +313,7 @@
         SELECT
         <include refid="Base_Column_List"/>
         FROM scene
-        WHERE user_id = #{userId,jdbcType=INTEGER} AND is_issue=1
+        WHERE is_issue=1 user_id = #{userId,jdbcType=INTEGER}
     </select>
     <insert id="getNewsId" parameterType="cn.scene.model.Scene" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO scene(user_id,code,times,from_scene)

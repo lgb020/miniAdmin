@@ -18,7 +18,7 @@ import java.util.UUID;
 /**
  * 场景实现类
  */
-@Service("secneService")
+@Service("sceneService")
 public class SceneServiceImpl implements SceneService {
 
     @Autowired
@@ -28,23 +28,30 @@ public class SceneServiceImpl implements SceneService {
 
     /**
      * 精选模板
-     * @param index
+     * @param page
      * index==1,换一批显示,根据精选场景的被使用热度进行筛选
      */
     @Override
-    public List<Scene> sceneInfo(Integer index) {
-        int page = 1; //默认是第一页
-        if(index==1){
-            int count = sceneMapper.selectCount(); //查询总数
-            Double number = Math.random();
-            if (number >= 0.5) {
-                page = (int) (Math.random() + 2) * (count - 6);
-            } else {
-                page = (int) (Math.random() + 1) * (count - 6);
-            }
-        }
+    public List<Scene> sceneInfo(Integer page) {
         PageHelper.startPage(page,6);
-        return sceneMapper.selectDelicate();
+        List<Scene> list = sceneMapper.selectDelicate();
+        return list;
+    }
+
+    /**
+     * 精选模板总页数
+     * @return
+     */
+    @Override
+    public int count() {
+        int count = sceneMapper.selectCount(); //查询总数
+        int page = 0;
+        if(count%6==0){
+            page = count/6;
+        }else{
+            page = count/6+1;
+        }
+        return page;
     }
 
     /**
@@ -58,23 +65,26 @@ public class SceneServiceImpl implements SceneService {
 
     /**
      * 最新热门模板
-     * @param index
+     * @param page
      * index==1,换一批显示,根据上架场景的热度进行筛选
      */
     @Override
-    public List<Scene> hotInfo(Integer index) {
+    public List<Scene> hotInfo(Integer page) {
+        PageHelper.startPage(page,6);
+        List<Scene> list = sceneMapper.selectByHot();
+        return list;
+    }
+
+    @Override
+    public int hCount() {
+        int count = sceneMapper.selectHCount();
         int page = 0;
-        if(index==1){
-            int count = sceneMapper.selectCount(); //查询总数
-            Double number = Math.random();
-            if (number >= 0.5) {
-                page = (int) (Math.random() + 1) * (count - 6);
-            } else {
-                page = (int) (Math.random()) * (count - 6);
-            }
+        if(count%6==0){
+            page = count/6;
+        }else{
+            page = count/6+1;
         }
-        PageHelper.startPage(page,9);
-        return sceneMapper.selectByHot();
+        return page;
     }
 
     /**
@@ -90,15 +100,47 @@ public class SceneServiceImpl implements SceneService {
     }
 
     /**
+     * 热门推荐总页数
+     * @return
+     */
+    @Override
+    public int hotPageCount() {
+        int count = sceneMapper.selectByTimesCount();
+        int page = 0;
+        if(count%9==0){
+            page = count/9;
+        }else {
+            page = count/9+1;
+        }
+        return page;
+    }
+
+    /**
      * 企业宣传,热销排行榜
      * @param page 页数
      * @return
      */
     @Override
     public List<Scene> companyScene(Integer page) {
-        PageHelper.startPage(page,12);
+        PageHelper.startPage(page,9);
         List<Scene> list = sceneMapper.selectCompanyByHitCount();
         return list;
+    }
+
+    /**
+     * 销排行总数
+     * @return
+     */
+    @Override
+    public int companySceneCount() {
+        int count = sceneMapper.selectCompanyCount();
+        int page = 0;
+        if(count%9==0){
+            page = count/9;
+        }else {
+            page = count/9+1;
+        }
+        return page;
     }
 
     /**
@@ -108,9 +150,25 @@ public class SceneServiceImpl implements SceneService {
      */
     @Override
     public List<Scene> photoScene(Integer page) {
-        PageHelper.startPage(page,12);
+        PageHelper.startPage(page,9);
         List<Scene> list = sceneMapper.selectPhotoByHitCount();
         return list;
+    }
+
+    /**
+     * 个人相册总数
+     * @return
+     */
+    @Override
+    public int photoSceneCount() {
+        int count = sceneMapper.selectPhotoCount();
+        int page = 0;
+        if(count%9==0){
+            page = count/9;
+        }else {
+            page = count/9+1;
+        }
+        return page;
     }
 
     /**

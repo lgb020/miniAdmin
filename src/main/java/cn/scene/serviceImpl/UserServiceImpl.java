@@ -24,4 +24,14 @@ public class UserServiceImpl implements UserService{
     public User selectUserInfo(Integer id) {
         return userMapper.selectByPrimaryKey(id);
     }
+
+    /**
+     * 更新通知状态
+     * @param id
+     * @return
+     */
+    @Override
+    public int updateRead(Integer id) {
+        return userMapper.updateByIsRade(id);
+    }
 }

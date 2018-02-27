@@ -138,4 +138,7 @@
           is_read = #{isRead,jdbcType=BIT}
         where id = #{id,jdbcType=INTEGER}
   </update>
+    <update id="updateByIsRade" parameterType="java.lang.Integer">
+        UPDATE user SET is_read=0 WHERE id=#{id,dbcType=INTEGER}
+    </update>
 </mapper>
