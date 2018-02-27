@@ -1,6 +1,7 @@
 package cn.scene.controller;
 
 import cn.scene.model.Scene;
+import cn.scene.model.User;
 import cn.scene.service.SceneMService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,27 +26,18 @@ public class SceneMController {
     //上架
     @RequestMapping("/shelve")
     public @ResponseBody Boolean shelve(HttpServletRequest request){
-        String temp = request.getParameter("sceneId");
-        String regx = "^[0-9]+$";
         Boolean result = false;
-        if(StringUtils.isNotBlank(temp) && temp.matches(regx)){
-            int sceneId = Integer.parseInt(temp);
-            result = sceneMService.shelve(sceneId);
-        }
+        User user = (User)request.getSession().getAttribute("user");
+        result = sceneMService.shelve(user.getId());
         return result;
     }
 
     //设置
     @RequestMapping("/setting")
     public @ResponseBody Scene setting(HttpServletRequest request){
-        String temp = request.getParameter("sceneId");
-        String regx = "^[0-9]+$";
-        if(StringUtils.isNotBlank(temp) && temp.matches(regx)){
-            int sceneId = Integer.parseInt(temp);
-            Scene scene = sceneMService.setting(sceneId);
-            return scene;
-        }
-        return null;
+        User user = (User)request.getSession().getAttribute("user");
+        Scene scene = sceneMService.setting(user.getId());
+        return scene;
     }
 
     //完成设置
@@ -63,26 +55,17 @@ public class SceneMController {
     //模板删除
     @RequestMapping("/del")
     public @ResponseBody Boolean delete(HttpServletRequest request){
-        String temp = request.getParameter("sceneId");
-        String regx = "^[0-9]+$";
         Boolean result = false;
-        if(StringUtils.isNotBlank(temp) && temp.matches(regx)){
-            int sceneId = Integer.parseInt(temp);
-            result = sceneMService.delete(sceneId);
-        }
+        User user = (User)request.getSession().getAttribute("user");
+        result = sceneMService.delete(user.getId());
         return result;
     }
 
     //我的小店
     @RequestMapping("/store")
     public @ResponseBody List<Scene> store(HttpServletRequest request){
-        String temp = request.getParameter("userId");
-        String regx = "^[0-9]+$";
-        List<Scene> list = new ArrayList<>();
-        if(StringUtils.isNotBlank(temp) && temp.matches(regx)){
-            int userId = Integer.parseInt(temp);
-            list = sceneMService.sceneList(userId);
-        }
+        User user = (User)request.getSession().getAttribute("user");
+        List<Scene> list = list = sceneMService.sceneList(user.getId());
         return list;
     }
 

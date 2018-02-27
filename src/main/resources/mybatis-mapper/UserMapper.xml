@@ -13,8 +13,8 @@
         <result column="is_read" jdbcType="BIT" property="isRead"/>
     </resultMap>
     <sql id="Base_Column_List">
-    id, name, photo, jifen, is_member, start_time, al_numbers, numbers, is_read
-  </sql>
+        id, name, photo, jifen, is_member, start_time, al_numbers, numbers, is_read
+    </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
@@ -22,19 +22,19 @@
         where id = #{id,jdbcType=INTEGER}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from user
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
+        delete from user
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
     <insert id="insert" parameterType="cn.scene.model.User">
-    insert into user (id, name, photo, 
-      jifen, is_member, start_time, 
-      al_numbers, numbers, is_read
-      )
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{photo,jdbcType=VARCHAR}, 
-      #{jifen,jdbcType=INTEGER}, #{isMember,jdbcType=TINYINT}, #{startTime,jdbcType=DATE}, 
-      #{alNumbers,jdbcType=INTEGER}, #{numbers,jdbcType=INTEGER}, #{isRead,jdbcType=BIT}
-      )
-  </insert>
+        insert into user (id, name, photo,
+          jifen, is_member, start_time,
+          al_numbers, numbers, is_read
+          )
+        values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{photo,jdbcType=VARCHAR},
+          #{jifen,jdbcType=INTEGER}, #{isMember,jdbcType=TINYINT}, #{startTime,jdbcType=DATE},
+          #{alNumbers,jdbcType=INTEGER}, #{numbers,jdbcType=INTEGER}, #{isRead,jdbcType=BIT}
+          )
+    </insert>
     <insert id="insertSelective" parameterType="cn.scene.model.User">
         insert into user
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -137,8 +137,8 @@
           numbers = #{numbers,jdbcType=INTEGER},
           is_read = #{isRead,jdbcType=BIT}
         where id = #{id,jdbcType=INTEGER}
-  </update>
+    </update>
     <update id="updateByIsRade" parameterType="java.lang.Integer">
-        UPDATE user SET is_read=0 WHERE id=#{id,dbcType=INTEGER}
+        UPDATE user SET is_read=0 WHERE id=#{id,jdbcType=INTEGER}
     </update>
 </mapper>
