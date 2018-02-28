@@ -54,4 +54,19 @@ public class musicTest extends BaseJunit4Test{
         int page = muService.allPage();
         System.out.println(page);
     }
+
+    @Test
+    public void musicUpdate(){
+        String music = "111";
+        String mTitle = "11";
+        String index = "1";
+        String regx = "^[0-9]+$";
+        int result = 0;
+        if(StringUtils.isNotBlank(music) && StringUtils.isNotBlank(mTitle)
+                && StringUtils.isNotBlank(index) && index.matches(regx)){
+            int id = Integer.parseInt(index);
+            result = muService.updateMusic(id,music,mTitle);
+        }
+        System.out.println(result);
+    }
 }

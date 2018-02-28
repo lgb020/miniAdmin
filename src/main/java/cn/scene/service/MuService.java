@@ -2,6 +2,7 @@ package cn.scene.service;
 
 import cn.scene.model.Music;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -20,5 +21,11 @@ public interface MuService {
 
     //音乐总页数
     Integer allPage();
+
+    //更新场景音乐
+    int updateMusic(int id, String music,String mTitle);
+
+    //音乐文件上传
+    int uploadMusic(int id, String mTitle, HttpServletRequest request) throws Exception;
 
 }

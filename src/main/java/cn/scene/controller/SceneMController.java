@@ -1,18 +1,13 @@
 package cn.scene.controller;
 
 import cn.scene.model.Scene;
-import cn.scene.model.User;
 import cn.scene.service.SceneMService;
-import com.sun.org.apache.xpath.internal.operations.Bool;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 场景管理:上架，编辑，设置，删除
@@ -30,7 +25,7 @@ public class SceneMController {
         String index = request.getParameter("id");
         String regx = "^[0-9]+$";
         Boolean result = false;
-        if(StringUtils.isNotBlank(index) && index.matches(regx)){
+        if(index.matches(regx)){
             int id = Integer.parseInt(index);
             result = sceneMService.shelve(id);
         }
@@ -42,7 +37,7 @@ public class SceneMController {
     public @ResponseBody Scene setting(HttpServletRequest request){
         String index = request.getParameter("id");
         String regx = "^[0-9]+$";
-        if(StringUtils.isNotBlank(index) && index.matches(regx)){
+        if(index.matches(regx)){
             int id = Integer.parseInt(index);
             Scene scene = sceneMService.setting(id);
             return scene;
@@ -68,7 +63,7 @@ public class SceneMController {
         String index = request.getParameter("id");
         String regx = "^[0-9]+$";
         Boolean result = false;
-        if(StringUtils.isNotBlank(index) && index.matches(regx)){
+        if(index.matches(regx)){
             int id = Integer.parseInt(index);
             result = sceneMService.delete(id);
         }
@@ -81,7 +76,7 @@ public class SceneMController {
         String index = request.getParameter("id");
         String regx = "^[0-9]+$";
         int result = 0;
-        if(StringUtils.isNotBlank(index) && index.matches(regx)){
+        if(index.matches(regx)){
             int id = Integer.parseInt(index);
             result = sceneMService.updateIssue(id);
         }

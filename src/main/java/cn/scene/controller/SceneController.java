@@ -3,7 +3,6 @@ package cn.scene.controller;
 import cn.scene.model.Scene;
 import cn.scene.model.ScenePage;
 import cn.scene.service.SceneService;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,7 +28,7 @@ public class SceneController {
         String page = request.getParameter("page");
         String regx = "^[0-9]+";
         List<Scene> list = new ArrayList<>();
-        if(StringUtils.isNotBlank(page) && page.matches(regx)){
+        if(page.matches(regx)){
             int temp = Integer.parseInt(page);
             list = sceneService.sceneInfo(temp);
         }
@@ -56,7 +55,7 @@ public class SceneController {
         String regx = "^[0-9]+";
         List<Scene> list = new ArrayList<>();
         //匹配是否为0和1，0为热门模板，1为换一批
-        if(StringUtils.isNotBlank(page) && page.matches(regx)){
+        if(page.matches(regx)){
             int temp = Integer.parseInt(page);
             list = sceneService.hotInfo(temp);
         }
@@ -75,7 +74,7 @@ public class SceneController {
         String index = request.getParameter("page");
         String regx = "^[0-9]+$";
         List<Scene> list = new ArrayList<>();
-        if(StringUtils.isNotBlank(index) && index.matches(regx)){
+        if(index.matches(regx)){
             int page = Integer.parseInt(index);
             list = sceneService.hotPage(page);
         }
@@ -94,7 +93,7 @@ public class SceneController {
         String index = request.getParameter("page");
         String regx = "^[0-9]+$";
         List<Scene> list = new ArrayList<>();
-        if(StringUtils.isNotBlank(index) && index.matches(regx)){
+        if(index.matches(regx)){
             int page =Integer.parseInt(index);
             list = sceneService.companyScene(page);
         }
@@ -113,7 +112,7 @@ public class SceneController {
         String index = request.getParameter("page");
         String regx = "^[0-9]+$";
         List<Scene> list = new ArrayList<>();
-        if(StringUtils.isNotBlank(index) && index.matches(regx)){
+        if(index.matches(regx)){
             int page =Integer.parseInt(index);
             list = sceneService.photoScene(page);
         }
@@ -134,7 +133,7 @@ public class SceneController {
         String regx = "^[0-9]$";
         String cRegx = "^0|1$";
         List<Scene> list = new ArrayList<>();
-        if(StringUtils.isNotBlank(temp) && StringUtils.isNotBlank(charge) && temp.matches(regx) &&charge.matches(cRegx)){
+        if(temp.matches(regx) &&charge.matches(cRegx)){
             int type = Integer.parseInt(temp);
             int isCharge = Integer.parseInt(charge);
             list = sceneService.TypeScene(type,isCharge);

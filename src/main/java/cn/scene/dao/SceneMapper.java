@@ -3,6 +3,7 @@ package cn.scene.dao;
 import cn.scene.model.Scene;
 import org.apache.ibatis.annotations.Param;
 
+import javax.annotation.security.PermitAll;
 import java.util.List;
 
 public interface SceneMapper {
@@ -77,4 +78,7 @@ public interface SceneMapper {
 
     //场景下架
     int updateIsIssue(Integer id);
+
+    //更新场景背景音乐
+    int updateMusicById(@Param("id") Integer id, @Param("music")String music, @Param("mTitle")String mTitle);
 }

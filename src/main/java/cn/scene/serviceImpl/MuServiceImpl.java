@@ -1,17 +1,27 @@
 package cn.scene.serviceImpl;
 
 import cn.scene.dao.MusicMapper;
+import cn.scene.dao.SceneMapper;
 import cn.scene.jedis.JedisClient;
 import cn.scene.model.Music;
 import cn.scene.service.MuService;
+import cn.scene.util.DateFormat;
 import cn.scene.util.JsonUtils;
+import cn.scene.util.RealPathTool;
 import com.github.pagehelper.PageHelper;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * 音乐
@@ -21,6 +31,8 @@ public class MuServiceImpl implements MuService {
 
     @Autowired
     private MusicMapper musicMapper;
+    @Autowired
+    private SceneMapper sceneMapper;
     @Autowired
     private JedisClient jedisClient; //redis客户端
     @Value("${MUSIC}")
@@ -74,6 +86,7 @@ public class MuServiceImpl implements MuService {
      * @return
      */
     @Override
+    @Transactional
     public Integer insert(String name,String url,String length) {
         return musicMapper.musicInsert(name,url,length);
     }
@@ -92,5 +105,55 @@ public class MuServiceImpl implements MuService {
             allPage = count/20+1;
         }
         return allPage;
+    }
+
+    /**
+     * 更新场景音乐
+     * @param id
+     * @param music
+     * @param mTitle
+     * @return
+     */
+    @Override
+    @Transactional
+    public int updateMusic(int id, String music, String mTitle) {
+        return sceneMapper.updateMusicById(id,music,mTitle);
+    }
+
+    /**
+     * 音乐上传
+     * @param id
+     * @param mTitle
+     * @param request
+     * @return
+     */
+    @Override
+    @Transactional
+    public int uploadMusic(int id, String mTitle, HttpServletRequest request) throws Exception{
+        int result = 0;
+        if(request instanceof MultipartHttpServletRequest){
+            MultipartFile items =  ((MultipartHttpServletRequest) request).getFile("music");
+            String date = DateFormat.format(new Date());
+            String path = RealPathTool.getRootPath()+"/upload/music/"+date;
+            File dir = new File(path);
+            if(!dir.exists()){
+                dir.mkdirs();
+            }
+            //判断文件格式
+            if(items!=null){
+                String name = items.getOriginalFilename();
+                name = UUID.randomUUID() + name.substring(name.lastIndexOf("."));
+                if(name.endsWith(".mp3") || name.endsWith(".MP3") || name.endsWith(".mav") || name.endsWith(".MAV")
+                        || name.endsWith(".amr") || name.endsWith(".AMR")){
+                    File file = new File(path,name);
+                    //文件上传
+                    items.transferTo(file);
+                }
+                String music = "http://www.hsfeng.cn/scene/upload/music/"+date+"/"+name;
+                //更新数据
+                result = sceneMapper.updateMusicById(id,music,mTitle);
+            }
+        }
+        return result;
     }
 }

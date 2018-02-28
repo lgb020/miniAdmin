@@ -322,4 +322,8 @@
     <update id="updateIsIssue" parameterType="java.lang.Integer">
         UPDATE scene SET is_issue=0 WHERE id=#{id,jdbcType=INTEGER}
     </update>
+    <update id="updateMusicById">
+        UPDATE scene SET music = #{music,jdbcType=VARCHAR},m_title = #{mTitle,jdbcType=VARCHAR}
+        WHERE id = #{id,jdbcType=INTEGER}
+    </update>
 </mapper>

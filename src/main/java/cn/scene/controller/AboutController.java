@@ -7,7 +7,6 @@ import cn.scene.model.User;
 import cn.scene.service.AboutService;
 import cn.scene.service.JifenRecordService;
 import cn.scene.service.UserService;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -60,7 +59,7 @@ public class AboutController {
         String index = request.getParameter("id");
         String regx = "^[0-9]+$";
         int result = 0;
-        if(StringUtils.isNotBlank(index) && index.matches(regx)){
+        if(index.matches(regx)){
             int id = Integer.parseInt(index);
             result = aboutService.deleteMess(id);
         }
@@ -97,7 +96,7 @@ public class AboutController {
         String index = request.getParameter("type");
         String regx = "^[0-9]+$";
         List<JifenRecord> list = new ArrayList<>();
-        if(StringUtils.isNotBlank(index) && index.matches(regx)) {
+        if(index.matches(regx)) {
             int temp = Integer.parseInt(index);
             list = jifenRecordService.selectJifen(user.getId(),temp);
         }

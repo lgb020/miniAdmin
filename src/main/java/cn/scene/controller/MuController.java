@@ -28,7 +28,7 @@ public class MuController {
         String index = request.getParameter("page");
         String regx = "^[0-9]+$";
         List<Music> list = new ArrayList<>();
-        if(StringUtils.isNotBlank(index) && index.matches(regx)){
+        if(index.matches(regx)){
             int page = Integer.parseInt(index);
             list = muService.list(page);
         }
@@ -50,6 +50,40 @@ public class MuController {
     @RequestMapping("/count")
     public @ResponseBody int count(HttpServletRequest request){
         return muService.allPage();
+    }
+
+    //更新音乐文件
+    @RequestMapping("/update")
+    public @ResponseBody int update(HttpServletRequest request){
+        String music = request.getParameter("music");
+        String mTitle = request.getParameter("mTitle");
+        String index = request.getParameter("id");
+        String regx = "^[0-9]+$";
+        int result = 0;
+        if(StringUtils.isNotBlank(music) && StringUtils.isNotBlank(mTitle) && index.matches(regx)){
+            int id = Integer.parseInt(index);
+            result = muService.updateMusic(id,music,mTitle);
+        }
+        return result;
+    }
+
+    //音乐上传
+    @RequestMapping("/upload")
+    public @ResponseBody int upload(HttpServletRequest request){
+        String mTitle = request.getParameter("mTitle");
+        String index = request.getParameter("id");
+        String regx = "^[0-9]+$";
+        int result = 0;
+        if(StringUtils.isNotBlank(mTitle) && index.matches(regx)){
+            int id = Integer.parseInt(index);
+            try {
+                result = muService.uploadMusic(id,mTitle,request);
+            }catch (Exception e){
+                e.printStackTrace();
+                return 0;
+            }
+        }
+        return result;
     }
 
 }

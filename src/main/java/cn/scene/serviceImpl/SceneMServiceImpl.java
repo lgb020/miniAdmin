@@ -74,6 +74,7 @@ public class SceneMServiceImpl implements SceneMService{
      * @return
      */
     @Override
+    @Transactional
     public int updateIssue(Integer id) {
         return sceneMapper.updateIsIssue(id);
     }
