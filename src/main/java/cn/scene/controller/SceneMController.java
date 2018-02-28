@@ -3,6 +3,7 @@ package cn.scene.controller;
 import cn.scene.model.Scene;
 import cn.scene.model.User;
 import cn.scene.service.SceneMService;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,17 +27,27 @@ public class SceneMController {
     //上架
     @RequestMapping("/shelve")
     public @ResponseBody Boolean shelve(HttpServletRequest request){
-        User user = (User)request.getSession().getAttribute("user");
-        Boolean result = sceneMService.shelve(user.getId());
+        String index = request.getParameter("id");
+        String regx = "^[0-9]+$";
+        Boolean result = false;
+        if(StringUtils.isNotBlank(index) && index.matches(regx)){
+            int id = Integer.parseInt(index);
+            result = sceneMService.shelve(id);
+        }
         return result;
     }
 
     //设置
     @RequestMapping("/setting")
     public @ResponseBody Scene setting(HttpServletRequest request){
-        User user = (User)request.getSession().getAttribute("user");
-        Scene scene = sceneMService.setting(user.getId());
-        return scene;
+        String index = request.getParameter("id");
+        String regx = "^[0-9]+$";
+        if(StringUtils.isNotBlank(index) && index.matches(regx)){
+            int id = Integer.parseInt(index);
+            Scene scene = sceneMService.setting(id);
+            return scene;
+        }
+        return null;
     }
 
     //完成设置
@@ -54,8 +65,13 @@ public class SceneMController {
     //模板删除
     @RequestMapping("/del")
     public @ResponseBody Boolean delete(HttpServletRequest request){
-        User user = (User)request.getSession().getAttribute("user");
-        Boolean result = sceneMService.delete(user.getId());
+        String index = request.getParameter("id");
+        String regx = "^[0-9]+$";
+        Boolean result = false;
+        if(StringUtils.isNotBlank(index) && index.matches(regx)){
+            int id = Integer.parseInt(index);
+            result = sceneMService.delete(id);
+        }
         return result;
     }
 

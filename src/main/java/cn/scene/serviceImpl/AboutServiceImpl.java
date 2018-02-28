@@ -55,7 +55,12 @@ public class AboutServiceImpl implements AboutService{
      */
     @Override
     public List<Scene> selectScene(Integer userId,Integer fromId) {
-        return sceneMapper.selectByFromScene(userId,fromId);
+        List<Scene> list = sceneMapper.selectByFromScene(userId,fromId);
+        for(int i=0;i<list.size();i++){
+            Date times = list.get(i).getTimes();
+            list.get(i).setsTimes(DateFormat.format(times));
+        }
+        return list;
     }
 
     /**
