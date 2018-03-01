@@ -27,13 +27,12 @@ public class ImgEcoding {
             String imgName = UUID.randomUUID().toString().replace("-", "");
             String imgFilePath = request.getSession().getServletContext().getRealPath("/") + "upload/img/" +imgName+".jpg";
             OutputStream out = new FileOutputStream(imgFilePath);
-            String url ="/upload/"+imgName+".jpg";
+            String url ="http://www.hsfeng.cn/scene/upload/img/"+imgName+".jpg";
             out.write(b);
             out.flush();
             out.close();
             return url;
-        }else{
-            return null;
         }
+        return null;
     }
 }
