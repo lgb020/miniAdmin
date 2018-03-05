@@ -1,6 +1,7 @@
 package cn.scene;
 
 import cn.scene.model.Sysfile;
+import cn.scene.model.User;
 import cn.scene.service.FileService;
 import cn.scene.util.RealPathTool;
 import org.apache.commons.lang.StringUtils;
@@ -23,29 +24,19 @@ public class FileTest extends BaseJunit4Test{
     @Test
     public void sysbg(){
         List<String> list = new ArrayList<>();
-        String strPath = "D:\\xampp\\xampp\\htdocs\\yiqixiu\\Uploads\\syspic\\bg";
+        String strPath = "D:\\xampp\\xampp\\htdocs\\yiqixiu\\Uploads\\syspic\\img";
         File dir = new File(strPath);
         File[] files = dir.listFiles(); // 该文件目录下文件全部放入数组
         if (files != null) {
             for (int i = 0; i < files.length; i++) {
                 String fileName = files[i].getName();
-                if (fileName.endsWith(".jpg")) {
+                if (fileName.endsWith(".jpg") || fileName.endsWith(".png")) {
                     list.add(fileName);
                 } else {
                     continue;
                 }
             }
 
-        }
-        for(int i=0;i<list.size();i++){
-            String url = "http://www.hsfeng.cn/scene/upload/bg/sys/"+list.get(i);
-            String type = "0";
-            String regx = "^0|1$";
-            int result = 0;
-            if(StringUtils.isNotBlank(url) && type.matches(regx)){
-                result = fileService.upload(type,url);
-            }
-            System.out.println(result);
         }
     }
 
@@ -62,4 +53,16 @@ public class FileTest extends BaseJunit4Test{
         }
         System.out.println(info);
     }
+
+    @Test
+    public void count(){
+        String type = "0";
+        String regx = "^0|1$";
+        int counts = 0;
+        if(type.matches(regx)){
+            counts = fileService.infoCount(type);
+        }
+        System.out.println(counts);
+    }
+
 }

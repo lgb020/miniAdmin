@@ -6,11 +6,14 @@
         <result column="user_id" jdbcType="INTEGER" property="userId"/>
         <result column="account" jdbcType="VARCHAR" property="account"/>
         <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="token" jdbcType="VARCHAR" property="token"/>
+        <result column="status" jdbcType="BIT" property="status"/>
+        <result column="times" jdbcType="BIGINT" property="times"/>
         <result column="type" jdbcType="CHAR" property="type"/>
     </resultMap>
     <sql id="Base_Column_List">
-    id, user_id, account, password, type
-  </sql>
+        id, user_id, account, password, token, status, times, type
+    </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
@@ -18,15 +21,17 @@
         where id = #{id,jdbcType=INTEGER}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from user_auth
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
+        delete from user_auth
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
     <insert id="insert" parameterType="cn.scene.model.UserAuth">
-    insert into user_auth (id, user_id, account, 
-      password, type)
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, 
-      #{password,jdbcType=VARCHAR}, #{type,jdbcType=CHAR})
-  </insert>
+        insert into user_auth (id, user_id, account,
+          password, token, status,
+          times, type)
+        values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR},
+          #{password,jdbcType=VARCHAR}, #{token,jdbcType=VARCHAR}, #{status,jdbcType=BIT},
+          #{times,jdbcType=BIGINT}, #{type,jdbcType=CHAR})
+    </insert>
     <insert id="insertSelective" parameterType="cn.scene.model.UserAuth">
         insert into user_auth
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -41,6 +46,15 @@
             </if>
             <if test="password != null">
                 password,
+            </if>
+            <if test="token != null">
+                token,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="times != null">
+                times,
             </if>
             <if test="type != null">
                 type,
@@ -59,6 +73,15 @@
             <if test="password != null">
                 #{password,jdbcType=VARCHAR},
             </if>
+            <if test="token != null">
+                #{token,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=BIT},
+            </if>
+            <if test="times != null">
+                #{times,jdbcType=BIGINT},
+            </if>
             <if test="type != null">
                 #{type,jdbcType=CHAR},
             </if>
@@ -76,6 +99,15 @@
             <if test="password != null">
                 password = #{password,jdbcType=VARCHAR},
             </if>
+            <if test="token != null">
+                token = #{token,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=BIT},
+            </if>
+            <if test="times != null">
+                times = #{times,jdbcType=BIGINT},
+            </if>
             <if test="type != null">
                 type = #{type,jdbcType=CHAR},
             </if>
@@ -87,7 +119,21 @@
         set user_id = #{userId,jdbcType=INTEGER},
           account = #{account,jdbcType=VARCHAR},
           password = #{password,jdbcType=VARCHAR},
+          token = #{token,jdbcType=VARCHAR},
+          status = #{status,jdbcType=BIT},
+          times = #{times,jdbcType=BIGINT},
           type = #{type,jdbcType=CHAR}
         where id = #{id,jdbcType=INTEGER}
-  </update>
+    </update>
+    <select id="selectInfoByAccount" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM user_auth
+        WHERE account = #{account,jdbcType=INTEGER}
+    </select>
+    <update id="updateByStatus">
+        UPDATE user_auth
+        SET status=1 AND token = #{token,jdbcType=VARCHAR}
+        WHERE account = #{account,jdbcType=VARCHAR}
+    </update>
 </mapper>

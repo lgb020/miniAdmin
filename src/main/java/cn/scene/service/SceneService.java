@@ -52,4 +52,7 @@ public interface SceneService {
     //发布场景
     int insert(ScenePage scenePage);
 
+    //场景搜索
+    List<Scene> search(String content);
+
 }

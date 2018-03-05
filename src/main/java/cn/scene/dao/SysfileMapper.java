@@ -19,4 +19,7 @@ public interface SysfileMapper {
 
     //素材查询
     List<Sysfile> selectInfoByType(String type);
+
+    //查询素材总数
+    int selectInfoCounts(String type);
 }

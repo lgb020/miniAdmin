@@ -313,7 +313,7 @@
         SELECT
         <include refid="Base_Column_List"/>
         FROM scene
-        WHERE is_issue=1 and user_id = #{userId,jdbcType=INTEGER}
+        WHERE is_issue=1 AND user_id = #{userId,jdbcType=INTEGER}
     </select>
     <insert id="getNewsId" parameterType="cn.scene.model.Scene" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO scene(user_id,code,times,from_scene)
@@ -326,4 +326,10 @@
         UPDATE scene SET music = #{music,jdbcType=VARCHAR},m_title = #{mTitle,jdbcType=VARCHAR}
         WHERE id = #{id,jdbcType=INTEGER}
     </update>
+    <select id="selectInfoByTitle" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT id,code,cover,title,jifen,counts FROM scene
+        WHERE is_del=1 AND title LIKE concat(concat("%",#{content,jdbcType=VARCHAR}),"%")
+        OR describes LIKE concat(concat("%",#{content,jdbcType=VARCHAR}),"%")
+        ORDER BY id DESC
+    </select>
 </mapper>

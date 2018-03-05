@@ -3,6 +3,7 @@ package cn.scene.controller;
 import cn.scene.model.Scene;
 import cn.scene.model.ScenePage;
 import cn.scene.service.SceneService;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -155,6 +156,17 @@ public class SceneController {
         if(scenePage!=null){
             sceneService.insert(scenePage);
         }
+    }
+
+    //场景搜索
+    @RequestMapping("/search")
+    public @ResponseBody List<Scene> search(HttpServletRequest request){
+        String content = request.getParameter("content");
+        List<Scene> list = new ArrayList<>();
+        if(StringUtils.isNotBlank(content)){
+            list = sceneService.search(content);
+        }
+        return list;
     }
 
 }

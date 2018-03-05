@@ -9,6 +9,12 @@ public class UserAuth {
 
     private String password;
 
+    private String token;
+
+    private Boolean status;
+
+    private Long times;
+
     private String type;
 
     public Integer getId() {
@@ -41,6 +47,30 @@ public class UserAuth {
 
     public void setPassword(String password) {
         this.password = password == null ? null : password.trim();
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token == null ? null : token.trim();
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+
+    public Long getTimes() {
+        return times;
+    }
+
+    public void setTimes(Long times) {
+        this.times = times;
     }
 
     public String getType() {

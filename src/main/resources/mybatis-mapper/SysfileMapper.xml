@@ -83,6 +83,9 @@
         SELECT
         <include refid="Base_Column_List"/>
         FROM sysfile
-        WHERE is_del=1 AND type=0
+        WHERE is_del=1 AND type=#{type,jdbcType=CHAR} ORDER BY id DESC
+    </select>
+    <select id="selectInfoCounts" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM sysfile WHERE is_del=1 AND type=#{type,jdbcType=CHAR}
     </select>
 </mapper>

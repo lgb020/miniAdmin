@@ -5,7 +5,11 @@ import cn.scene.dao.UpfileMapper;
 import cn.scene.model.Sysfile;
 import cn.scene.model.Upfile;
 import cn.scene.service.FileService;
+import cn.scene.util.DateFormat;
+import cn.scene.util.ImgEcoding;
+import cn.scene.util.RealPathTool;
 import com.github.pagehelper.PageHelper;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,21 +29,6 @@ public class FileServiceImpl implements FileService{
     private UpfileMapper upfileMapper;
 
     /**
-     * 素材上传
-     * @param type
-     * @param url
-     * @return
-     */
-    @Override
-    @Transactional
-    public int upload(String type, String url) {
-        Sysfile file = new Sysfile();
-        file.setType(type);
-        file.setUrl(url);
-        return sysfileMapper.insertSelective(file);
-    }
-
-    /**
      * 分页素材查询
      * @param type
      * @param page
@@ -53,32 +42,69 @@ public class FileServiceImpl implements FileService{
     }
 
     /**
+     * 查询素材总数
+     * @param type
+     * @return
+     */
+    @Override
+    public int infoCount(String type) {
+        int counts = sysfileMapper.selectInfoCounts(type);
+        int page = 0;
+        if(counts%12==0){
+            page = counts/12;
+        }else{
+            page = counts/12+1;
+        }
+        return page;
+    }
+
+    /**
      * 素材记录
      * @param type
-     * @param page
      * @param userId
      * @return
      */
     @Override
-    public List<Upfile> recordInfo(String type, int page, int userId) {
-        PageHelper.startPage(page,12);
+    public List<Upfile> recordInfo(String type, int userId) {
         List<Upfile> list = upfileMapper.selectInfoByType(userId,type);
         return list;
     }
 
     /**
      * 素材添加
+     * @param userId
      * @param type
-     * @param url
+     * @param img
      * @return
      */
     @Override
-    public int addInfo(int userId,String type, String url) {
-        Upfile file = new Upfile();
-        file.setId(userId);
-        file.setType(type);
-        file.setUrl(url);
-        int result = upfileMapper.insertSelective(file);
+    @Transactional
+    public int addInfo(int userId,String type, String img) {
+        String path = "";
+        String url = "";
+        String date = DateFormat.format(new Date());
+        if(type.equals("0")){
+            path = RealPathTool.getRootPath()+"/upload/bg/user/"+date;
+        }else {
+            path = RealPathTool.getRootPath()+"/upload/img/user/"+date;
+        }
+        //文件上传
+        try{
+            String name = ImgEcoding.GenerateImage(img,path);
+            if(StringUtils.isNotBlank(name)){
+                String root = "http://www.hsfeng.cn/scene/upload/";
+                if(type.equals("0")){
+                    url = root+"bg/user/"+date+"/"+name;
+                }else{
+                    url = root+"img/user/"+date+"/"+name;
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return 0;
+        }
+        //插入数据到数据库里
+        int result = upfileMapper.insertInfo(userId,type,url,new Date());
         return result;
     }
 

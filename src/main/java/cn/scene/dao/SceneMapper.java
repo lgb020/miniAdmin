@@ -81,4 +81,7 @@ public interface SceneMapper {
 
     //更新场景背景音乐
     int updateMusicById(@Param("id") Integer id, @Param("music")String music, @Param("mTitle")String mTitle);
+
+    //场景搜索
+    List<Scene> selectInfoByTitle(String content);
 }

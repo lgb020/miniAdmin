@@ -3,6 +3,7 @@ package cn.scene.util;
 import sun.misc.BASE64Decoder;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.util.UUID;
@@ -12,26 +13,30 @@ import java.util.UUID;
  */
 public class ImgEcoding {
 
-    // base64字符串转化成图片
-    public static String GenerateImage(String imgStr, HttpServletRequest request) throws Exception{
+    // base64字符串转化成图片,返回文件名
+    public static String GenerateImage(String imgStr,String path) throws Exception{
         if (imgStr != null){
             BASE64Decoder decoder = new BASE64Decoder();
-            // Base64解码
+            //解码
             byte[] b = decoder.decodeBuffer(imgStr);
+            //处理数据
             for (int i = 0; i < b.length; ++i) {
-                if (b[i] < 0) {// 调整异常数据
+                if (b[i] < 0) {
                     b[i] += 256;
                 }
             }
-            // 生成jpeg图片
-            String imgName = UUID.randomUUID().toString().replace("-", "");
-            String imgFilePath = request.getSession().getServletContext().getRealPath("/") + "upload/img/" +imgName+".jpg";
-            OutputStream out = new FileOutputStream(imgFilePath);
-            String url ="http://www.hsfeng.cn/scene/upload/img/"+imgName+".jpg";
+            File dir = new File(path);
+            if(!dir.exists()){
+                dir.mkdirs();
+            }
+            //重命名
+            String name = UUID.randomUUID().toString().replace("-","")+".png";
+            String realPath = path+"/"+name;
+            OutputStream out = new FileOutputStream(realPath);
             out.write(b);
             out.flush();
             out.close();
-            return url;
+            return name;
         }
         return null;
     }

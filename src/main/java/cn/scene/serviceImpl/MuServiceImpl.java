@@ -142,7 +142,8 @@ public class MuServiceImpl implements MuService {
             //判断文件格式
             if(items!=null){
                 String name = items.getOriginalFilename();
-                name = UUID.randomUUID() + name.substring(name.lastIndexOf("."));
+                //重命名
+                name = UUID.randomUUID().toString().replace("-","") + name.substring(name.lastIndexOf("."));
                 if(name.endsWith(".mp3") || name.endsWith(".MP3") || name.endsWith(".mav") || name.endsWith(".MAV")
                         || name.endsWith(".amr") || name.endsWith(".AMR")){
                     File file = new File(path,name);

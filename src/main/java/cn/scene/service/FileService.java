@@ -10,16 +10,16 @@ import java.util.List;
  */
 public interface FileService {
 
-    //素材上传
-    int upload(String type,String url);
-
     //分页素材查询
     List<Sysfile> info(String type, int page);
 
-    //分页查询记录素材
-    List<Upfile> recordInfo(String type, int page, int userId);
+    //查询素材总页数
+    int infoCount(String type);
+
+    //查询素材记录
+    List<Upfile> recordInfo(String type,int userId);
 
     //素材添加
-    int addInfo(int userId,String type,String url);
+    int addInfo(int userId,String type,String img);
 
 }

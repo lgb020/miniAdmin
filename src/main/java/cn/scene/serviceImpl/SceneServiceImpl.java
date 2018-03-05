@@ -214,4 +214,14 @@ public class SceneServiceImpl implements SceneService {
         return scenePageMapper.insertSelective(scenePage);
     }
 
+    /**
+     * 场景搜索
+     * @param content
+     * @return
+     */
+    @Override
+    public List<Scene> search(String content) {
+        return sceneMapper.selectInfoByTitle(content);
+    }
+
 }
