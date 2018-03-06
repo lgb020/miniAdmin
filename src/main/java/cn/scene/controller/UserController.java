@@ -51,7 +51,7 @@ public class UserController {
     @RequestMapping("/login")
     public @ResponseBody int login(HttpServletRequest request){
         String account = request.getParameter("account");
-        String password = request.getParameter("password");
+        String password = Md5Util.md5(request.getParameter("password"));
         if(StringUtils.isNotBlank(account) && StringUtils.isNotBlank(password)){
             //检查账户是否存在和激活状态
             UserAuth auth = userService.selectUserAuth(account);
