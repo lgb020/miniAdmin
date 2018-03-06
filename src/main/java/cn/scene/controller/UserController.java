@@ -1,5 +1,6 @@
 package cn.scene.controller;
 
+import cn.scene.jedis.JedisClient;
 import cn.scene.model.User;
 import cn.scene.model.UserAuth;
 import cn.scene.service.UserService;
@@ -7,7 +8,9 @@ import cn.scene.util.MailUtil;
 import cn.scene.util.Md5Util;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -24,6 +27,10 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private JedisClient jedisClient; //redis客户端
+    @Value("${CODE}")
+    private String CODE;
 
     //判断用户是否登录
     @RequestMapping("/auth")
@@ -100,8 +107,9 @@ public class UserController {
         return "mail";
     }
 
-    //重置密码获取验证码
+    //重置密码获取邮箱验证码
     @RequestMapping("/code")
+    @Transactional
     public @ResponseBody int resetCode(HttpServletRequest request) throws Exception{
         String account = request.getParameter("account");
         if(StringUtils.isNotBlank(account)) {
@@ -109,7 +117,9 @@ public class UserController {
             UserAuth auth = userService.selectUserAuth(account);
             if(auth!=null){
                 String code = UUID.randomUUID().toString().substring(0,6);
-                request.getSession().setAttribute(account,code);
+                //redis保存验证码
+                jedisClient.set(CODE,code);
+                jedisClient.expire(CODE,300); //生命周期5分钟
                 int result = MailUtil.codeMail(account,code);
                 return result;
             }
@@ -122,7 +132,12 @@ public class UserController {
     public @ResponseBody int reset(HttpServletRequest request){
         String account = request.getParameter("account");
         String password = Md5Util.md5(request.getParameter("password"));
-        if(StringUtils.isNotBlank(account) && StringUtils.isNotBlank(password)){
+        String code = request.getParameter("code");
+        String sysCode = jedisClient.get(CODE);
+        //判断验证码
+        if(StringUtils.isNotBlank(account) && StringUtils.isNotBlank(password) &&
+                StringUtils.isNotBlank(code) && StringUtils.isNotBlank(sysCode) &&
+                code.equals(sysCode)){
             //查询用户是否存在,存在返回0
             UserAuth user = userService.selectUserAuth(account);
             if(user!=null && user.getStatus()==true) {

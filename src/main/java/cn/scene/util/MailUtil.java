@@ -42,7 +42,7 @@ public class MailUtil {
 
     public static int codeMail(String email,String code){
         //发送的邮箱内容
-        String content = "<p>请重置密码并妥善保管好密码:<br>验证码："+code+"</p>";
+        String content = "<p>答应我，不要轻易告诉别人验证码，并在5分钟内重置密码:<br>请收好您的验证码："+code+"</p>";
         //调用发送邮箱服务
         try{
             MailUtil.sendMail(email, "密码找回", content);
@@ -69,7 +69,7 @@ public class MailUtil {
         message.setRecipient(Message.RecipientType.TO, new InternetAddress(email));//设置收件人,并设置其接收类型为TO
         message.setSubject(title);//设置标题
         //设置信件内容
-        message.setContent(content, "text/html;charset=utf-8"); //发送HTML邮件
+        message.setContent(content, "text/html;charset=gbk"); //发送HTML邮件
         message.setSentDate(new Date());//设置发信时间
         message.saveChanges();//存储邮件信息
         //发送邮件
