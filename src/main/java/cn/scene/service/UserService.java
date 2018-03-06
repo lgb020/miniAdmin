@@ -18,7 +18,7 @@ public interface UserService {
     UserAuth selectUserAuth(String account);
 
     //添加新用户
-    int insertUserAuthInfo(UserAuth auth);
+    int insertUserAuthInfo(UserAuth auth,String type);
 
     //邮件激活
     int userActivice(String token,String email);

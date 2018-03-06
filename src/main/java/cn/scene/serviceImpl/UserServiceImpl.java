@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.UUID;
+
 /**
  * 用户
  */
@@ -58,7 +60,19 @@ public class UserServiceImpl implements UserService{
      */
     @Override
     @Transactional
-    public int insertUserAuthInfo(UserAuth auth) {
+    public int insertUserAuthInfo(UserAuth auth,String type) {
+        //初始化新用户数据
+        User user = new User();
+        String name = "用户"+UUID.randomUUID().toString().substring(0,4); //用户名
+        String photo = "http://www.hsfeng.cn/scene/upload/user/photo.jpg";
+        user.setName(name);
+        user.setPhoto(photo);
+        userMapper.insertSelective(user);
+        auth.setUserId(user.getId());
+        //取得新用户的id
+        if(type.equals("email")){
+            auth.setType("1");
+        }
         return userAuthMapper.insertSelective(auth);
     }
 
@@ -75,7 +89,8 @@ public class UserServiceImpl implements UserService{
         UserAuth user = userAuthMapper.selectInfoByAccount(email);
         if(user!=null){
             if(time<user.getTimes() && token.equals(user.getToken())){
-                token = token.replace("1","m"); //重置token,防止被其他利用
+                //重置token,防止被其他利用
+                token = token.replaceAll("[0-9]","m");
                 //更新激活状态
                 int result = userAuthMapper.updateByStatus(email,token);
                 return result;

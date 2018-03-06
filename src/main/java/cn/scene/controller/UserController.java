@@ -63,16 +63,21 @@ public class UserController {
     public @ResponseBody int register(HttpServletRequest request) throws Exception{
         String account = request.getParameter("account");
         String password = Md5Util.md5(request.getParameter("password"));
+        System.out.println(password);
         if(StringUtils.isNotBlank(account) && StringUtils.isNotBlank(password)){
             //查询用户是否存在,存在返回0
             UserAuth user = userService.selectUserAuth(account);
-            if(user==null){
+            if(user==null) {
                 user = new UserAuth();
                 user.setAccount(account);
                 user.setPassword(password);
                 user = MailUtil.activateMail(user);
-                //添加新用户
-                userService.insertUserAuthInfo(user);
+                //邮箱验证添加新用户
+                userService.insertUserAuthInfo(user, "email");
+                return 1;
+            }else if(user.getStatus()==false){
+                //还没激活,发送激活邮件
+                MailUtil.activateMail(user);
                 return 1;
             }
         }

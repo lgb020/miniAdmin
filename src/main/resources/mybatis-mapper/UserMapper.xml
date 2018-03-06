@@ -35,7 +35,7 @@
           #{alNumbers,jdbcType=INTEGER}, #{numbers,jdbcType=INTEGER}, #{isRead,jdbcType=BIT}
           )
     </insert>
-    <insert id="insertSelective" parameterType="cn.scene.model.User">
+    <insert id="insertSelective" parameterType="cn.scene.model.User" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
         insert into user
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">

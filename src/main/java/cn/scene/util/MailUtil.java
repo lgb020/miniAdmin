@@ -35,7 +35,7 @@ public class MailUtil {
         //过期时间
         user.setTimes(activateTime);
         //发送的邮箱内容
-        String content = "<p>欢迎使用MINISCENE!<br><br>请在24小时内点击下面的链接激活帐户:"+"<br><a href='"+URL+"/user/activate/?token="+token+"&email="+email+"'>"+URL+"/user/activate/?token="+token+"&email="+email+"</a></p>";
+        String content = "<p>欢迎使用MINISCENE!<br><br>请在24小时内点击下面的链接激活帐户:"+"<br><a href='"+URL+"/user/activate.html?v=1.0&token="+token+"&email="+email+"'>"+URL+"/user/activate.html?v=1.0&token="+token+"&email="+email+"</a></p>";
         //调用发送邮箱服务
         MailUtil.sendMail(email, TITLE, content);
         return user;
@@ -47,8 +47,9 @@ public class MailUtil {
         Properties props = new Properties(); //加载一个配置文件
         // 使用smtp：简单邮件传输协议
         props.put("mail.smtp.host", HOST);//存储发送邮件服务器的信息
-        props.put("mail.smtp.port", 25);//设置端口
+        props.put("mail.smtp.port", 465);//设置端口
         props.put("mail.smtp.auth", "true");//同时通过验证
+        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
         Session session = Session.getInstance(props);//根据属性新建一个邮件会话
         MimeMessage message = new MimeMessage(session);//由邮件会话新建一个消息对象
         message.setFrom(new InternetAddress(FROM));//设置发件人的地址
