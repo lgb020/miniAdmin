@@ -29,8 +29,6 @@ public class UserController {
     private UserService userService;
     @Autowired
     private JedisClient jedisClient; //redis客户端
-    @Value("${CODE}")
-    private String CODE;
 
     //判断用户是否登录
     @RequestMapping("/auth")
@@ -118,8 +116,8 @@ public class UserController {
             if(auth!=null){
                 String code = UUID.randomUUID().toString().substring(0,6);
                 //redis保存验证码
-                jedisClient.set(CODE,code);
-                jedisClient.expire(CODE,300); //生命周期5分钟
+                jedisClient.set(account,code);
+                jedisClient.expire(account,300); //生命周期5分钟
                 int result = MailUtil.codeMail(account,code);
                 return result;
             }
@@ -133,7 +131,7 @@ public class UserController {
         String account = request.getParameter("account");
         String password = Md5Util.md5(request.getParameter("password"));
         String code = request.getParameter("code");
-        String sysCode = jedisClient.get(CODE);
+        String sysCode = jedisClient.get(account);
         //判断验证码
         if(StringUtils.isNotBlank(account) && StringUtils.isNotBlank(password) &&
                 StringUtils.isNotBlank(code) && StringUtils.isNotBlank(sysCode) &&
