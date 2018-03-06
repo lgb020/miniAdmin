@@ -56,12 +56,9 @@
         <mvc:interceptor>
             <mvc:mapping path="/about/**"/>
             <mvc:mapping path="/scene/manage/**"/>
-            <mvc:mapping path="/user/**"/>
+            <mvc:mapping path="/user/info.html"/>
+            <mvc:mapping path="/user/logout.html"/>
             <mvc:mapping path="/file/**"/>
-            <mvc:exclude-mapping path="/user/auth.html"/>
-            <mvc:exclude-mapping path="/user/login.html"/>
-            <mvc:exclude-mapping path="/user/register.html"/>
-            <mvc:exclude-mapping path="/user/activate.html"/>
             <mvc:exclude-mapping path="/file/bg.html"/>
             <bean class="cn.scene.filter.AuthFilter"></bean>
         </mvc:interceptor>

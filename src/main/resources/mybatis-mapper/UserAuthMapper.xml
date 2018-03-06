@@ -87,7 +87,7 @@
             </if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="cn.scene.model.UserAuth">
+    <update id="updateByPrimaryKeySelective" parameterType="cn.scene.model.UserAuth" >
         update user_auth
         <set>
             <if test="userId != null">

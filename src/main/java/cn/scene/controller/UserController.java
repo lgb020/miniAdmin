@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.UUID;
 
 /**
  * 用户控制器
@@ -63,7 +64,6 @@ public class UserController {
     public @ResponseBody int register(HttpServletRequest request) throws Exception{
         String account = request.getParameter("account");
         String password = Md5Util.md5(request.getParameter("password"));
-        System.out.println(password);
         if(StringUtils.isNotBlank(account) && StringUtils.isNotBlank(password)){
             //查询用户是否存在,存在返回0
             UserAuth user = userService.selectUserAuth(account);
@@ -98,6 +98,41 @@ public class UserController {
         }
         model.addAttribute("mess",mess);
         return "mail";
+    }
+
+    //重置密码获取验证码
+    @RequestMapping("/code")
+    public @ResponseBody int resetCode(HttpServletRequest request) throws Exception{
+        String account = request.getParameter("account");
+        if(StringUtils.isNotBlank(account)) {
+            //检查账户是否存在
+            UserAuth auth = userService.selectUserAuth(account);
+            if(auth!=null){
+                String code = UUID.randomUUID().toString().substring(0,6);
+                request.getSession().setAttribute(account,code);
+                int result = MailUtil.codeMail(account,code);
+                return result;
+            }
+        }
+        return 0;
+    }
+
+    //重置密码
+    @RequestMapping("/reset")
+    public @ResponseBody int reset(HttpServletRequest request){
+        String account = request.getParameter("account");
+        String password = Md5Util.md5(request.getParameter("password"));
+        if(StringUtils.isNotBlank(account) && StringUtils.isNotBlank(password)){
+            //查询用户是否存在,存在返回0
+            UserAuth user = userService.selectUserAuth(account);
+            if(user!=null && user.getStatus()==true) {
+                user.setPassword(password);
+                //更新用户的密码
+                int result = userService.updateInfo(user);
+                return result;
+            }
+        }
+        return 0;
     }
 
     //退出登陆

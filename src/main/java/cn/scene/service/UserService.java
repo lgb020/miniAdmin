@@ -22,4 +22,7 @@ public interface UserService {
 
     //邮件激活
     int userActivice(String token,String email);
+
+    //更新用户信息
+    int updateInfo(UserAuth auth);
 }

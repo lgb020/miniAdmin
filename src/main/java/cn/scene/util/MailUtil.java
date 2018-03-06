@@ -18,7 +18,6 @@ public class MailUtil {
     public static final String PWD = "miniscene123"; //发件人密码--邮箱密码
     public static final String URL = "http://www.hsfeng.cn/scene";//项目主页
     public static final int TIMELIMIT = 1000*60*60*24; //激活邮件过期时间24小时
-    public static final String TITLE = "MINISCENE账号激活";
     public static final String HOST = "smtp.163.com";
     public static final String SMTP = "smtp";
 
@@ -37,8 +36,21 @@ public class MailUtil {
         //发送的邮箱内容
         String content = "<p>欢迎使用MINISCENE!<br><br>请在24小时内点击下面的链接激活帐户:"+"<br><a href='"+URL+"/user/activate.html?v=1.0&token="+token+"&email="+email+"'>"+URL+"/user/activate.html?v=1.0&token="+token+"&email="+email+"</a></p>";
         //调用发送邮箱服务
-        MailUtil.sendMail(email, TITLE, content);
+        MailUtil.sendMail(email, "MINISCENE账号激活", content);
         return user;
+    }
+
+    public static int codeMail(String email,String code){
+        //发送的邮箱内容
+        String content = "<p>请重置密码并妥善保管好密码:<br>验证码："+code+"</p>";
+        //调用发送邮箱服务
+        try{
+            MailUtil.sendMail(email, "密码找回", content);
+            return 1;
+        }catch (Exception e){
+            e.printStackTrace();
+            return 0;
+        }
     }
 
 

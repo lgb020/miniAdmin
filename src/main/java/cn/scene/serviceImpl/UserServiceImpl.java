@@ -101,4 +101,15 @@ public class UserServiceImpl implements UserService{
         }
         return 0;
     }
+
+    /**
+     * 更新用户信息
+     * @param auth
+     * @return
+     */
+    @Override
+    @Transactional
+    public int updateInfo(UserAuth auth) {
+        return userAuthMapper.updateByPrimaryKeySelective(auth);
+    }
 }
