@@ -2,6 +2,7 @@ package cn.scene.controller;
 
 import cn.scene.model.Scene;
 import cn.scene.model.ScenePage;
+import cn.scene.model.User;
 import cn.scene.service.SceneService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -142,22 +143,6 @@ public class SceneController {
         return list;
     }
 
-    //获取新添加数据的id
-    @RequestMapping("/issue/id")
-    public int getIssueId(HttpServletRequest request,Scene scene){
-        sceneService.init(scene);
-        int id = scene.getId();
-        return id;
-    }
-
-    //场景发布
-    @RequestMapping("/issue")
-    public void issue(HttpServletRequest request, ScenePage scenePage){
-        if(scenePage!=null){
-            sceneService.insert(scenePage);
-        }
-    }
-
     //场景搜索
     @RequestMapping("/search")
     public @ResponseBody List<Scene> search(HttpServletRequest request){
@@ -167,6 +152,48 @@ public class SceneController {
             list = sceneService.search(content);
         }
         return list;
+    }
+
+    //获取新添加数据的id
+    @RequestMapping("/issue/info")
+    public @ResponseBody int getIssueId(HttpServletRequest request){
+        String index = request.getParameter("fromScene");
+        int fromScene = 0;  //父场景id，0为原创
+        if(StringUtils.isNotBlank(index)){
+            fromScene = Integer.parseInt(index);
+        }
+        Scene scene = new Scene();
+        //初始化场景数据
+        User user = (User)request.getSession().getAttribute("user");
+        scene.setUserId(user.getId());
+        scene.setFromScene(fromScene);
+        sceneService.init(scene);
+        int id = scene.getId();
+        return id;
+    }
+
+    //场景发布
+    @RequestMapping("/issue")
+    public @ResponseBody int issue(HttpServletRequest request, ScenePage scenePage){
+        if(scenePage!=null){
+            sceneService.insert(scenePage);
+            return 1;
+        }
+        return 0;
+    }
+
+    //更新封面图
+    @RequestMapping("/cover")
+    public @ResponseBody int uodateCover(HttpServletRequest request){
+        String cover = request.getParameter("cover");
+        String index = request.getParameter("id");
+        String regx = "^[0-9]+$";
+        int result = 0;
+        if(StringUtils.isNotBlank(cover) && index.matches(regx)){
+            int id = Integer.parseInt(index);
+            result = sceneService.updateCover(cover,id);
+        }
+        return result;
     }
 
 }

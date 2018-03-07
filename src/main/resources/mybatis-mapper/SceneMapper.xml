@@ -332,4 +332,8 @@
         OR describes LIKE concat(concat("%",#{content,jdbcType=VARCHAR}),"%")
         ORDER BY id DESC
     </select>
+    <update id="updateCoverById">
+        UPDATE scene SET cover = #{cover,jdbcType=VARCHAR}
+        WHERE id = #{id,jdbcType=INTEGER}
+    </update>
 </mapper>

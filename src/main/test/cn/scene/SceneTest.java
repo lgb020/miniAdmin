@@ -1,12 +1,14 @@
 package cn.scene;
 
 import cn.scene.model.Scene;
+import cn.scene.model.ScenePage;
 import cn.scene.service.SceneService;
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -100,6 +102,19 @@ public class SceneTest extends BaseJunit4Test{
         System.out.println(sceneService.hotPageCount());
         System.out.println(sceneService.companySceneCount());
         System.out.println(sceneService.photoSceneCount());
+    }
+
+    @Test
+    public void issue(){
+        ScenePage scenePage = new ScenePage();
+        scenePage.setTimes(new Date());
+        scenePage.setBackground("111");
+        scenePage.setSceneId(16);
+        scenePage.setCurrentPage(1);
+        scenePage.setContent("1111");
+        scenePage.setBgcolor("aaabbbccc");
+        scenePage.setBackground("asd");
+        sceneService.insert(scenePage);
     }
 
 }

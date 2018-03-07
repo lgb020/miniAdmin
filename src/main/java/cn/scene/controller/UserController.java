@@ -55,7 +55,7 @@ public class UserController {
         if(StringUtils.isNotBlank(account) && StringUtils.isNotBlank(password)){
             //检查账户是否存在和激活状态
             UserAuth auth = userService.selectUserAuth(account);
-            if(auth!=null && auth.getStatus()==true && auth.getPassword()==password){
+            if(auth!=null && auth.getStatus()==true && auth.getPassword().equals(password)){
                 User user = userService.selectUserInfo(auth.getUserId());
                 request.getSession().setAttribute("user",user);
                 return 1;
@@ -140,8 +140,14 @@ public class UserController {
             UserAuth user = userService.selectUserAuth(account);
             if(user!=null && user.getStatus()==true) {
                 user.setPassword(password);
+                //未激活找回密码通过验证码默认激活
+                user.setStatus(true);
                 //更新用户的密码
                 int result = userService.updateInfo(user);
+                if(result==1){
+                    //清除验证码
+                    jedisClient.del(account);
+                }
                 return result;
             }
         }

@@ -84,4 +84,7 @@ public interface SceneMapper {
 
     //场景搜索
     List<Scene> selectInfoByTitle(String content);
+
+    //更新封面图
+    int updateCoverById(@Param("id")Integer id,@Param("cover")String cover);
 }

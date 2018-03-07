@@ -52,6 +52,9 @@ public interface SceneService {
     //发布场景
     int insert(ScenePage scenePage);
 
+    //更新封面图
+    int updateCover(String cover,int id);
+
     //场景搜索
     List<Scene> search(String content);
 

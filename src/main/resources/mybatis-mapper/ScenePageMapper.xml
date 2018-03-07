@@ -1,159 +1,156 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.scene.dao.ScenePageMapper">
-  <resultMap id="BaseResultMap" type="cn.scene.model.ScenePage">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="scene_id" jdbcType="INTEGER" property="sceneId" />
-    <result column="current_page" jdbcType="INTEGER" property="currentPage" />
-    <result column="times" jdbcType="DATE" property="times" />
-    <result column="background" jdbcType="VARCHAR" property="background" />
-    <result column="bgColor" jdbcType="VARCHAR" property="bgcolor" />
-    <result column="is_example" jdbcType="TINYINT" property="isExample" />
-    <result column="is_del" jdbcType="TINYINT" property="isDel" />
-  </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="cn.scene.model.ScenePage">
-    <result column="content" jdbcType="LONGVARCHAR" property="content" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, scene_id, current_page, times, background, bgColor, is_example, is_del
-  </sql>
-  <sql id="Blob_Column_List">
-    content
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
-    select 
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from scene_page
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from scene_page
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="cn.scene.model.ScenePage">
-    insert into scene_page (id, scene_id, current_page, 
-      times, background, bgColor, 
-      is_example, is_del, content
-      )
-    values (#{id,jdbcType=INTEGER}, #{sceneId,jdbcType=INTEGER}, #{currentPage,jdbcType=INTEGER}, 
-      #{times,jdbcType=DATE}, #{background,jdbcType=VARCHAR}, #{bgcolor,jdbcType=VARCHAR}, 
-      #{isExample,jdbcType=TINYINT}, #{isDel,jdbcType=TINYINT}, #{content,jdbcType=LONGVARCHAR}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="cn.scene.model.ScenePage">
-    insert into scene_page
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="sceneId != null">
-        scene_id,
-      </if>
-      <if test="currentPage != null">
-        current_page,
-      </if>
-      <if test="times != null">
-        times,
-      </if>
-      <if test="background != null">
-        background,
-      </if>
-      <if test="bgcolor != null">
-        bgColor,
-      </if>
-      <if test="isExample != null">
-        is_example,
-      </if>
-      <if test="isDel != null">
-        is_del,
-      </if>
-      <if test="content != null">
-        content,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="sceneId != null">
-        #{sceneId,jdbcType=INTEGER},
-      </if>
-      <if test="currentPage != null">
-        #{currentPage,jdbcType=INTEGER},
-      </if>
-      <if test="times != null">
-        #{times,jdbcType=DATE},
-      </if>
-      <if test="background != null">
-        #{background,jdbcType=VARCHAR},
-      </if>
-      <if test="bgcolor != null">
-        #{bgcolor,jdbcType=VARCHAR},
-      </if>
-      <if test="isExample != null">
-        #{isExample,jdbcType=TINYINT},
-      </if>
-      <if test="isDel != null">
-        #{isDel,jdbcType=TINYINT},
-      </if>
-      <if test="content != null">
-        #{content,jdbcType=LONGVARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="cn.scene.model.ScenePage">
-    update scene_page
-    <set>
-      <if test="sceneId != null">
-        scene_id = #{sceneId,jdbcType=INTEGER},
-      </if>
-      <if test="currentPage != null">
-        current_page = #{currentPage,jdbcType=INTEGER},
-      </if>
-      <if test="times != null">
-        times = #{times,jdbcType=DATE},
-      </if>
-      <if test="background != null">
-        background = #{background,jdbcType=VARCHAR},
-      </if>
-      <if test="bgcolor != null">
-        bgColor = #{bgcolor,jdbcType=VARCHAR},
-      </if>
-      <if test="isExample != null">
-        is_example = #{isExample,jdbcType=TINYINT},
-      </if>
-      <if test="isDel != null">
-        is_del = #{isDel,jdbcType=TINYINT},
-      </if>
-      <if test="content != null">
-        content = #{content,jdbcType=LONGVARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="cn.scene.model.ScenePage">
-    update scene_page
-    set scene_id = #{sceneId,jdbcType=INTEGER},
-      current_page = #{currentPage,jdbcType=INTEGER},
-      times = #{times,jdbcType=DATE},
-      background = #{background,jdbcType=VARCHAR},
-      bgColor = #{bgcolor,jdbcType=VARCHAR},
-      is_example = #{isExample,jdbcType=TINYINT},
-      is_del = #{isDel,jdbcType=TINYINT},
-      content = #{content,jdbcType=LONGVARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="cn.scene.model.ScenePage">
-    update scene_page
-    set scene_id = #{sceneId,jdbcType=INTEGER},
-      current_page = #{currentPage,jdbcType=INTEGER},
-      times = #{times,jdbcType=DATE},
-      background = #{background,jdbcType=VARCHAR},
-      bgColor = #{bgcolor,jdbcType=VARCHAR},
-      is_example = #{isExample,jdbcType=TINYINT},
-      is_del = #{isDel,jdbcType=TINYINT}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+    <resultMap id="BaseResultMap" type="cn.scene.model.ScenePage">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="scene_id" jdbcType="INTEGER" property="sceneId"/>
+        <result column="current_page" jdbcType="INTEGER" property="currentPage"/>
+        <result column="times" jdbcType="DATE" property="times"/>
+        <result column="background" jdbcType="VARCHAR" property="background"/>
+        <result column="bgColor" jdbcType="VARCHAR" property="bgcolor"/>
+        <result column="is_example" jdbcType="TINYINT" property="isExample"/>
+        <result column="is_del" jdbcType="TINYINT" property="isDel"/>
+    </resultMap>
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="cn.scene.model.ScenePage">
+        <result column="content" jdbcType="LONGVARCHAR" property="content"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, scene_id, current_page, times, background, bgColor, is_example, is_del
+    </sql>
+    <sql id="Blob_Column_List">
+        content
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from scene_page
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from scene_page
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="cn.scene.model.ScenePage">
+        insert into scene_page (id, scene_id, current_page,
+          times, background, bgColor,
+          is_example, is_del, content
+          )
+        values (#{id,jdbcType=INTEGER}, #{sceneId,jdbcType=INTEGER}, #{currentPage,jdbcType=INTEGER},
+          #{times,jdbcType=DATE}, #{background,jdbcType=VARCHAR}, #{bgcolor,jdbcType=VARCHAR},
+          #{isExample,jdbcType=TINYINT}, #{isDel,jdbcType=TINYINT}, #{content,jdbcType=LONGVARCHAR}
+          )
+    </insert>
+    <insert id="insertSelective" parameterType="cn.scene.model.ScenePage">
+        insert into scene_page
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="sceneId != null">
+                scene_id,
+            </if>
+            <if test="currentPage != null">
+                current_page,
+            </if>
+            <if test="times != null">
+                times,
+            </if>
+            <if test="background != null">
+                background,
+            </if>
+            <if test="bgcolor != null">
+                bgColor,
+            </if>
+            <if test="isExample != null">
+                is_example,
+            </if>
+            <if test="isDel != null">
+                is_del,
+            </if>
+            <if test="content != null">
+                content,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="sceneId != null">
+                #{sceneId,jdbcType=INTEGER},
+            </if>
+            <if test="currentPage != null">
+                #{currentPage,jdbcType=INTEGER},
+            </if>
+            <if test="times != null">
+                #{times,jdbcType=DATE},
+            </if>
+            <if test="background != null">
+                #{background,jdbcType=VARCHAR},
+            </if>
+            <if test="bgcolor != null">
+                #{bgcolor,jdbcType=VARCHAR},
+            </if>
+            <if test="isExample != null">
+                #{isExample,jdbcType=TINYINT},
+            </if>
+            <if test="isDel != null">
+                #{isDel,jdbcType=TINYINT},
+            </if>
+            <if test="content != null">
+                #{content,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.scene.model.ScenePage">
+        update scene_page
+        <set>
+            <if test="times != null">
+                times = #{times,jdbcType=DATE},
+            </if>
+            <if test="background != null">
+                background = #{background,jdbcType=VARCHAR},
+            </if>
+            <if test="bgcolor != null">
+                bgColor = #{bgcolor,jdbcType=VARCHAR},
+            </if>
+            <if test="isExample != null">
+                is_example = #{isExample,jdbcType=TINYINT},
+            </if>
+            <if test="isDel != null">
+                is_del = #{isDel,jdbcType=TINYINT},
+            </if>
+            <if test="content != null">
+                content = #{content,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where scene_id = #{sceneId,jdbcType=INTEGER} AND  current_page = #{currentPage,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="cn.scene.model.ScenePage">
+        update scene_page
+        set scene_id = #{sceneId,jdbcType=INTEGER},
+          current_page = #{currentPage,jdbcType=INTEGER},
+          times = #{times,jdbcType=DATE},
+          background = #{background,jdbcType=VARCHAR},
+          bgColor = #{bgcolor,jdbcType=VARCHAR},
+          is_example = #{isExample,jdbcType=TINYINT},
+          is_del = #{isDel,jdbcType=TINYINT},
+          content = #{content,jdbcType=LONGVARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.scene.model.ScenePage">
+        update scene_page
+        set scene_id = #{sceneId,jdbcType=INTEGER},
+          current_page = #{currentPage,jdbcType=INTEGER},
+          times = #{times,jdbcType=DATE},
+          background = #{background,jdbcType=VARCHAR},
+          bgColor = #{bgcolor,jdbcType=VARCHAR},
+          is_example = #{isExample,jdbcType=TINYINT},
+          is_del = #{isDel,jdbcType=TINYINT}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <select id="selectBySceneId" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM scene_page where scene_id = #{sceneId,jdbcType=INTEGER} AND current_page = #{currentPage,jdbcType=INTEGER}
+    </select>
 </mapper>
