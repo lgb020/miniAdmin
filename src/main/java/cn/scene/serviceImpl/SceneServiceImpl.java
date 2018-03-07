@@ -242,7 +242,7 @@ public class SceneServiceImpl implements SceneService {
             String name = ImgEcoding.GenerateImage(cover,path);
             if(StringUtils.isNotBlank(name)){
                 String root = "http://www.hsfeng.cn/scene/upload/";
-                url = root+"user/"+date+"/"+name;
+                url = root+"cover/"+date+"/"+name;
             }
         }catch (Exception e){
             e.printStackTrace();
