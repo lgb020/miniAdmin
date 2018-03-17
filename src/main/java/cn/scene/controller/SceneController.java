@@ -196,4 +196,30 @@ public class SceneController {
         return result;
     }
 
+    //场景信息查询
+    @RequestMapping("/scene")
+    public @ResponseBody Scene scebeInfo(HttpServletRequest request){
+        String index = request.getParameter("sceneId");
+        String regx="^[0-9]+$";
+        Scene scene = new Scene();
+        if(index.matches(regx)){
+            int sceneId = Integer.parseInt(index);
+            scene = sceneService.scene(sceneId);
+        }
+        return scene;
+    }
+
+    //单页查询
+    @RequestMapping("/list")
+    public @ResponseBody List<ScenePage> Pageinfo(HttpServletRequest request){
+        String index = request.getParameter("sceneId");
+        String regx="^[0-9]+$";
+        List<ScenePage> list = new ArrayList<>();
+        if(index.matches(regx)){
+            int sceneId = Integer.parseInt(index);
+            list = sceneService.pageInfo(sceneId);
+        }
+        return list;
+    }
+
 }

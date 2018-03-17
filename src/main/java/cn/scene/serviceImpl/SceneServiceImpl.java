@@ -2,15 +2,18 @@ package cn.scene.serviceImpl;
 
 import cn.scene.dao.SceneMapper;
 import cn.scene.dao.ScenePageMapper;
+import cn.scene.jedis.JedisClient;
 import cn.scene.model.Scene;
 import cn.scene.model.ScenePage;
 import cn.scene.service.SceneService;
 import cn.scene.util.DateFormat;
 import cn.scene.util.ImgEcoding;
+import cn.scene.util.JsonUtils;
 import cn.scene.util.RealPathTool;
 import com.github.pagehelper.PageHelper;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,6 +32,12 @@ public class SceneServiceImpl implements SceneService {
     private SceneMapper sceneMapper;
     @Autowired
     private ScenePageMapper scenePageMapper;
+    @Autowired
+    private JedisClient jedisClient; // redis客户端
+    @Value("${SCENE}")
+    private String SCENE;
+    @Value("${SCENEINFO}")
+    private String SCENEINFO;
 
     /**
      * 精选模板
@@ -261,6 +270,56 @@ public class SceneServiceImpl implements SceneService {
     @Override
     public List<Scene> search(String content) {
         return sceneMapper.selectInfoByTitle(content);
+    }
+
+    /**
+     * 场景查询
+     * @param sceneId
+     * @return
+     */
+    @Override
+    public Scene scene(Integer sceneId) {
+        String field = "scene"+sceneId; // 场景保存在redis中的key
+        try{
+            String sceneInfo = jedisClient.hget(SCENE,field);
+            if(StringUtils.isNotBlank(sceneInfo)){
+                return JsonUtils.jsonToPojo(sceneInfo,Scene.class);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        Scene scene = sceneMapper.selectByPrimaryKey(sceneId);
+        try{
+            jedisClient.hset(SCENE,field,JsonUtils.objectToJson(scene));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return scene;
+    }
+
+    /**
+     * 单页查询
+     * @param sceneId
+     * @return
+     */
+    @Override
+    public List<ScenePage> pageInfo(Integer sceneId) {
+        String field = "page"+sceneId; // 单页保存在redis中的key
+        try{
+            String pageInfo = jedisClient.hget(SCENEINFO,field);
+            if(StringUtils.isNotBlank(pageInfo)){
+                return JsonUtils.jsonToList(pageInfo,ScenePage.class);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        List<ScenePage> list = scenePageMapper.selectInfoBySceneId(sceneId);
+        try{
+            jedisClient.hset(SCENEINFO,field,JsonUtils.objectToJson(list));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return list;
     }
 
 }

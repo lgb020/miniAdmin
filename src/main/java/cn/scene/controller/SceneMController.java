@@ -23,11 +23,13 @@ public class SceneMController {
     @RequestMapping("/shelve")
     public @ResponseBody Boolean shelve(HttpServletRequest request){
         String index = request.getParameter("id");
+        String jInden = request.getParameter("jifen");
         String regx = "^[0-9]+$";
         Boolean result = false;
-        if(index.matches(regx)){
+        if(index.matches(regx) && jInden.matches(regx)){
             int id = Integer.parseInt(index);
-            result = sceneMService.shelve(id);
+            int jifen = Integer.parseInt(jInden);
+            result = sceneMService.shelve(id,jifen);
         }
         return result;
     }

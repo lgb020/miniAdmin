@@ -3,6 +3,8 @@ package cn.scene.dao;
 import cn.scene.model.ScenePage;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 public interface ScenePageMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -21,4 +23,6 @@ public interface ScenePageMapper {
     //查询该场景当前页是否存在
     int selectBySceneId(@Param("sceneId")int sceneId,@Param("currentPage")int currentPage);
 
+    //根据sceneId查询场景
+    List<ScenePage> selectInfoBySceneId(Integer sceneId);
 }

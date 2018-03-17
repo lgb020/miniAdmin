@@ -300,8 +300,9 @@
             AND from_scene>0
         </if>
     </select>
-    <update id="updateByIsIssue" parameterType="java.lang.Integer">
-        UPDATE scene SET is_issue=1 WHERE id=#{id,jdbcType=INTEGER}
+    <update id="updateByIsIssue">
+        UPDATE scene SET is_issue=1,jifen = #{jifen,jdbcType=INTEGER}
+        WHERE id=#{id,jdbcType=INTEGER}
     </update>
     <select id="selectByApartInfo" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         SELECT title,describes,m_title FROM scene WHERE id=#{id,jdbcType=INTEGER}

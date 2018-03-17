@@ -58,4 +58,10 @@ public interface SceneService {
     //场景搜索
     List<Scene> search(String content);
 
+    //场景查询
+    Scene scene(Integer sceneId);
+
+    //单页查询
+    List<ScenePage> pageInfo(Integer sceneId);
+
 }

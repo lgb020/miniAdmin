@@ -24,8 +24,8 @@ public class SceneMServiceImpl implements SceneMService{
      * @return
      */
     @Override
-    public Boolean shelve(Integer sceneId) {
-        int result = sceneMapper.updateByIsIssue(sceneId);
+    public Boolean shelve(Integer sceneId,Integer jifen) {
+        int result = sceneMapper.updateByIsIssue(sceneId,jifen);
         if(result==0){
             return false;
         }

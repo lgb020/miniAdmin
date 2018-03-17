@@ -10,7 +10,7 @@ import java.util.List;
 public interface SceneMService {
 
     //上架
-    Boolean shelve(Integer sceneId);
+    Boolean shelve(Integer sceneId,Integer jifen);
 
     //设置
     Scene setting(Integer sceneId);

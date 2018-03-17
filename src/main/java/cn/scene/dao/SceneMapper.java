@@ -62,7 +62,7 @@ public interface SceneMapper {
     List<Scene> selectByFromScene(@Param("userId") Integer userId, @Param("fromId") Integer FromId);
 
     //场景上架
-    int updateByIsIssue(Integer id);
+    int updateByIsIssue(@Param("id") Integer id,@Param("jifen") Integer jifen);
 
     //场景标题
     Scene selectByApartInfo(Integer id);
@@ -76,7 +76,7 @@ public interface SceneMapper {
     //插入数据初始化
     int getNewsId(Scene scene);
 
-    //场景下架
+    //根据id更新场景下架
     int updateIsIssue(Integer id);
 
     //更新场景背景音乐
@@ -85,6 +85,7 @@ public interface SceneMapper {
     //场景搜索
     List<Scene> selectInfoByTitle(String content);
 
-    //更新封面图
+    //根据id更新封面图
     int updateCoverById(@Param("id")Integer id,@Param("cover")String cover);
+
 }
