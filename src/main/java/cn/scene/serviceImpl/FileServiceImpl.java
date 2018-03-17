@@ -36,7 +36,7 @@ public class FileServiceImpl implements FileService{
      */
     @Override
     public List<Sysfile> info(String type, int page) {
-        PageHelper.startPage(page,15);
+        PageHelper.startPage(page,30);
         List<Sysfile> list = sysfileMapper.selectInfoByType(type);
         return list;
     }
@@ -50,10 +50,10 @@ public class FileServiceImpl implements FileService{
     public int infoCount(String type) {
         int counts = sysfileMapper.selectInfoCounts(type);
         int page = 0;
-        if(counts%15==0){
-            page = counts/15;
+        if(counts%30==0){
+            page = counts/30;
         }else{
-            page = counts/15+1;
+            page = counts/30+1;
         }
         return page;
     }
