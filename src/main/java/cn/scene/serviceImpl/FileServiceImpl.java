@@ -108,4 +108,18 @@ public class FileServiceImpl implements FileService{
         return result;
     }
 
+    /**
+     * 系统素材添加
+     * @param type
+     * @param url
+     * @return
+     */
+    @Override
+    public int addSysInfo(String type, String url) {
+        Sysfile file = new Sysfile();
+        file.setType(type);
+        file.setUrl(url);
+        return sysfileMapper.insertSelective(file);
+    }
+
 }

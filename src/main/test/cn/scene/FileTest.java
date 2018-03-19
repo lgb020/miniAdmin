@@ -24,19 +24,23 @@ public class FileTest extends BaseJunit4Test{
     @Test
     public void sysbg(){
         List<String> list = new ArrayList<>();
-        String strPath = "D:\\xampp\\xampp\\htdocs\\yiqixiu\\Uploads\\syspic\\img";
+        String strPath = "C:\\Users\\hong\\Desktop\\sys";
         File dir = new File(strPath);
         File[] files = dir.listFiles(); // 该文件目录下文件全部放入数组
         if (files != null) {
             for (int i = 0; i < files.length; i++) {
                 String fileName = files[i].getName();
-                if (fileName.endsWith(".jpg") || fileName.endsWith(".png")) {
+                if (fileName.endsWith(".jpg") || fileName.endsWith(".png")|| fileName.endsWith(".gif")) {
                     list.add(fileName);
                 } else {
                     continue;
                 }
             }
 
+        }
+        for(int i=0;i<list.size();i++){
+            int result = fileService.addSysInfo("1","http://www.hsfeng.cn/scene/upload/img/sys/"+list.get(i));
+            System.out.println(result);
         }
     }
 

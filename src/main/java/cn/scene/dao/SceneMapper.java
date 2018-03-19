@@ -88,4 +88,6 @@ public interface SceneMapper {
     //根据id更新封面图
     int updateCoverById(@Param("id")Integer id,@Param("cover")String cover);
 
+    //根据code查询场景
+    Scene selectInfoByCode(String code);
 }

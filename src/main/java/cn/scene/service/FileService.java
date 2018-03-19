@@ -19,7 +19,10 @@ public interface FileService {
     //查询素材记录
     List<Upfile> recordInfo(String type,int userId);
 
-    //素材添加
+    //用户素材添加
     int addInfo(int userId,String type,String img);
+
+    //系统素材添加
+    int addSysInfo(String type,String url);
 
 }

@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.json.Json;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -320,6 +321,30 @@ public class SceneServiceImpl implements SceneService {
             e.printStackTrace();
         }
         return list;
+    }
+
+    /**
+     * 根据code访问场景
+     * @param code
+     * @return
+     */
+    @Override
+    public Scene scene(String code) {
+        try{
+            String sceneInfo = jedisClient.hget(SCENE,code);
+            if(StringUtils.isNotBlank(sceneInfo)){
+                return JsonUtils.jsonToPojo(sceneInfo,Scene.class);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        Scene scene = sceneMapper.selectInfoByCode(code);
+        try{
+            jedisClient.hset(SCENE,code,JsonUtils.objectToJson(scene));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return scene;
     }
 
 }

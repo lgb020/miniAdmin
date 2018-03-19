@@ -7,6 +7,7 @@ import cn.scene.service.SceneService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -220,6 +221,19 @@ public class SceneController {
             list = sceneService.pageInfo(sceneId);
         }
         return list;
+    }
+
+    //分享场景查询
+    @RequestMapping("/view")
+    public String sceneView(HttpServletRequest request,Model model){
+        String code = request.getParameter("code");
+        Scene scene = new Scene();
+        if(StringUtils.isNotBlank(code)){
+            scene = sceneService.scene(code);
+            model.addAttribute("scene",scene);
+            return "view";
+        }
+        return null;
     }
 
 }

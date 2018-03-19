@@ -64,4 +64,7 @@ public interface SceneService {
     //单页查询
     List<ScenePage> pageInfo(Integer sceneId);
 
+    //根据code查看场景
+    Scene scene(String code);
+
 }

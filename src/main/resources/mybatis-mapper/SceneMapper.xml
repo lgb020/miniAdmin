@@ -337,4 +337,10 @@
         UPDATE scene SET cover = #{cover,jdbcType=VARCHAR}
         WHERE id = #{id,jdbcType=INTEGER}
     </update>
+    <select id="selectInfoByCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM scene
+        WHERE is_del=1 and code = #{code,jdbcType=VARCHAR}
+    </select>
 </mapper>
