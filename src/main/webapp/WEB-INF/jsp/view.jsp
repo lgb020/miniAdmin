@@ -30,9 +30,9 @@
                 <div class="swiper-pagination"></div>
             </div>
             <div class="bgm-btn rotate">
-                <audio src="{{music}}" autoplay loop id="music"></audio>
+                <audio src="${scene.music}" autoplay loop id="music"></audio>
             </div>
-            <input type="text" value="${scene.id}" id="sceneId"/>
+            <input type="hidden" value="${scene.id}" id="sceneId"/>
         </div>
     </body>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/mui.min.js"></script>
