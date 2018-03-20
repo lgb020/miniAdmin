@@ -29,7 +29,7 @@
                 </div>
                 <div class="swiper-pagination"></div>
             </div>
-            <div class="bgm-btn rotate">
+            <div class="bgm-btn rotate" style="background-image:url(${pageContext.request.contextPath}/img/view/music.svg);">
                 <audio src="${scene.music}" autoplay loop id="music"></audio>
             </div>
             <input type="hidden" value="${scene.id}" id="sceneId"/>

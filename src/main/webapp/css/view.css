@@ -33,11 +33,10 @@ ul {
 .bgm-btn {
     position: absolute;
     right: 20px;
-    top: 60px;
+    top: 20px;
     z-index: 200;
     width: 30px;
     height: 30px;
-    background-image: url(http://as.eqh5.com/h5_view_2/images/bgmBtn-fbd2dc.svg);
     background-size: contain;
     background-repeat: no-repeat;
 }
