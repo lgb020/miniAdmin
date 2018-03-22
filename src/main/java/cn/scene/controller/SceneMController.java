@@ -2,6 +2,8 @@ package cn.scene.controller;
 
 import cn.scene.model.Scene;
 import cn.scene.service.SceneMService;
+import com.github.pagehelper.StringUtil;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -83,6 +85,32 @@ public class SceneMController {
             result = sceneMService.updateIssue(id);
         }
         return result;
+    }
+
+    //场景举报ip查询
+    @RequestMapping("/ip")
+    public @ResponseBody Boolean ipSelect(HttpServletRequest request){
+        String index = request.getParameter("sceneId");
+        String userIp = request.getParameter("ip"); //用户客户端ip
+        if(StringUtils.isNotBlank(index) && StringUtils.isNotBlank(userIp)){
+            int sceneId = Integer.parseInt(index);
+            return sceneMService.ipIsExit(sceneId,userIp);
+        }
+        return false;
+    }
+
+    //场景举报
+    @RequestMapping("/report")
+    public @ResponseBody int reportScene(HttpServletRequest request){
+        String index = request.getParameter("sceneId");
+        String userIp = request.getParameter("ip"); //用户客户端ip
+        String content = request.getParameter("content");
+        if(StringUtils.isNotBlank(index) && StringUtils.isNotBlank(userIp)
+                && StringUtils.isNotBlank(content)){
+            int sceneId = Integer.parseInt(index);
+            return sceneMService.reportScene(sceneId,userIp,content);
+        }
+        return 0;
     }
 
 }

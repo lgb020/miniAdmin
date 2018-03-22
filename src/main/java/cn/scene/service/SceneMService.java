@@ -24,4 +24,10 @@ public interface SceneMService {
     //下架
     int updateIssue(Integer id);
 
+    //场景举报ip查询
+    Boolean ipIsExit(int sceneId,String ip);
+
+    //场景举报
+    int reportScene(int sceneId,String ip,String content);
+
 }

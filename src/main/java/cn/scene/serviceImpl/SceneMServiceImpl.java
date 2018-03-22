@@ -1,7 +1,9 @@
 package cn.scene.serviceImpl;
 
 import cn.scene.dao.SceneMapper;
+import cn.scene.dao.SceneReportMapper;
 import cn.scene.model.Scene;
+import cn.scene.model.SceneReport;
 import cn.scene.service.SceneMService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,8 @@ public class SceneMServiceImpl implements SceneMService{
 
     @Autowired
     private SceneMapper sceneMapper;
+    @Autowired
+    private SceneReportMapper sceneReportMapper;
 
     /**
      * 上架
@@ -77,6 +81,37 @@ public class SceneMServiceImpl implements SceneMService{
     @Transactional
     public int updateIssue(Integer id) {
         return sceneMapper.updateIsIssue(id);
+    }
+
+    /**
+     * 场景举报ip查询
+     * @param sceneId
+     * @param ip
+     * @return
+     */
+    @Override
+    public Boolean ipIsExit(int sceneId, String ip) {
+        SceneReport result = sceneReportMapper.selectIdBySceneId(sceneId,ip);
+        if(result!=null){
+            return false; //该ip已有举报记录
+        }
+        return true;
+    }
+
+    /**
+     * 场景举报
+     * @param sceneId
+     * @param ip
+     * @param content
+     * @return
+     */
+    @Override
+    public int reportScene(int sceneId, String ip, String content) {
+        SceneReport report = new SceneReport();
+        report.setIp(ip);
+        report.setSceneId(sceneId);
+        report.setReason(content);
+        return sceneReportMapper.insertReportInfo(report);
     }
 
 

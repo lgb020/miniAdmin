@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.scene.dao.SceneReportMapper">
+    <resultMap id="BaseResultMap" type="cn.scene.model.SceneReport">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="scene_id" jdbcType="INTEGER" property="sceneId"/>
+        <result column="ip" jdbcType="VARCHAR" property="ip"/>
+        <result column="reason" jdbcType="VARCHAR" property="reason"/>
+        <result column="is_dispose" jdbcType="TINYINT" property="isDispose"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, scene_id, ip, reason, is_dispose
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from scene_report
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from scene_report
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="cn.scene.model.SceneReport">
+        insert into scene_report (id, scene_id, ip,
+          reason, is_dispose)
+        values (#{id,jdbcType=INTEGER}, #{sceneId,jdbcType=INTEGER}, #{ip,jdbcType=VARCHAR},
+          #{reason,jdbcType=VARCHAR}, #{isDispose,jdbcType=TINYINT})
+    </insert>
+    <insert id="insertSelective" parameterType="cn.scene.model.SceneReport">
+        insert into scene_report
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="sceneId != null">
+                scene_id,
+            </if>
+            <if test="ip != null">
+                ip,
+            </if>
+            <if test="reason != null">
+                reason,
+            </if>
+            <if test="isDispose != null">
+                is_dispose,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="sceneId != null">
+                #{sceneId,jdbcType=INTEGER},
+            </if>
+            <if test="ip != null">
+                #{ip,jdbcType=VARCHAR},
+            </if>
+            <if test="reason != null">
+                #{reason,jdbcType=VARCHAR},
+            </if>
+            <if test="isDispose != null">
+                #{isDispose,jdbcType=TINYINT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.scene.model.SceneReport">
+        update scene_report
+        <set>
+            <if test="sceneId != null">
+                scene_id = #{sceneId,jdbcType=INTEGER},
+            </if>
+            <if test="ip != null">
+                ip = #{ip,jdbcType=VARCHAR},
+            </if>
+            <if test="reason != null">
+                reason = #{reason,jdbcType=VARCHAR},
+            </if>
+            <if test="isDispose != null">
+                is_dispose = #{isDispose,jdbcType=TINYINT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.scene.model.SceneReport">
+        update scene_report
+        set scene_id = #{sceneId,jdbcType=INTEGER},
+          ip = #{ip,jdbcType=VARCHAR},
+          reason = #{reason,jdbcType=VARCHAR},
+          is_dispose = #{isDispose,jdbcType=TINYINT}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <select id="selectIdBySceneId" resultMap="BaseResultMap">
+        select id from scene_report where ip=#{ip,jdbcType=VARCHAR} and scene_id = #{sceneId,jdbcType=INTEGER}
+    </select>
+    <insert id="insertReportInfo" parameterType="cn.scene.model.SceneReport" useGeneratedKeys="true" keyColumn="id">
+        insert into scene_report (scene_id, ip, reason)
+        values (#{sceneId,jdbcType=INTEGER}, #{ip,jdbcType=VARCHAR},#{reason,jdbcType=VARCHAR})
+    </insert>
+</mapper>
