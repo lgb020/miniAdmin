@@ -14,4 +14,5 @@
 <ul>
     <li>爬虫框架WebCollector：<a href="https://github.com/CrawlScript/WebCollector">https://github.com/CrawlScript/WebCollector</a></li>
     <li>Redis数据库：<a href="http://www.runoob.com/redis/redis-tutorial.html">http://www.runoob.com/redis/redis-tutorial.html</a></li>
+    <li>Mybatis分页插件PageHelper：<a href="https://github.com/pagehelper/Mybatis-PageHelper/blob/master/wikis/zh/HowToUse.md">https://github.com/pagehelper/Mybatis-PageHelper/blob/master/wikis/zh/HowToUse.md</a></li>
 </ul>
