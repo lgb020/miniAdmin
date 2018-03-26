@@ -12,6 +12,7 @@
 </ul>
 <p><strong>参考文档</strong></p>
 <ul>
+    <li>基于163邮箱验证：<a href="https://blog.csdn.net/hsf15768615284/article/details/79521014">https://blog.csdn.net/hsf15768615284/article/details/79521014</a></li>
     <li>爬虫框架WebCollector：<a href="https://github.com/CrawlScript/WebCollector">https://github.com/CrawlScript/WebCollector</a></li>
     <li>Redis数据库：<a href="http://www.runoob.com/redis/redis-tutorial.html">http://www.runoob.com/redis/redis-tutorial.html</a></li>
     <li>Mybatis分页插件PageHelper：<a href="https://github.com/pagehelper/Mybatis-PageHelper">https://github.com/pagehelper/Mybatis-PageHelper</a></li>
