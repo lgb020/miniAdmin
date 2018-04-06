@@ -7,8 +7,8 @@
         <result column="is_del" jdbcType="TINYINT" property="isDel"/>
     </resultMap>
     <sql id="Base_Column_List">
-    id, img, is_del
-  </sql>
+      id, img, is_del
+    </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
@@ -16,15 +16,15 @@
         where id = #{id,jdbcType=INTEGER}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from advertise
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
+        delete from advertise
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
     <insert id="insert" parameterType="cn.scene.model.Advertise">
-    insert into advertise (id, img, is_del
-      )
-    values (#{id,jdbcType=INTEGER}, #{img,jdbcType=VARCHAR}, #{isDel,jdbcType=TINYINT}
-      )
-  </insert>
+        insert into advertise (id, img, is_del
+          )
+        values (#{id,jdbcType=INTEGER}, #{img,jdbcType=VARCHAR}, #{isDel,jdbcType=TINYINT}
+          )
+    </insert>
     <insert id="insertSelective" parameterType="cn.scene.model.Advertise">
         insert into advertise
         <trim prefix="(" suffix=")" suffixOverrides=",">

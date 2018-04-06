@@ -1,8 +1,6 @@
 package cn.scene.dao;
 
 import cn.scene.model.Message;
-import cn.scene.model.Scene;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 

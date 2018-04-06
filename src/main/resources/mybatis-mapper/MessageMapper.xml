@@ -10,8 +10,8 @@
         <result column="is_del" jdbcType="BIT" property="isDel"/>
     </resultMap>
     <sql id="Base_Column_List">
-    id, user_id, content, times, is_read, is_del
-  </sql>
+        id, user_id, content, times, is_read, is_del
+    </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
@@ -19,15 +19,15 @@
         where id = #{id,jdbcType=INTEGER}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from message
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
+        delete from message
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
     <insert id="insert" parameterType="cn.scene.model.Message">
-    insert into message (id, user_id, content, 
-      times, is_read, is_del)
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, 
-      #{times,jdbcType=DATE}, #{isRead,jdbcType=BIT}, #{isDel,jdbcType=BIT})
-  </insert>
+        insert into message (id, user_id, content,
+          times, is_read, is_del)
+        values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR},
+          #{times,jdbcType=DATE}, #{isRead,jdbcType=BIT}, #{isDel,jdbcType=BIT})
+    </insert>
     <insert id="insertSelective" parameterType="cn.scene.model.Message">
         insert into message
         <trim prefix="(" suffix=")" suffixOverrides=",">
