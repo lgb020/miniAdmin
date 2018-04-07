@@ -1,6 +1,9 @@
 package cn.scene.controller;
 
+import cn.scene.model.Scene;
 import cn.scene.model.Store;
+import cn.scene.model.User;
+import cn.scene.service.AboutService;
 import cn.scene.service.StoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +23,8 @@ public class StoreController {
 
     @Autowired
     private StoreService storeService;
+    @Autowired
+    private AboutService aboutService;
 
     //设计小店
     @RequestMapping("/news")
@@ -55,5 +60,18 @@ public class StoreController {
     @RequestMapping("/count")
     public @ResponseBody int storeCounts(HttpServletRequest request){
         return storeService.selectStoreCounts();
+    }
+
+    //查看小店内场景模板
+    @RequestMapping("/list")
+    public @ResponseBody List<Scene> store(HttpServletRequest request){
+        String index = request.getParameter("id");
+        String regx = "^[0-9]+$";
+        List<Scene> list = new ArrayList<>();
+        if(index.matches(regx)) {
+            int page = Integer.parseInt(index);
+            list = aboutService.sceneList(page);
+        }
+        return list;
     }
 }
