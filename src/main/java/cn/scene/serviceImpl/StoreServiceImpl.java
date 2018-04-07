@@ -90,7 +90,7 @@ public class StoreServiceImpl implements StoreService {
                 int count = storeMapper.selectCount(record.get(i).getId());
                 record.get(i).setCounts(count);
             }
-            //冒泡排序实现对list进行排序
+            //冒泡排序实现对list重排序
             Store cStore = new Store();
             for(int i=0;i<record.size();i++){
                 int temp = i;
