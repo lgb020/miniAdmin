@@ -21,7 +21,7 @@ public class AdvController {
     private AdvService advService;
 
     //首页轮播图
-    @RequestMapping(value = "/index")
+    @RequestMapping("/index")
     public @ResponseBody List<Advertise> index(HttpServletRequest request){
         List<Advertise> list = advService.info();
         return list;

@@ -51,7 +51,7 @@
         </mvc:interceptor>
     </mvc:interceptors>
 
-    <!-- 登陆状态检车 -->
+    <!-- 登陆状态检测 -->
     <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/about/**"/>
