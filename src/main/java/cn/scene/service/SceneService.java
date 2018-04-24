@@ -19,24 +19,6 @@ public interface SceneService {
     //最新推荐
     List<Scene> selectNews();
 
-    //热门模板-最新
-    List<Scene> hotInfo(Integer page);
-
-    //热门模板-最新总数
-    int hCount();
-
-    //热门模板-热门推荐
-    List<Scene> hotPage(Integer page);
-
-    //热门推荐-总页数
-    int hotPageCount();
-
-    //热销排行
-    List<Scene> companyScene(Integer page);
-
-    //热销排行总数
-    int companySceneCount();
-
     //个人相册
     List<Scene> photoScene(Integer page);
 

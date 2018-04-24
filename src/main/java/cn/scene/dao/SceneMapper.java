@@ -28,24 +28,6 @@ public interface SceneMapper {
     //查询最新推荐
     List<Scene> selectNews();
 
-    //热门模板-最新
-    List<Scene> selectByHot();
-
-    //热门模板-最新模板总数
-    int selectHCount();
-
-    //热门模板-热门推荐
-    List<Scene> selectByTimes();
-
-    //热门模板-热门推荐总数
-    int selectByTimesCount();
-
-    //企业宣传热销排行榜
-    List<Scene> selectCompanyByHitCount();
-
-    //企业宣传总数
-    int selectCompanyCount();
-
     //个人相册热销模板
     List<Scene> selectPhotoByHitCount();
 
