@@ -51,64 +51,6 @@ public class SceneController {
         return list;
     }
 
-    //热门模板-最新模板
-    @RequestMapping("/hot")
-    public @ResponseBody List<Scene> hot(HttpServletRequest request){
-        String page = request.getParameter("page");
-        String regx = "^[0-9]+";
-        List<Scene> list = new ArrayList<>();
-        //匹配是否为0和1，0为热门模板，1为换一批
-        if(page.matches(regx)){
-            int temp = Integer.parseInt(page);
-            list = sceneService.hotInfo(temp);
-        }
-        return list;
-    }
-
-    //热门模板-最新模板总数
-    @RequestMapping("/h/count")
-    public @ResponseBody int hCount(HttpServletRequest request){
-        return sceneService.hCount();
-    }
-
-    //热门模板-热门推荐
-    @RequestMapping("/hot/recommend")
-    public @ResponseBody List<Scene> hotRecommend(HttpServletRequest request){
-        String index = request.getParameter("page");
-        String regx = "^[0-9]+$";
-        List<Scene> list = new ArrayList<>();
-        if(index.matches(regx)){
-            int page = Integer.parseInt(index);
-            list = sceneService.hotPage(page);
-        }
-        return list;
-    }
-
-    //热门模板-热门推荐总页数
-    @RequestMapping("/hot/count")
-    public @ResponseBody int hotCount(HttpServletRequest request){
-        return sceneService.hotPageCount();
-    }
-
-    //企业宣传-热销
-    @RequestMapping("/company")
-    public @ResponseBody List<Scene> companyList(HttpServletRequest request){
-        String index = request.getParameter("page");
-        String regx = "^[0-9]+$";
-        List<Scene> list = new ArrayList<>();
-        if(index.matches(regx)){
-            int page =Integer.parseInt(index);
-            list = sceneService.companyScene(page);
-        }
-        return list;
-    }
-
-    //企业宣传-热销总数
-    @RequestMapping("/company/count")
-    public @ResponseBody int companyCount(HttpServletRequest request){
-        return sceneService.companySceneCount();
-    }
-
     //个人相册
     @RequestMapping("/photo")
     public @ResponseBody List<Scene> selfPhoto(HttpServletRequest request){

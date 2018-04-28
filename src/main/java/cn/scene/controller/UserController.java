@@ -49,7 +49,7 @@ public class UserController {
 
     //登录
     @RequestMapping("/login")
-    public @ResponseBody int login(HttpServletRequest request){
+    public @ResponseBody int login(HttpServletRequest request) throws Exception{
         String account = request.getParameter("account");
         String password = Md5Util.md5(request.getParameter("password"));
         if(StringUtils.isNotBlank(account) && StringUtils.isNotBlank(password)){
@@ -59,6 +59,10 @@ public class UserController {
                 User user = userService.selectUserInfo(auth.getUserId());
                 request.getSession().setAttribute("user",user);
                 return 1;
+            }else if(auth.getStatus()==false){
+                //未激活,发送激活邮件
+                MailUtil.activateMail(auth);
+                return 2;
             }
         }
         return 0;
@@ -97,7 +101,7 @@ public class UserController {
         int result = userService.userActivice(token,email);
         String mess = "";
         if (result > 0) {
-            mess = "激活成功，MINISCENE为你打造个性化场景";
+            mess = "账号激活成功。";
         }else{
             mess = "时间超时或验证码已失效，请重新注册。";
         }
