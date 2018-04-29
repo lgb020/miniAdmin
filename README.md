@@ -1,7 +1,7 @@
 <p><strong>项目说明</strong></p>
 <ul>
-    <li>项目采用Spring、SpringMVC、Mybatis实现H5场景制作</li>
-    <li>项目基于Maven进行管理，采用Redis进行场景页面数据缓存</li>
+    <li>项目采用Spring、SpringMVC、Mybatis实现H5场景制作平台；</li>
+    <li>项目基于Maven进行管理，采用Mysql和Redis实现数据存储</li>
 </ul>
 <p><strong>项目特点</strong></p>
 <ul>
@@ -9,7 +9,7 @@
     <li>积分机制：包括积分兑换场景、用户DIY场景上传平台赚取积分；</li>
     <li>会员机制：会员每月限定次数兑换积分模板；</li>
     <li>素材丰富：平台内置音乐爬虫；</li>
-    <li>定时机制：每月1号凌晨定时爬取素材、重置会员信息。</li> 
+    <li>定时机制：每月1号凌晨定时爬去素材、重置会员信息。</li> 
 </ul>
 <p><strong>参考文档</strong></p>
 <ul>
