@@ -1,5 +1,6 @@
 package cn.scene.controller;
 
+import cn.scene.model.DataDetail;
 import cn.scene.model.Scene;
 import cn.scene.model.User;
 import cn.scene.service.SceneMService;
@@ -149,6 +150,12 @@ public class SceneMController {
             return sceneMService.exchangeScene(scene);
         }
         return 0;
+    }
+
+    //数据收集
+    @RequestMapping("/collection")
+    public @ResponseBody int collection(HttpServletRequest request,DataDetail date){
+        return sceneMService.saveDateDetail(date);
     }
 
     //数据导出

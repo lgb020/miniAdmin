@@ -1,5 +1,6 @@
 package cn.scene.service;
 
+import cn.scene.model.DataDetail;
 import cn.scene.model.Scene;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -36,5 +37,8 @@ public interface SceneMService {
 
     //场景数据导出
     XSSFWorkbook exportExcelInfo(int sceneId) throws Exception;
+
+    //保存场景收集的数据
+    int saveDateDetail(DataDetail detail);
 
 }

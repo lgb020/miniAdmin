@@ -14,10 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 场景管理
@@ -157,6 +154,17 @@ public class SceneMServiceImpl implements SceneMService{
         //调用ExcelUtil的方法
         xssfWorkbook = ExcelUtil.createExcelFile(DataDetail.class, list, map, sheetName);
         return xssfWorkbook;
+    }
+
+    /**
+     * 保存场景收集的数据
+     * @param detail
+     * @return
+     */
+    @Override
+    public int saveDateDetail(DataDetail detail) {
+        detail.setTimes(new Date());
+        return dataDetailMapper.insertInfoByIP(detail);
     }
 
 

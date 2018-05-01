@@ -120,4 +120,15 @@
         from data_detail
         where scene_id = #{sceneId,jdbcType=INTEGER}
     </select>
+
+    <!-- 数据存在则不操作，不存在则保存数据 -->
+    <insert id="insertInfoByIP" parameterType="cn.scene.model.DataDetail">
+        INSERT INTO data_detail(scene_id,name,is_attend,content,ip,times)
+        SELECT #{sceneId,jdbcType=INTEGER},#{name,jdbcType=VARCHAR},#{isAttend,jdbcType=BIT},
+               #{content,jdbcType=VARCHAR},#{ip,jdbcType=VARCHAR},#{times,jdbcType=DATE}
+        FROM DUAL WHERE NOT EXISTS(
+            SELECT scene_id,ip FROM data_detail
+            WHERE scene_id = #{sceneId,jdbcType=VARCHAR} and ip=#{ip,jdbcType=VARCHAR}
+        )
+    </insert>
 </mapper>
