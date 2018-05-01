@@ -9,7 +9,7 @@ public class SceneReport {
 
     private String reason;
 
-    private Byte isDispose;
+    private Byte isDispose; //已处理
 
     public Integer getId() {
         return id;

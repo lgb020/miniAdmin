@@ -1,15 +1,23 @@
 package cn.scene.serviceImpl;
 
+import cn.scene.dao.DataDetailMapper;
 import cn.scene.dao.SceneMapper;
 import cn.scene.dao.SceneReportMapper;
+import cn.scene.model.DataDetail;
+import cn.scene.model.ExcelBean;
 import cn.scene.model.Scene;
 import cn.scene.model.SceneReport;
 import cn.scene.service.SceneMService;
+import cn.scene.util.ExcelUtil;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 场景管理
@@ -21,6 +29,8 @@ public class SceneMServiceImpl implements SceneMService{
     private SceneMapper sceneMapper;
     @Autowired
     private SceneReportMapper sceneReportMapper;
+    @Autowired
+    private DataDetailMapper dataDetailMapper;
 
     /**
      * 上架
@@ -114,10 +124,39 @@ public class SceneMServiceImpl implements SceneMService{
         return sceneReportMapper.insertReportInfo(report);
     }
 
+    /**
+     * 场景兑换
+     * @param scene
+     * @return
+     */
     @Override
     public int exchangeScene(Scene scene) {
         sceneMapper.insertSelective(scene);
         return 1;
+    }
+
+    /**
+     * 数据导出
+     * @param sceneId
+     * @return
+     */
+    @Override
+    public XSSFWorkbook exportExcelInfo(int sceneId) throws Exception{
+        //根据条件查询数据，把数据装载到一个list中
+        List<DataDetail> list = dataDetailMapper.selectDataInfo(sceneId);
+        List<ExcelBean> excel=new ArrayList<>();
+        Map<Integer,List<ExcelBean>> map=new LinkedHashMap<>();
+        XSSFWorkbook xssfWorkbook=null;
+        //设置标题栏
+        excel.add(new ExcelBean("名字","id",0));
+        excel.add(new ExcelBean("参加","company",0));
+        excel.add(new ExcelBean("时间","number",0));
+        excel.add(new ExcelBean("备注","name",0));
+        map.put(0, excel);
+        String sheetName = "活动人员情况";
+        //调用ExcelUtil的方法
+        xssfWorkbook = ExcelUtil.createExcelFile(DataDetail.class, list, map, sheetName);
+        return xssfWorkbook;
     }
 
 

@@ -1,6 +1,7 @@
 package cn.scene.service;
 
 import cn.scene.model.Scene;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.util.List;
 
@@ -32,5 +33,8 @@ public interface SceneMService {
 
     //场景兑换
     int exchangeScene(Scene scene);
+
+    //场景数据导出
+    XSSFWorkbook exportExcelInfo(int sceneId) throws Exception;
 
 }

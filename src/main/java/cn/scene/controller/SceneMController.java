@@ -6,6 +6,7 @@ import cn.scene.service.SceneMService;
 import cn.scene.service.SceneService;
 import com.github.pagehelper.StringUtil;
 import org.apache.commons.lang.StringUtils;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedOutputStream;
+import java.io.OutputStream;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -145,4 +151,30 @@ public class SceneMController {
         return 0;
     }
 
+    //数据导出
+    @RequestMapping("/export")
+    public @ResponseBody void export(HttpServletRequest request, HttpServletResponse response) throws Exception{
+        String index = request.getParameter("sceneId");
+        String regx = "^[0-9]+$";
+        if(index.matches(regx)){
+            int sceneId = Integer.parseInt(index); //场景id
+            response.reset(); //清除缓存
+            Map<String,Object> map=new HashMap<String,Object>();
+            // 指定下载的文件名
+            response.setHeader("Content-Disposition", "attachment;filename=活动人员情况.xlsx");
+            response.setContentType("application/vnd.ms-excel;charset=UTF-8");
+            response.setHeader("Pragma", "no-cache");
+            response.setHeader("Cache-Control", "no-cache");
+            response.setDateHeader("Expires", 0);
+            XSSFWorkbook workbook= new XSSFWorkbook();
+            //Excel对象
+            workbook = sceneMService.exportExcelInfo(sceneId);
+            //导出Excel
+            OutputStream output = response.getOutputStream();
+            BufferedOutputStream bufferedOutPut = new BufferedOutputStream(output);
+            bufferedOutPut.flush();
+            workbook.write(bufferedOutPut);
+            bufferedOutPut.close();
+        }
+    }
 }

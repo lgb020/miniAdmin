@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.scene.mapper.DataDetailMapper">
+    <resultMap id="BaseResultMap" type="cn.scene.model.DataDetail">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="scene_id" jdbcType="INTEGER" property="sceneId"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="is_attend" jdbcType="BIT" property="isAttend"/>
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+        <result column="ip" jdbcType="VARCHAR" property="ip"/>
+        <result column="times" jdbcType="DATE" property="times"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, scene_id, name, is_attend, content, ip, times
+     </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from data_detail
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from data_detail
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="cn.scene.model.DataDetail">
+        insert into data_detail (id, scene_id, name,
+          is_attend, content, ip,
+          times)
+        values (#{id,jdbcType=INTEGER}, #{sceneId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
+          #{isAttend,jdbcType=BIT}, #{content,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR},
+          #{times,jdbcType=DATE})
+    </insert>
+    <insert id="insertSelective" parameterType="cn.scene.model.DataDetail">
+        insert into data_detail
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="sceneId != null">
+                scene_id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="isAttend != null">
+                is_attend,
+            </if>
+            <if test="content != null">
+                content,
+            </if>
+            <if test="ip != null">
+                ip,
+            </if>
+            <if test="times != null">
+                times,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="sceneId != null">
+                #{sceneId,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="isAttend != null">
+                #{isAttend,jdbcType=BIT},
+            </if>
+            <if test="content != null">
+                #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="ip != null">
+                #{ip,jdbcType=VARCHAR},
+            </if>
+            <if test="times != null">
+                #{times,jdbcType=DATE},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.scene.model.DataDetail">
+        update data_detail
+        <set>
+            <if test="sceneId != null">
+                scene_id = #{sceneId,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="isAttend != null">
+                is_attend = #{isAttend,jdbcType=BIT},
+            </if>
+            <if test="content != null">
+                content = #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="ip != null">
+                ip = #{ip,jdbcType=VARCHAR},
+            </if>
+            <if test="times != null">
+                times = #{times,jdbcType=DATE},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.scene.model.DataDetail">
+        update data_detail
+        set scene_id = #{sceneId,jdbcType=INTEGER},
+          name = #{name,jdbcType=VARCHAR},
+          is_attend = #{isAttend,jdbcType=BIT},
+          content = #{content,jdbcType=VARCHAR},
+          ip = #{ip,jdbcType=VARCHAR},
+          times = #{times,jdbcType=DATE}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <select id="selectDataInfo" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        from data_detail
+        where scene_id = #{sceneId,jdbcType=INTEGER}
+    </select>
+</mapper>
