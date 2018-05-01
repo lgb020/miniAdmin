@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
@@ -173,15 +174,18 @@ public class SceneMController {
             response.setHeader("Pragma", "no-cache");
             response.setHeader("Cache-Control", "no-cache");
             response.setDateHeader("Expires", 0);
-            XSSFWorkbook workbook= new XSSFWorkbook();
             //Excel对象
-            workbook = sceneMService.exportExcelInfo(sceneId);
+            XSSFWorkbook workbook = sceneMService.exportExcelInfo(sceneId);
             //导出Excel
-            OutputStream output = response.getOutputStream();
-            BufferedOutputStream bufferedOutPut = new BufferedOutputStream(output);
-            bufferedOutPut.flush();
-            workbook.write(bufferedOutPut);
-            bufferedOutPut.close();
+            try {
+                OutputStream output = response.getOutputStream();
+                BufferedOutputStream bufferedOutPut = new BufferedOutputStream(output);
+                bufferedOutPut.flush();
+                workbook.write(bufferedOutPut);
+                bufferedOutPut.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

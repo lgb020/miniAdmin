@@ -7,15 +7,19 @@ public class DataDetail {
 
     private Integer sceneId;
 
-    private String name;
+    private String guest;
 
     private Boolean isAttend;
+
+    private String result; //出席结果
 
     private String content;
 
     private String ip;
 
     private Date times;
+
+    private String sTime;
 
     public Integer getId() {
         return id;
@@ -33,20 +37,28 @@ public class DataDetail {
         this.sceneId = sceneId;
     }
 
-    public String getName() {
-        return name;
+    public String getGuest() {
+        return guest;
     }
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+    public void setGuest(String guest) {
+        this.guest = guest;
     }
 
-    public Boolean getIsAttend() {
+    public Boolean getAttend() {
         return isAttend;
     }
 
-    public void setIsAttend(Boolean isAttend) {
-        this.isAttend = isAttend;
+    public void setAttend(Boolean attend) {
+        isAttend = attend;
+    }
+
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
     }
 
     public String getContent() {
@@ -54,7 +66,7 @@ public class DataDetail {
     }
 
     public void setContent(String content) {
-        this.content = content == null ? null : content.trim();
+        this.content = content;
     }
 
     public String getIp() {
@@ -62,7 +74,7 @@ public class DataDetail {
     }
 
     public void setIp(String ip) {
-        this.ip = ip == null ? null : ip.trim();
+        this.ip = ip;
     }
 
     public Date getTimes() {
@@ -71,5 +83,13 @@ public class DataDetail {
 
     public void setTimes(Date times) {
         this.times = times;
+    }
+
+    public String getsTime() {
+        return sTime;
+    }
+
+    public void setsTime(String sTime) {
+        this.sTime = sTime;
     }
 }

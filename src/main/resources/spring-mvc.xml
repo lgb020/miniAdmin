@@ -55,7 +55,7 @@
     <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/about/**"/>
-            <mvc:mapping path="/scene/manage/**"/>
+            <mvc:mapping path="/s/manage/**"/>
             <mvc:mapping path="/user/info.html"/>
             <mvc:mapping path="/user/logout.html"/>
             <mvc:mapping path="/file/**"/>

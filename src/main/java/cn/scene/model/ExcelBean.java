@@ -10,8 +10,10 @@ public class ExcelBean implements java.io.Serializable{
     private String propertyName; //对应字段名
     private Integer cols; //合并单元格数
     private XSSFCellStyle cellStyle;
+
     public ExcelBean(){
     }
+
     public ExcelBean(String headTextName, String propertyName){
         this.headTextName = headTextName;
         this.propertyName = propertyName;

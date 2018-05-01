@@ -1,7 +1,7 @@
 package cn.scene.util;
 
 import cn.scene.model.ExcelBean;
-import org.apache.http.client.utils.DateUtils;
+import org.apache.commons.lang.time.DateFormatUtils;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.*;
 
@@ -16,11 +16,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Excel表工具类
+ * EXcel导入/导出工具类
  */
 public class ExcelUtil {
-    private final static String excel2003L =".xls";    //2003- 版本的excel
-    private final static String excel2007U =".xlsx";   //2007+ 版本的excel
 
     /**
      * 导出Excel表
@@ -29,7 +27,7 @@ public class ExcelUtil {
      * @param objs   excel标题列以及对应model字段名
      * @param map  标题列行数以及cell字体样式
      */
-    public static XSSFWorkbook createExcelFile(Class clazz, List objs, Map<Integer, List<ExcelBean>> map, String sheetName) throws Exception{
+    public static XSSFWorkbook createExcelFile(Class clazz, List objs, Map<Integer, List<ExcelBean>> map, String sheetName) throws Exception {
         // 创建新的Excel工作簿
         XSSFWorkbook workbook = new XSSFWorkbook();
         // 在Excel工作簿中建一工作表，其名为缺省值, 也可以指定Sheet名称
@@ -40,8 +38,10 @@ public class ExcelUtil {
         createTableRows(sheet, map, objs, clazz); //创建内容
         return workbook;
     }
+
     private static XSSFCellStyle fontStyle;
     private static XSSFCellStyle fontStyle2;
+
     public static void createFont(XSSFWorkbook workbook) {
         // 表头
         fontStyle = workbook.createCellStyle();
@@ -55,6 +55,7 @@ public class ExcelUtil {
         fontStyle.setBorderTop(XSSFCellStyle.BORDER_THIN);// 上边框
         fontStyle.setBorderRight(XSSFCellStyle.BORDER_THIN);// 右边框
         fontStyle.setAlignment(XSSFCellStyle.ALIGN_CENTER); // 居中
+
         // 内容
         fontStyle2=workbook.createCellStyle();
         XSSFFont font2 = workbook.createFont();
@@ -67,6 +68,7 @@ public class ExcelUtil {
         fontStyle2.setBorderRight(XSSFCellStyle.BORDER_THIN);// 右边框
         fontStyle2.setAlignment(XSSFCellStyle.ALIGN_CENTER); // 居中
     }
+
     /**
      * 根据ExcelMapping 生成列头（多行列头）
      *
@@ -76,6 +78,7 @@ public class ExcelUtil {
     public static final void createTableHeader(XSSFSheet sheet, Map<Integer, List<ExcelBean>> map) {
         int startIndex=0;//cell起始位置
         int endIndex=0;//cell终止位置
+
         for (Map.Entry<Integer, List<ExcelBean>> entry : map.entrySet()) {
             XSSFRow row = sheet.createRow(entry.getKey());
             List<ExcelBean> excels = entry.getValue();
@@ -100,6 +103,7 @@ public class ExcelUtil {
                     }
                     cell.setCellStyle(fontStyle);
                 }else{
+
                     XSSFCell cell = row.createCell(x);
                     cell.setCellValue(excels.get(x).getHeadTextName());// 设置内容
                     if (excels.get(x).getCellStyle() != null) {
@@ -107,11 +111,14 @@ public class ExcelUtil {
                     }
                     cell.setCellStyle(fontStyle);
                 }
+
             }
         }
     }
+
     public static void createTableRows(XSSFSheet sheet, Map<Integer, List<ExcelBean>> map, List objs, Class clazz)
-            throws Exception{
+            throws Exception {
+
         int rowindex = map.size();
         int maxKey = 0;
         List<ExcelBean> ems = new ArrayList<>();
@@ -121,6 +128,7 @@ public class ExcelUtil {
             }
         }
         ems = map.get(maxKey);
+
         List<Integer> widths = new ArrayList<Integer>(ems.size());
         for (Object obj : objs) {
             XSSFRow row = sheet.createRow(rowindex);
@@ -134,7 +142,7 @@ public class ExcelUtil {
                 // 如果是日期类型进行转换
                 if (rtn != null) {
                     if (rtn instanceof Date) {
-                        value = DateUtils.formatDate((Date)rtn,"yyyy-MM-dd");
+                        value = DateFormatUtils.format((Date)rtn, "yyyy-MM-dd");
                     } else if(rtn instanceof BigDecimal){
                         NumberFormat nf = new DecimalFormat("#,##0.00");
                         value=nf.format((BigDecimal)rtn).toString();

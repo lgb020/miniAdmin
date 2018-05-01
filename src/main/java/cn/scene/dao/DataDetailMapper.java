@@ -21,5 +21,5 @@ public interface DataDetailMapper {
     List<DataDetail> selectDataInfo(Integer sceneId);
 
     //场景收集的数据不存在记录则保存，存在则不操作
-    int insertInfoByIP(DataDetail data);
+    int insertInfo(DataDetail data);
 }
