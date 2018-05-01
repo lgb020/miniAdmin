@@ -114,5 +114,11 @@ public class SceneMServiceImpl implements SceneMService{
         return sceneReportMapper.insertReportInfo(report);
     }
 
+    @Override
+    public int exchangeScene(Scene scene) {
+        sceneMapper.insertSelective(scene);
+        return 1;
+    }
+
 
 }

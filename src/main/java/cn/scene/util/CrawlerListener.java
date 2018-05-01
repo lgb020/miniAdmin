@@ -25,7 +25,10 @@ public class CrawlerListener implements ServletContextListener{
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
-        /*每天凌晨1：00：00执行,若超过时间，当天不再执行，等到明天再执行*/
+        /**
+         * 每天凌晨1：00：00执行,若超过时间，当天不再执行，等到明天再执行
+         * 这样是为了保证时间一直是1点，而不会变成程序启动时间
+         */
         calendar.set(year,month,day,1,00,00);
         Date defaultdate = calendar.getTime();
         Date sendDate = new Date();

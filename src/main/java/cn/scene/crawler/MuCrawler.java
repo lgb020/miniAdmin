@@ -10,6 +10,7 @@ import cn.scene.util.MusicSave;
  */
 public class MuCrawler extends BreadthCrawler{
 
+    //构造方法设置抓取规则
     public MuCrawler(String crawlPath, boolean autoParse) {
         super(crawlPath, autoParse);
         //添加种子页面
@@ -30,13 +31,16 @@ public class MuCrawler extends BreadthCrawler{
         getConf().setTopN(100000);
     }
 
+    //抓取和解析页面数据
     public void visit(Page page, CrawlDatums next){
+        //正则表达式匹配链接
         if(page.matchUrl("http://ibaotu.com/peiyue/11-[0-9]+-[0-9]+-[0-9]+-[0-9]+-[0-9]+\\.html")) {
             String name = page.select("div[class=audio-info]>a").first().text();
             String url = page.select("audio>source").attr("src");
             String length = page.select("span[class=end-time]").first().text();
             String info = name+","+url+","+length+"\r\n";
             try{
+                //信息输出到本地文件
                 MusicSave.out(info);
             }catch (Exception e){
                 e.printStackTrace();

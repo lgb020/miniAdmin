@@ -30,4 +30,7 @@ public interface SceneMService {
     //场景举报
     int reportScene(int sceneId,String ip,String content);
 
+    //场景兑换
+    int exchangeScene(Scene scene);
+
 }

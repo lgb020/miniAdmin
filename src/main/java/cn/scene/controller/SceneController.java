@@ -25,6 +25,7 @@ public class SceneController {
     @Autowired
     private SceneService sceneService;
 
+
     //推荐-精选模板
     @RequestMapping("/info")
     public @ResponseBody List<Scene> info(HttpServletRequest request){
@@ -115,7 +116,7 @@ public class SceneController {
         return id;
     }
 
-    //场景发布
+    //保存场景页面数据
     @RequestMapping("/issue")
     public @ResponseBody int issue(HttpServletRequest request, ScenePage scenePage){
         if(scenePage!=null){
@@ -152,7 +153,7 @@ public class SceneController {
         return scene;
     }
 
-    //单页查询
+    //场景页面数据查询
     @RequestMapping("/list")
     public @ResponseBody List<ScenePage> Pageinfo(HttpServletRequest request){
         String index = request.getParameter("sceneId");

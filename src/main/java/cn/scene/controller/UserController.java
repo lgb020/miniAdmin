@@ -56,6 +56,7 @@ public class UserController {
             //检查账户是否存在和激活状态
             UserAuth auth = userService.selectUserAuth(account);
             if(auth!=null && auth.getStatus()==true && auth.getPassword().equals(password)){
+                //账号已激活，查询账号详细信息
                 User user = userService.selectUserInfo(auth.getUserId());
                 request.getSession().setAttribute("user",user);
                 return 1;
@@ -121,7 +122,7 @@ public class UserController {
                 String code = UUID.randomUUID().toString().substring(0,6);
                 //redis保存验证码
                 jedisClient.set(account,code);
-                jedisClient.expire(account,300); //生命周期5分钟
+                jedisClient.expire(account,300); //验证码的生命周期5分钟
                 int result = MailUtil.codeMail(account,code);
                 return result;
             }

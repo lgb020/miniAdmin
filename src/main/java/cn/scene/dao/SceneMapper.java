@@ -52,13 +52,13 @@ public interface SceneMapper {
     //场景删除
     int updateIsDel(Integer id);
 
-    //我的小店
+    //我的共享
     List<Scene> selectByUserId(Integer userId);
 
     //插入数据初始化
     int getNewsId(Scene scene);
 
-    //根据id更新场景下架
+    //根据id更新场景共享状态
     int updateIsIssue(Integer id);
 
     //更新场景背景音乐
@@ -72,4 +72,7 @@ public interface SceneMapper {
 
     //根据code查询场景
     Scene selectInfoByCode(String code);
+
+    //增加场景阅读量
+    int updateHitCountById(Integer id);
 }

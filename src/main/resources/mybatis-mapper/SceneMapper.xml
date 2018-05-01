@@ -51,9 +51,6 @@
     <insert id="insertSelective" parameterType="cn.scene.model.Scene">
         insert into scene
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                id,
-            </if>
             <if test="userId != null">
                 user_id,
             </if>
@@ -104,9 +101,6 @@
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                #{id,jdbcType=INTEGER},
-            </if>
             <if test="userId != null">
                 #{userId,jdbcType=INTEGER},
             </if>
@@ -246,12 +240,12 @@
     </select>
     <select id="selectPhotoByHitCount" resultMap="BaseResultMap">
         SELECT id,code,cover,title,jifen,counts FROM scene
-        WHERE is_issue=1 AND is_del=1 AND types IN (7,8,9,10)
+        WHERE is_issue=1 AND is_del=1 AND types IN (1,2,3,4)
         ORDER BY hit_count DESC
     </select>
     <select id="selectPhotoCount" resultType="java.lang.Integer">
         SELECT COUNT(*) FROM scene
-        WHERE is_issue=1 AND is_del=1 AND types IN (7,8,9,10)
+        WHERE is_issue=1 AND is_del=1 AND types IN (1,2,3,4)
     </select>
     <select id="selectCharge" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         SELECT id,code,cover,title,jifen,counts FROM scene
@@ -316,4 +310,8 @@
         FROM scene
         WHERE is_del=1 and code = #{code,jdbcType=VARCHAR}
     </select>
+    <update id="updateHitCountById" parameterType="java.lang.Integer">
+        update scene SET hit_count = hit_count + 1
+        where id=#{id,jdbcType=INTEGER}
+    </update>
 </mapper>

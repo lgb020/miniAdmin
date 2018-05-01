@@ -204,7 +204,11 @@ public class SceneServiceImpl implements SceneService {
         try{
             String sceneInfo = jedisClient.hget(SCENE,field);
             if(StringUtils.isNotBlank(sceneInfo)){
-                return JsonUtils.jsonToPojo(sceneInfo,Scene.class);
+                Scene scene = JsonUtils.jsonToPojo(sceneInfo,Scene.class);
+                //阅读量增加1
+                scene.setHitCount(scene.getHitCount()+1);
+                jedisClient.hset(SCENE,field,JsonUtils.objectToJson(scene));
+                sceneMapper.updateHitCountById(scene.getId());
             }
         }catch (Exception e){
             e.printStackTrace();
