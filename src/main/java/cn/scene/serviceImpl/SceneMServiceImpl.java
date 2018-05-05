@@ -155,8 +155,7 @@ public class SceneMServiceImpl implements SceneMService{
         XSSFWorkbook xssfWorkbook=null;
         //设置标题栏
         excel.add(new ExcelBean("名字","guest",0));
-        excel.add(new ExcelBean("参加","result",0));
-        excel.add(new ExcelBean("时间","sDate",0));
+        excel.add(new ExcelBean("是否参加","result",0));
         excel.add(new ExcelBean("备注","content",0));
         map.put(0, excel);
         String sheetName = "活动人员情况";
