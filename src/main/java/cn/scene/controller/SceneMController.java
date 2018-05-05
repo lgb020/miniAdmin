@@ -155,7 +155,22 @@ public class SceneMController {
 
     //数据收集
     @RequestMapping("/collection")
-    public @ResponseBody int collection(HttpServletRequest request,DataDetail date){
+    public @ResponseBody int collection(HttpServletRequest request){
+        String sceneId = StringUtils.trim(request.getParameter("sceneId"));
+        String guest = StringUtils.trim(request.getParameter("guest")); //名字
+        String isAttend = StringUtils.trim(request.getParameter("isAttend")); //是否参加
+        String content = StringUtils.trim(request.getParameter("content"));
+        String ip = StringUtils.trim(request.getParameter("ip"));
+        DataDetail date = new DataDetail();
+        date.setSceneId(Integer.parseInt(sceneId));
+        date.setGuest(guest);
+        if(Integer.parseInt(isAttend)==1){
+            date.setAttend(true);
+        }else {
+            date.setAttend(false);
+        }
+        date.setContent(content);
+        date.setIp(ip);
         return sceneMService.saveDateDetail(date);
     }
 

@@ -117,9 +117,94 @@ ul {
 }
 
 /*分页器*/
-
 .swiper-pagination-bullet {
     width: 6px;
     height: 6px;
     background: #fff;
+}
+
+/*信息填写按钮*/
+.issue {
+    width: 2.5rem;
+    height: 2.5rem;
+    line-height: 2.5rem;
+    border-radius: 50%;
+    background: #f68531;
+    color: #fff;
+    text-align: center;
+    position: fixed;
+    z-index: 999;
+    left: 20px;
+    bottom: 30px;
+}
+
+.issue i {
+    font-size: 1.3rem;
+}
+
+.mui-popover.mui-popover-action .mui-table-view {
+    margin: 0px;
+    border-radius: 0px;
+    color: #565656;
+}
+
+#info .cencel,
+#info .determine {
+    text-align: center;
+}
+
+#info .option_name label {
+    width: 25%;
+    padding: 3px 5px;
+    font-size: 0.9rem;
+}
+
+#info .option_name input[name="guest"] {
+    width: 75%;
+    font-size: 0.9rem;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 5px 10px;
+    height: 35px;
+}
+
+#info .option_attend label {
+    width: 25%;
+    padding: 3px 5px;
+    font-size: 0.9rem;
+}
+
+#info .option_attend .attend {
+    width: 75%;
+    font-size: 0.9rem;
+    display: inline-block;
+    height: 35px;
+    line-height: 35px;
+}
+
+#info .option_attend .attend .mui-radio{
+    width: 48%;
+    display: inline-block;
+}
+
+#info .option_attend .attend .mui-radio span{
+    display: inline-block;
+    margin-left: 15%;
+}
+
+#info .option_content{
+    margin:15px 10px 0px 10px;
+}
+
+#info .option_content textarea{
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    font-size: 0.9rem;
+    margin-bottom: 0px;
+}
+
+#info .submit {
+    font-size: 0.9rem;
+}
+
+#info .star{
+    color: #f68531;
 }

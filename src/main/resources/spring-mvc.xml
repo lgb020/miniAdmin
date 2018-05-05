@@ -60,6 +60,7 @@
             <mvc:mapping path="/user/logout.html"/>
             <mvc:mapping path="/file/**"/>
             <mvc:exclude-mapping path="/file/bg.html"/>
+            <mvc:exclude-mapping path="/s/manage/collection.html"/>
             <bean class="cn.scene.filter.AuthFilter"></bean>
         </mvc:interceptor>
     </mvc:interceptors>

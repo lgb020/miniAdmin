@@ -40,6 +40,46 @@ scene.controller("view", function($scope, $http) {
             this.classList.add("rotate");
         }
     });
+
+    mui(".mui-content").on("tap", "#issue", function() {
+        mui("#info").popover("toggle");
+    });
+
+    $scope.submit = function() {
+        var guest = document.getElementById("guest").value;
+        var radio = document.getElementsByName("attend");
+        var isAttend;
+        for(i = 0; i < radio.length; i++) {
+            if(radio[i].checked) {
+                isAttend = radio[i].value;
+            }
+        }
+        var content = document.getElementById("content").value;
+        var sceneId = document.getElementById("sceneId").value;
+        if(guest!=""){
+            $http({
+                method: "GET",
+                url: root + "s/manage/collection.html",
+                params: {
+                    v: "1.0",
+                    sceneId: sceneId,
+                    guest:guest,
+                    isAttend:isAttend,
+                    content:content,
+                    ip: returnCitySN.cip
+                }
+            }).then(function successCallback(response) {
+                mui("#info").popover("toggle");
+                if(response.data>0){
+                    mui.toast("提交成功");
+                }else{
+                    mui.toast("请勿重复提交数据");
+                }
+            });
+        }else{
+            mui.toast("名字不能为空");
+        }
+    }
 });
 
 scene.filter("to_draw", ["$sce", function($sce) {
