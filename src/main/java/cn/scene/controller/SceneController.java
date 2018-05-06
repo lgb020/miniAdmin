@@ -166,7 +166,7 @@ public class SceneController {
         return list;
     }
 
-    //分享场景查询
+    //查询共享场景
     @RequestMapping("/view")
     public String sceneView(HttpServletRequest request,Model model){
         String code = request.getParameter("code");
@@ -177,6 +177,21 @@ public class SceneController {
             return "view";
         }
         return null;
+    }
+
+    //场景兑换
+    @RequestMapping("/exchange")
+    public @ResponseBody int exchange(HttpServletRequest request){
+        String index = request.getParameter("sceneId");
+        String regx = "^[0-9]+$";
+        if(index.matches(regx)){
+            int sceneId = Integer.parseInt(index);
+            //获取登录用户信息
+            User user = (User)request.getSession().getAttribute("user");
+            int result = sceneService.exchangeScene(user,sceneId);
+            return result;
+        }
+        return 0;
     }
 
 }

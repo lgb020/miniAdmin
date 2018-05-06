@@ -2,6 +2,7 @@ package cn.scene.service;
 
 import cn.scene.model.Scene;
 import cn.scene.model.ScenePage;
+import cn.scene.model.User;
 
 import java.util.List;
 
@@ -48,5 +49,11 @@ public interface SceneService {
 
     //根据code查看场景
     Scene scene(String code);
+
+    //场景兑换
+    int exchangeScene(User user, Integer sceneId);
+
+    //查询共享场景总数
+    int IssueTotal(int userId);
 
 }

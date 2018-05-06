@@ -1,5 +1,6 @@
 package cn.scene.serviceImpl;
 
+import cn.scene.dao.DataDetailMapper;
 import cn.scene.dao.MessageMapper;
 import cn.scene.dao.SceneMapper;
 import cn.scene.model.Message;
@@ -22,6 +23,8 @@ public class AboutServiceImpl implements AboutService{
     private MessageMapper messageMapper;
     @Autowired
     private SceneMapper sceneMapper;
+    @Autowired
+    private DataDetailMapper dataDetailMapper;
 
     /**
      * 通知信息
@@ -59,6 +62,11 @@ public class AboutServiceImpl implements AboutService{
         for(int i=0;i<list.size();i++){
             Date times = list.get(i).getTimes();
             list.get(i).setsTimes(DateFormat.format(times));
+            //查询填写活动数据总人数和出席总人数
+            int total = dataDetailMapper.selectTotalBySceneId(list.get(i).getId());
+            int attendance = dataDetailMapper.selectAttendanceBySceneId(list.get(i).getId());
+            list.get(i).setTotal(total);
+            list.get(i).setAttendance(attendance);
         }
         return list;
     }

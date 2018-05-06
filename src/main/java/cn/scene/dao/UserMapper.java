@@ -16,4 +16,7 @@ public interface UserMapper {
     int updateByPrimaryKey(User record);
 
     int updateByIsRade(Integer id);
+
+    //修改用户积分
+    int updateJiFenById(Integer id,Integer number);
 }

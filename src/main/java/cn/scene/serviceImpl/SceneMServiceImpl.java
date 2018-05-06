@@ -143,24 +143,26 @@ public class SceneMServiceImpl implements SceneMService{
     public XSSFWorkbook exportExcelInfo(int sceneId) throws Exception{
         //根据条件查询数据，把数据装载到一个list中
         List<DataDetail> list = dataDetailMapper.selectDataInfo(sceneId);
-        for(int i=0;i<list.size();i++){
-            if(list.get(i).getAttend()==true){
-                list.get(i).setResult("参加");
-            }else{
-                list.get(i).setResult("不参加");
-            }
-        }
-        List<ExcelBean> excel=new ArrayList<>();
-        Map<Integer,List<ExcelBean>> map=new LinkedHashMap<>();
         XSSFWorkbook xssfWorkbook=null;
-        //设置标题栏
-        excel.add(new ExcelBean("名字","guest",0));
-        excel.add(new ExcelBean("是否参加","result",0));
-        excel.add(new ExcelBean("备注","content",0));
-        map.put(0, excel);
-        String sheetName = "活动人员情况";
-        //调用ExcelUtil的方法
-        xssfWorkbook = ExcelUtil.createExcelFile(DataDetail.class, list, map, sheetName);
+        if(list.size()>0){
+            for(int i=0;i<list.size();i++){
+                if(list.get(i).getAttend()==true){
+                    list.get(i).setResult("参加");
+                }else{
+                    list.get(i).setResult("不参加");
+                }
+            }
+            List<ExcelBean> excel=new ArrayList<>();
+            Map<Integer,List<ExcelBean>> map=new LinkedHashMap<>();
+            //设置标题栏
+            excel.add(new ExcelBean("名字","guest",0));
+            excel.add(new ExcelBean("是否参加","result",0));
+            excel.add(new ExcelBean("备注","content",0));
+            map.put(0, excel);
+            String sheetName = "活动人员情况";
+            //调用ExcelUtil的方法
+            xssfWorkbook = ExcelUtil.createExcelFile(DataDetail.class, list, map, sheetName);
+        }
         return xssfWorkbook;
     }
 

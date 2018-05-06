@@ -314,4 +314,27 @@
         update scene SET hit_count = hit_count + 1
         where id=#{id,jdbcType=INTEGER}
     </update>
+    <select id="sceneInfoById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        SELECT
+        user_id, code, cover, music, m_title, title, describes,jifen
+        FROM scene
+        WHERE is_del=1 and id = #{id,jdbcType=VARCHAR}
+    </select>
+    <update id="updateCountsById" parameterType="java.lang.Integer">
+        update scene SET counts = counts + 1
+        where id=#{id,jdbcType=INTEGER}
+    </update>
+    <insert id="getExchangeSceneId" parameterType="cn.scene.model.Scene" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO scene(user_id,code,cover,music,m_title,title,describes,times,from_scene)
+        VALUE (
+          #{userId,jdbcType=INTEGER},#{code,jdbcType=VARCHAR},
+          #{cover,jdbcType=VARCHAR},#{music,jdbcType=VARCHAR},
+          #{mTitle,jdbcType=VARCHAR},#{title,jdbcType=VARCHAR},
+          #{describes,jdbcType=VARCHAR},#{times,jdbcType=DATE},
+          #{fromScene,jdbcType=INTEGER}
+        )
+    </insert>
+    <select id="selectCountsByIssue" parameterType="java.lang.Integer">
+        select count(id) from scene where is_del=1 and is_issue=1 and user_id=#{userId,jdbcType=INTEGER}
+    </select>
 </mapper>

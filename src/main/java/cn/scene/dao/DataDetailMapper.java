@@ -22,4 +22,10 @@ public interface DataDetailMapper {
 
     //场景收集的数据不存在记录则保存，存在则不操作
     int insertInfo(DataDetail data);
+
+    //根据场景查询总人数
+    int selectTotalBySceneId(Integer sceneId);
+
+    //根据场景查询出席人数
+    int selectAttendanceBySceneId(Integer sceneId);
 }

@@ -160,4 +160,12 @@
         <include refid="Blob_Column_List"/>
         FROM scene_page WHERE scene_id=#{sceneId,jdbcType=INTEGER} AND is_del=1 ORDER BY current_page ASC
     </select>
+    <insert id="insertExchangeScene" parameterType="java.util.List">
+        insert into scene_page (scene_id,current_page,times,background,bgColor,is_example)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.sceneId}, #{item.currentPage}, #{item.times},
+              #{item.background},#{item.bgColor}, #{item.isExample})
+        </foreach>
+    </insert>
 </mapper>

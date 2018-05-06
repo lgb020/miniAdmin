@@ -3,6 +3,7 @@ package cn.scene.controller;
 import cn.scene.jedis.JedisClient;
 import cn.scene.model.User;
 import cn.scene.model.UserAuth;
+import cn.scene.service.SceneService;
 import cn.scene.service.UserService;
 import cn.scene.util.MailUtil;
 import cn.scene.util.Md5Util;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -27,6 +29,8 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private SceneService sceneService;
     @Autowired
     private JedisClient jedisClient; //redis客户端
 
@@ -166,5 +170,26 @@ public class UserController {
         return 1;
     }
 
+
+    //申请成为会员
+    @RequestMapping("/member")
+    public @ResponseBody int applyMember(HttpServletRequest request){
+        User user = (User)request.getSession().getAttribute("user");
+        if(user.getIsMember()==0){
+            int total = sceneService.IssueTotal(user.getId());
+            if(total>=10){
+                //激活会员
+                user.setIsMember((byte)1);
+                user.setStartTime(new Date());
+
+                return 1;
+            }else{
+                return 0;
+            }
+        }else{
+            //已经激活
+            return -1;
+        }
+    }
 
 }

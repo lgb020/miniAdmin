@@ -112,4 +112,14 @@ public class UserServiceImpl implements UserService{
     public int updateInfo(UserAuth auth) {
         return userAuthMapper.updateByPrimaryKeySelective(auth);
     }
+
+    /**
+     * 更新用户基本信息
+     * @param user
+     * @return
+     */
+    @Override
+    public int updateUserInfo(User user) {
+        return userMapper.updateByPrimaryKeySelective(user);
+    }
 }

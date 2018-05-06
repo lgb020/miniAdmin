@@ -75,4 +75,16 @@ public interface SceneMapper {
 
     //增加场景阅读量
     int updateHitCountById(Integer id);
+
+    //根据id查询场景
+    Scene sceneInfoById(Integer id);
+
+    //增加原场景的兑换人数
+    int updateCountsById(Integer id);
+
+    //生成场景兑换
+    int getExchangeSceneId(Scene scene);
+
+    //查询共享总数
+    int selectCountsByIssue(int userId);
 }

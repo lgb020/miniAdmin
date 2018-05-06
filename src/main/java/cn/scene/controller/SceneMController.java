@@ -181,22 +181,26 @@ public class SceneMController {
         String regx = "^[0-9]+$";
         if(index.matches(regx)){
             int sceneId = Integer.parseInt(index); //场景id
-            response.reset(); //清除缓存
-            Map<String,Object> map=new HashMap<String,Object>();
-            // 指定下载的文件名
-            response.setHeader("Content-Disposition", "attachment;filename=info.xlsx");
-            response.setContentType("application/vnd.ms-excel;charset=UTF-8");
-            response.setHeader("Pragma", "no-cache");
-            response.setHeader("Cache-Control", "no-cache");
-            response.setDateHeader("Expires", 0);
             //Excel对象
             XSSFWorkbook workbook = sceneMService.exportExcelInfo(sceneId);
-            //导出Excel
-            OutputStream output = response.getOutputStream();
-            BufferedOutputStream bufferedOutPut = new BufferedOutputStream(output);
-            bufferedOutPut.flush();
-            workbook.write(bufferedOutPut);
-            bufferedOutPut.close();
+            if(workbook!=null){
+                response.reset(); //清除缓存
+                Map<String,Object> map=new HashMap<String,Object>();
+                // 指定下载的文件名
+                String code = UUID.randomUUID().toString().substring(0,8); //生成文件名
+                response.setHeader("Content-Disposition", "attachment;filename="+code+".xlsx");
+                response.setContentType("application/vnd.ms-excel;charset=UTF-8");
+                response.setHeader("Pragma", "no-cache");
+                response.setHeader("Cache-Control", "no-cache");
+                response.setDateHeader("Expires", 0);
+                //导出Excel
+                OutputStream output = response.getOutputStream();
+                BufferedOutputStream bufferedOutPut = new BufferedOutputStream(output);
+                bufferedOutPut.flush();
+                workbook.write(bufferedOutPut);
+                bufferedOutPut.close();
+            }
         }
     }
+
 }

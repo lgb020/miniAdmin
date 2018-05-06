@@ -39,6 +39,10 @@ public class Scene {
 
     private Byte isDel;
 
+    private int total; //总人数
+
+    private int attendance; //出席人数
+
     public Integer getId() {
         return id;
     }
@@ -181,5 +185,21 @@ public class Scene {
 
     public void setIsDel(Byte isDel) {
         this.isDel = isDel;
+    }
+
+    public int getTotal() {
+        return total;
+    }
+
+    public void setTotal(int total) {
+        this.total = total;
+    }
+
+    public int getAttendance() {
+        return attendance;
+    }
+
+    public void setAttendance(int attendance) {
+        this.attendance = attendance;
     }
 }

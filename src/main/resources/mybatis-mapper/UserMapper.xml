@@ -141,4 +141,8 @@
     <update id="updateByIsRade" parameterType="java.lang.Integer">
         UPDATE user SET is_read=0 WHERE id=#{id,jdbcType=INTEGER}
     </update>
+    <update id="updateJiFenById" parameterType="java.lang.Integer">
+        update user SET jifen = jifen - #{number,jdbcType=INTEGER}
+        WHERE id=#{id,jdbcType=INTEGER}
+    </update>
 </mapper>

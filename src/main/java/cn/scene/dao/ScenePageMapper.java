@@ -25,4 +25,7 @@ public interface ScenePageMapper {
 
     //根据sceneId查询场景
     List<ScenePage> selectInfoBySceneId(Integer sceneId);
+
+    //生成兑换场景
+    int insertExchangeScene(List<ScenePage> pages);
 }

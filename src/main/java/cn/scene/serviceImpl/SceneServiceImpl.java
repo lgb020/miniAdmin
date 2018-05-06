@@ -2,9 +2,11 @@ package cn.scene.serviceImpl;
 
 import cn.scene.dao.SceneMapper;
 import cn.scene.dao.ScenePageMapper;
+import cn.scene.dao.UserMapper;
 import cn.scene.jedis.JedisClient;
 import cn.scene.model.Scene;
 import cn.scene.model.ScenePage;
+import cn.scene.model.User;
 import cn.scene.service.SceneService;
 import cn.scene.util.DateFormat;
 import cn.scene.util.ImgEcoding;
@@ -33,6 +35,8 @@ public class SceneServiceImpl implements SceneService {
     private SceneMapper sceneMapper;
     @Autowired
     private ScenePageMapper scenePageMapper;
+    @Autowired
+    private UserMapper userMapper;
     @Autowired
     private JedisClient jedisClient; // redis客户端
     @Value("${SCENE}")
@@ -269,6 +273,54 @@ public class SceneServiceImpl implements SceneService {
             e.printStackTrace();
         }
         return scene;
+    }
+
+    /**
+     * 场景兑换
+     * @param user 用户信息
+     * @param sceneId 兑换的场景id
+     * @return
+     */
+    @Override
+    @Transactional
+    public int exchangeScene(User user, Integer sceneId) {
+        Scene scene = sceneMapper.sceneInfoById(sceneId);
+        if(scene.getJifen()>user.getJifen()){
+            return 0; //用户积分不够兑换
+        }else if(scene.getUserId()==user.getId()){
+            return 1; //用户兑换自己的模板
+        }else{
+            int authorId = scene.getUserId();
+            //原场景使用+1
+            sceneMapper.updateCountsById(authorId);
+            //生成兑换场景
+            scene.setFromScene(authorId);
+            scene.setUserId(user.getId());
+            scene.setTimes(new Date());
+            String code = UUID.randomUUID().toString().substring(0,8); //生成访问码
+            scene.setCode(code);
+            int newsId = sceneMapper.getExchangeSceneId(scene);
+            //批量插入场景页面
+            List<ScenePage> pages = scenePageMapper.selectInfoBySceneId(sceneId);
+            for(int i=0;i<pages.size();i++){
+                pages.get(i).setSceneId(newsId);
+                pages.get(i).setTimes(new Date());
+            }
+            scenePageMapper.insertExchangeScene(pages);
+            //扣除积分
+            userMapper.updateJiFenById(user.getId(),scene.getJifen());
+            return 2; //兑换成功
+        }
+    }
+
+    /**
+     * 查询共享场景总数
+     * @param userId
+     * @return
+     */
+    @Override
+    public int IssueTotal(int userId) {
+        return sceneMapper.selectCountsByIssue(userId);
     }
 
 }

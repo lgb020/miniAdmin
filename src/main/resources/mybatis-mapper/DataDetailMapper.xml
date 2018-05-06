@@ -128,4 +128,13 @@
             WHERE scene_id = #{sceneId,jdbcType=VARCHAR} and ip=#{ip,jdbcType=VARCHAR}
         )
     </insert>
+    <select id="selectTotalBySceneId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select count(DISTINCT guest) as total from data_detail
+        where scene_id = #{sceneId,jdbcType=INTEGER}
+    </select>
+    <select id="selectAttendanceBySceneId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select count(DISTINCT guest) as attendance from data_detail
+        where scene_id = #{sceneId,jdbcType=INTEGER}
+        and is_attend=1
+    </select>
 </mapper>

@@ -25,4 +25,7 @@ public interface UserService {
 
     //更新用户信息
     int updateInfo(UserAuth auth);
+
+    //更新用户基本信息
+    int updateUserInfo(User user);
 }
