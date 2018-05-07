@@ -285,7 +285,7 @@
     </select>
     <insert id="getNewsId" parameterType="cn.scene.model.Scene" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO scene(user_id,code,times,from_scene)
-        VALUE (#{userId,jdbcType=INTEGER},#{code,jdbcType=VARCHAR},#{times,jdbcType=DATE},#{fromScene,jdbcType=INTEGER})
+        VALUES (#{userId,jdbcType=INTEGER},#{code,jdbcType=VARCHAR},#{times,jdbcType=DATE},#{fromScene,jdbcType=INTEGER})
     </insert>
     <update id="updateIsIssue" parameterType="java.lang.Integer">
         UPDATE scene SET is_issue=0 WHERE id=#{id,jdbcType=INTEGER}
@@ -326,7 +326,7 @@
     </update>
     <insert id="getExchangeSceneId" parameterType="cn.scene.model.Scene" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO scene(user_id,code,cover,music,m_title,title,describes,times,from_scene)
-        VALUE (
+        VALUES (
           #{userId,jdbcType=INTEGER},#{code,jdbcType=VARCHAR},
           #{cover,jdbcType=VARCHAR},#{music,jdbcType=VARCHAR},
           #{mTitle,jdbcType=VARCHAR},#{title,jdbcType=VARCHAR},

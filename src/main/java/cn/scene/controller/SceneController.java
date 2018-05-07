@@ -4,6 +4,7 @@ import cn.scene.model.Scene;
 import cn.scene.model.ScenePage;
 import cn.scene.model.User;
 import cn.scene.service.SceneService;
+import cn.scene.service.UserService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,8 @@ public class SceneController {
 
     @Autowired
     private SceneService sceneService;
+    @Autowired
+    private UserService userService;
 
 
     //推荐-精选模板

@@ -7,7 +7,7 @@
         <result column="current_page" jdbcType="INTEGER" property="currentPage"/>
         <result column="times" jdbcType="DATE" property="times"/>
         <result column="background" jdbcType="VARCHAR" property="background"/>
-        <result column="bgColor" jdbcType="VARCHAR" property="bgcolor"/>
+        <result column="bgColor" jdbcType="VARCHAR" property="bgColor"/>
         <result column="is_example" jdbcType="TINYINT" property="isExample"/>
         <result column="is_del" jdbcType="TINYINT" property="isDel"/>
     </resultMap>
@@ -38,7 +38,7 @@
           is_example, is_del, content
           )
         values (#{id,jdbcType=INTEGER}, #{sceneId,jdbcType=INTEGER}, #{currentPage,jdbcType=INTEGER},
-          #{times,jdbcType=DATE}, #{background,jdbcType=VARCHAR}, #{bgcolor,jdbcType=VARCHAR},
+          #{times,jdbcType=DATE}, #{background,jdbcType=VARCHAR}, #{bgColor,jdbcType=VARCHAR},
           #{isExample,jdbcType=TINYINT}, #{isDel,jdbcType=TINYINT}, #{content,jdbcType=LONGVARCHAR}
           )
     </insert>
@@ -60,7 +60,7 @@
             <if test="background != null">
                 background,
             </if>
-            <if test="bgcolor != null">
+            <if test="bgColor != null">
                 bgColor,
             </if>
             <if test="isExample != null">
@@ -89,8 +89,8 @@
             <if test="background != null">
                 #{background,jdbcType=VARCHAR},
             </if>
-            <if test="bgcolor != null">
-                #{bgcolor,jdbcType=VARCHAR},
+            <if test="bgColor != null">
+                #{bgColor,jdbcType=VARCHAR},
             </if>
             <if test="isExample != null">
                 #{isExample,jdbcType=TINYINT},
@@ -112,8 +112,8 @@
             <if test="background != null">
                 background = #{background,jdbcType=VARCHAR},
             </if>
-            <if test="bgcolor != null">
-                bgColor = #{bgcolor,jdbcType=VARCHAR},
+            <if test="bgColor != null">
+                bgColor = #{bgColor,jdbcType=VARCHAR},
             </if>
             <if test="isExample != null">
                 is_example = #{isExample,jdbcType=TINYINT},
@@ -133,7 +133,7 @@
           current_page = #{currentPage,jdbcType=INTEGER},
           times = #{times,jdbcType=DATE},
           background = #{background,jdbcType=VARCHAR},
-          bgColor = #{bgcolor,jdbcType=VARCHAR},
+          bgColor = #{bgColor,jdbcType=VARCHAR},
           is_example = #{isExample,jdbcType=TINYINT},
           is_del = #{isDel,jdbcType=TINYINT},
           content = #{content,jdbcType=LONGVARCHAR}
@@ -145,7 +145,7 @@
           current_page = #{currentPage,jdbcType=INTEGER},
           times = #{times,jdbcType=DATE},
           background = #{background,jdbcType=VARCHAR},
-          bgColor = #{bgcolor,jdbcType=VARCHAR},
+          bgColor = #{bgColor,jdbcType=VARCHAR},
           is_example = #{isExample,jdbcType=TINYINT},
           is_del = #{isDel,jdbcType=TINYINT}
         where id = #{id,jdbcType=INTEGER}
@@ -154,18 +154,19 @@
         SELECT COUNT(*) FROM scene_page where scene_id = #{sceneId,jdbcType=INTEGER} AND current_page = #{currentPage,jdbcType=INTEGER}
     </select>
     <select id="selectInfoBySceneId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-        SELECT
-        <include refid="Base_Column_List"/>
-        ,
-        <include refid="Blob_Column_List"/>
+        SELECT scene_id, current_page, times, background, bgColor, is_example, is_del,content
         FROM scene_page WHERE scene_id=#{sceneId,jdbcType=INTEGER} AND is_del=1 ORDER BY current_page ASC
     </select>
     <insert id="insertExchangeScene" parameterType="java.util.List">
-        insert into scene_page (scene_id,current_page,times,background,bgColor,is_example)
+        insert into scene_page (scene_id,current_page,times,background,bgColor,content,is_example)
         values
         <foreach collection="list" item="item" index="index" separator=",">
-            (#{item.sceneId}, #{item.currentPage}, #{item.times},
-              #{item.background},#{item.bgColor}, #{item.isExample})
+            (
+              #{item.sceneId,jdbcType=INTEGER}, #{item.currentPage,jdbcType=INTEGER},
+              #{item.times,jdbcType=DATE},#{item.background,jdbcType=VARCHAR},
+              #{item.bgColor,jdbcType=VARCHAR}, #{item.content,jdbcType=LONGVARCHAR},
+              #{item.isExample,jdbcType=TINYINT}
+            )
         </foreach>
     </insert>
 </mapper>

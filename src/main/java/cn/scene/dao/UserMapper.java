@@ -1,6 +1,9 @@
 package cn.scene.dao;
 
 import cn.scene.model.User;
+import org.apache.ibatis.annotations.Param;
+
+import javax.annotation.security.PermitAll;
 
 public interface UserMapper {
     int deleteByPrimaryKey(Integer id);
@@ -18,5 +21,5 @@ public interface UserMapper {
     int updateByIsRade(Integer id);
 
     //修改用户积分
-    int updateJiFenById(Integer id,Integer number);
+    int updateJiFenById(@Param("id") Integer id, @Param("number") Integer number);
 }

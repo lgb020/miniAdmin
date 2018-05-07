@@ -13,7 +13,7 @@ public class ScenePage {
 
     private String background;
 
-    private String bgcolor;
+    private String bgColor;
 
     private Byte isExample;
 
@@ -58,15 +58,15 @@ public class ScenePage {
     }
 
     public void setBackground(String background) {
-        this.background = background == null ? null : background.trim();
+        this.background = background;
     }
 
-    public String getBgcolor() {
-        return bgcolor;
+    public String getBgColor() {
+        return bgColor;
     }
 
-    public void setBgcolor(String bgcolor) {
-        this.bgcolor = bgcolor == null ? null : bgcolor.trim();
+    public void setBgColor(String bgColor) {
+        this.bgColor = bgColor;
     }
 
     public Byte getIsExample() {
@@ -90,6 +90,6 @@ public class ScenePage {
     }
 
     public void setContent(String content) {
-        this.content = content == null ? null : content.trim();
+        this.content = content;
     }
 }

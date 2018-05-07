@@ -290,26 +290,36 @@ public class SceneServiceImpl implements SceneService {
         }else if(scene.getUserId()==user.getId()){
             return 1; //用户兑换自己的模板
         }else{
-            int authorId = scene.getUserId();
             //原场景使用+1
-            sceneMapper.updateCountsById(authorId);
+            sceneMapper.updateCountsById(scene.getUserId());
             //生成兑换场景
-            scene.setFromScene(authorId);
-            scene.setUserId(user.getId());
-            scene.setTimes(new Date());
+            Scene newScene = new Scene();
             String code = UUID.randomUUID().toString().substring(0,8); //生成访问码
-            scene.setCode(code);
-            int newsId = sceneMapper.getExchangeSceneId(scene);
-            //批量插入场景页面
-            List<ScenePage> pages = scenePageMapper.selectInfoBySceneId(sceneId);
-            for(int i=0;i<pages.size();i++){
-                pages.get(i).setSceneId(newsId);
-                pages.get(i).setTimes(new Date());
+            newScene.setUserId(user.getId());
+            newScene.setCode(code);
+            newScene.setCover(scene.getCover());
+            newScene.setMusic(scene.getMusic());
+            newScene.setmTitle(scene.getmTitle());
+            newScene.setTitle(scene.getTitle());
+            newScene.setDescribes(scene.getDescribes());
+            newScene.setTimes(new Date());
+            newScene.setFromScene(sceneId);
+            int newsId = sceneMapper.getExchangeSceneId(newScene);
+            //新插入数据成功
+            if(newsId>0){
+                //批量插入场景页面
+                List<ScenePage> pages = scenePageMapper.selectInfoBySceneId(sceneId);
+                for(int i=0;i<pages.size();i++){
+                    pages.get(i).setSceneId(newScene.getId());
+                    pages.get(i).setTimes(new Date());
+                }
+                scenePageMapper.insertExchangeScene(pages);
+                //扣除积分
+                userMapper.updateJiFenById(user.getId(),scene.getJifen());
+                return 2; //兑换成功
+            }else{
+                return 3; //兑换失败
             }
-            scenePageMapper.insertExchangeScene(pages);
-            //扣除积分
-            userMapper.updateJiFenById(user.getId(),scene.getJifen());
-            return 2; //兑换成功
         }
     }
 
