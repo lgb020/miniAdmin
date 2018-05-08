@@ -109,4 +109,14 @@
     <select id="selectCountById" resultType="java.lang.Integer">
         select count(id) from music where is_del=1
     </select>
+
+    <select id="selectMusic" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from music where  is_del =1
+    </select>
+
+    <update id="deleteMusic" parameterType="java.lang.Integer">
+        UPDATE music set is_del = 0 where id =#{id,jdbcType=INTEGER}
+    </update>
 </mapper>

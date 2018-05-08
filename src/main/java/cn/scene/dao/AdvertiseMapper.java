@@ -19,4 +19,13 @@ public interface AdvertiseMapper {
 
     //查询首页的广告
     List<Advertise> selectInfo();
+
+    //查询所有轮播图
+    List<Advertise> selectAd();
+
+    //插入轮播图
+    int insertImg(Advertise advertise);
+
+    //删除轮播图
+    int deleteAd(Integer id);
 }

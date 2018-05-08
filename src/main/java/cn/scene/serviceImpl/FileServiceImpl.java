@@ -122,4 +122,43 @@ public class FileServiceImpl implements FileService{
         return sysfileMapper.insertSelective(file);
     }
 
+    @Override
+    public int addFile(String type, String img) {
+        Sysfile sysfile = new Sysfile();
+        String path = "";
+        String url = "";
+        String date = DateFormat.format(new Date());
+        if(type.equals("0")){
+            path = RealPathTool.getRootPath()+"/upload/bg/admin/"+date;
+        }else {
+            path = RealPathTool.getRootPath()+"/upload/img/admin/"+date;
+        }
+        //文件上传
+        try{
+            String name = ImgEcoding.GenerateImage(img,path);
+            if(StringUtils.isNotBlank(name)){
+                String root = "http://www.hsfeng.cn/scene/upload/";
+                if(type.equals("0")){
+                    url = root+"bg/admin/"+date+"/"+name;
+                }else{
+                    url = root+"img/admin/"+date+"/"+name;
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return 0;
+        }
+        sysfile.setType(type);
+        sysfile.setUrl(url);
+        //插入数据到数据库里
+        int result = sysfileMapper.insertFile(sysfile);
+        return result;
+    }
+
+    @Override
+    public int deleteFile(int id) {
+        int i= sysfileMapper.deleteFile(id);
+        return i;
+    }
+
 }

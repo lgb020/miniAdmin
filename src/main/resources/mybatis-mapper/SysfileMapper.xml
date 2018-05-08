@@ -88,4 +88,14 @@
     <select id="selectInfoCounts" parameterType="java.lang.String" resultType="java.lang.Integer">
         SELECT COUNT(*) FROM sysfile WHERE is_del=1 AND type=#{type,jdbcType=CHAR}
     </select>
+
+    <insert id="insertFile" parameterType="cn.scene.model.Sysfile">
+     insert into sysfile ( type, url)
+        values ( #{type,jdbcType=CHAR}, #{url,jdbcType=VARCHAR})
+    </insert>
+
+    <update id="deleteFile" parameterType="java.lang.Integer">
+        UPDATE sysfile set is_del = 0 where id =#{id,jdbcType=INTEGER}
+    </update>
+
 </mapper>

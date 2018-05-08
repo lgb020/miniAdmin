@@ -28,4 +28,10 @@ public interface MuService {
     //音乐文件上传
     int uploadMusic(int id, String mTitle, HttpServletRequest request) throws Exception;
 
+    //音乐列表
+    List<Music> musicList(Integer page);
+
+    //删除音乐
+    int deleteMusic(int id);
+
 }

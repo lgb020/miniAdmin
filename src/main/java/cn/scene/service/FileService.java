@@ -25,4 +25,10 @@ public interface FileService {
     //系统素材添加
     int addSysInfo(String type,String url);
 
+    //后台添加素材
+    int addFile(String type,String img);
+
+    //后台删除素材
+    int deleteFile(int id );
+
 }

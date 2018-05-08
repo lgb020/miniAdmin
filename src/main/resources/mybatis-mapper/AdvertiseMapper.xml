@@ -73,4 +73,21 @@
         <include refid="Base_Column_List"/>
         from advertise where is_del=1 ORDER BY level DESC limit 0,5
     </select>
+
+    <select id="selectAd" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from advertise where  is_del =1;
+    </select>
+
+    <insert id="insertImg" parameterType="cn.scene.model.Advertise">
+        insert into advertise ( img
+        )
+        values ( #{img,jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <update id="deleteAd" parameterType="java.lang.Integer">
+        UPDATE advertise set is_del = 0 where id =#{id,jdbcType=INTEGER}
+    </update>
 </mapper>

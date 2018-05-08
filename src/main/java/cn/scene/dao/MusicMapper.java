@@ -29,4 +29,10 @@ public interface MusicMapper {
 
     //根据id查询总数
     int selectCountById();
+
+    //查询音乐列表
+    List<Music> selectMusic();
+
+    //删除音乐
+    int deleteMusic(Integer id);
 }

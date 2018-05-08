@@ -157,4 +157,17 @@ public class MuServiceImpl implements MuService {
         }
         return result;
     }
+
+    @Override
+    public List<Music> musicList(Integer page) {
+        PageHelper.startPage(page,20);
+        List<Music> list = musicMapper.selectMusic();
+        return list;
+    }
+
+    @Override
+    public int deleteMusic(int id) {
+        int i = musicMapper.deleteMusic(id);
+        return i;
+    }
 }

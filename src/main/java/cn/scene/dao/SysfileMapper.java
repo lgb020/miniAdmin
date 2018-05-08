@@ -22,4 +22,10 @@ public interface SysfileMapper {
 
     //查询素材总数
     int selectInfoCounts(String type);
+
+    //添加素材
+    int insertFile(Sysfile sysfile);
+
+    //删除素材
+    int deleteFile(Integer id);
 }
