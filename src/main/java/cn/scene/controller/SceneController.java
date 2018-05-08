@@ -25,9 +25,6 @@ public class SceneController {
 
     @Autowired
     private SceneService sceneService;
-    @Autowired
-    private UserService userService;
-
 
     //推荐-精选模板
     @RequestMapping("/info")

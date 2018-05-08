@@ -181,7 +181,6 @@ public class UserController {
                 //激活会员
                 user.setIsMember((byte)1);
                 user.setStartTime(new Date());
-
                 return 1;
             }else{
                 return 0;
