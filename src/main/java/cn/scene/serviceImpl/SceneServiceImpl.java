@@ -153,6 +153,13 @@ public class SceneServiceImpl implements SceneService {
         int resule= scenePageMapper.selectBySceneId(scenePage.getSceneId(),scenePage.getCurrentPage());
         scenePage.setTimes(new Date());
         if(resule>0){
+            //删除Redis缓存
+            String field = "page"+scenePage.getId();
+            try{
+                jedisClient.hdel(SCENEINFO,field);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
             return scenePageMapper.updateByPrimaryKeySelective(scenePage);
         }else{
             //插入

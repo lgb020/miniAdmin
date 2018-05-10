@@ -58,6 +58,11 @@ public class FileServiceImpl implements FileService{
         return page;
     }
 
+    @Override
+    public int counts(String type) {
+        return sysfileMapper.selectInfoCounts(type);
+    }
+
     /**
      * 素材记录
      * @param type

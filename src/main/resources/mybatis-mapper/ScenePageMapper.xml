@@ -154,7 +154,7 @@
         SELECT COUNT(*) FROM scene_page where scene_id = #{sceneId,jdbcType=INTEGER} AND current_page = #{currentPage,jdbcType=INTEGER}
     </select>
     <select id="selectInfoBySceneId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-        SELECT scene_id, current_page, times, background, bgColor, is_example, is_del,content
+        SELECT id,scene_id, current_page, times, background, bgColor, is_example, is_del,content
         FROM scene_page WHERE scene_id=#{sceneId,jdbcType=INTEGER} AND is_del=1 ORDER BY current_page ASC
     </select>
     <insert id="insertExchangeScene" parameterType="java.util.List">

@@ -16,6 +16,9 @@ public interface FileService {
     //查询素材总页数
     int infoCount(String type);
 
+    //查询素材总数
+    int counts(String type);
+
     //查询素材记录
     List<Upfile> recordInfo(String type,int userId);
 

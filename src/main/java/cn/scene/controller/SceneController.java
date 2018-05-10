@@ -116,7 +116,7 @@ public class SceneController {
         return id;
     }
 
-    //保存场景页面数据
+    //保存或更新场景页面数据
     @RequestMapping("/issue")
     public @ResponseBody int issue(HttpServletRequest request, ScenePage scenePage){
         if(scenePage!=null){

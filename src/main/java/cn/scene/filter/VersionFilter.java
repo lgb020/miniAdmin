@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 public class VersionFilter implements HandlerInterceptor{
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) throws Exception {
+        response.setHeader("Access-Control-Allow-Origin", "*");
         //版本大于1.0才允许访问
         String version = request.getParameter("v");
         String regex = "^[0-9].[0-9]$";

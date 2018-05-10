@@ -20,9 +20,9 @@ import java.util.List;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
+
     @Autowired
     private MuService muService;
-
     @Autowired
     private FileService fileService;
 
@@ -77,7 +77,7 @@ public class AdminController {
 
     }
 
-    //音乐素材管理，删除
+    //图片素材管理，删除
     @RequestMapping("/deleteFile")
     public @ResponseBody int deleteFile(HttpServletRequest request){
         int id =Integer.parseInt(request.getParameter("id"));
@@ -85,7 +85,7 @@ public class AdminController {
         return i;
     }
 
-    //图片素材查询
+    //图片素材查询 0-背景 1-图片
     @RequestMapping("/info")
     public @ResponseBody List<Sysfile> info(HttpServletRequest request){
         String index = request.getParameter("page");
@@ -107,7 +107,7 @@ public class AdminController {
         String regx = "^0|1$";
         int counts = 0;
         if(type.matches(regx)){
-            counts = fileService.infoCount(type);
+            counts = fileService.counts(type);
         }
         return counts;
     }
