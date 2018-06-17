@@ -2,6 +2,7 @@
 <ul>
     <li>项目采用Spring、SpringMVC、Mybatis实现H5场景制作平台；</li>
     <li>项目基于Maven进行管理，采用Mysql和Redis实现数据存储</li>
+    <li>db文件夹下为数据库文件</li>
 </ul>
 <p><strong>项目特点</strong></p>
 <ul>
