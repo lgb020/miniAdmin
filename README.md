@@ -21,5 +21,5 @@
 </ul>
 <p><strong>前端代码（预览地址）</strong></p>
 <ul>
-    <li>MINISCENE：<a href="https://gitee.com/hongsf/MINISCENE">https://gitee.com/hongsf/MINISCENE</a></li>
+    <li>MINISCENE：<a href="https://gitee.com/hsfeng/MINISCENE">https://gitee.com/hsfeng/MINISCENE</a></li>
 </ul>
