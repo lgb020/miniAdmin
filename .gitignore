@@ -1,0 +1,11 @@
+/target
+.settings
+.classpath
+.project
+.idea
+*.iml
+*.class
+memo.txt
+*.pptx
+.DS_Store
+*.key
