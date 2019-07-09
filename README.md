@@ -21,5 +21,5 @@
 </ul>
 <p><strong>前端代码（预览地址）</strong></p>
 <ul>
-    <li>MINISCENE：<a href="https://github.com/kd-hsfeng/miniscene">https://github.com/kd-hsfeng/miniscene</a></li>
+    <li>MINISCENE：<a href="https://github.com/kdMelody/miniscene">https://github.com/kdMelody/miniscene</a></li>
 </ul>
